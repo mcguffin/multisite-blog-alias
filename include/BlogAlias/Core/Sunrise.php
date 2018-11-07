@@ -45,6 +45,7 @@ class Sunrise extends PluginComponent {
 			file_put_contents( $wp_config, $wp_config_contents );
 		}
 
+		// write sunrise
 		if ( ! file_exists( WP_CONTENT_DIR . '/sunrise.php' ) ) {
 			$sunrise_contents = '<?php' . "\n\n";
 			$sunrise_contents .=  '/* sunrise.php added by WP Blog Alias Plugin */' . "\n";
@@ -69,7 +70,9 @@ class Sunrise extends PluginComponent {
 	 *		'messages' => array,
 	 * )
 	 */
-	public function upgrade( $new_version, $old_version ) { }
+	public function upgrade( $new_version, $old_version ) {
+
+	}
 
 	/**
 	 *	Fired on plugin deactivation

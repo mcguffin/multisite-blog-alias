@@ -5,7 +5,6 @@
       "js": true
     },
     "git": {},
-    "gulp": {},
     "model": {
       "alias_domains": {}
     },
@@ -16,9 +15,9 @@
   },
   "plugin_author": "J\u00f6rn Lund",
   "plugin_author_uri": "",
-  "plugin_name": "WP Blog Alias",
+  "plugin_name": "WPMS Blog Alias",
   "plugin_namespace": "BlogAlias",
   "plugin_slug": "blog_alias",
   "this_year": 2018,
-  "wp_plugin_slug": "wp-blog-alias"
+  "wp_plugin_slug": "wpms-blog-alias"
 }

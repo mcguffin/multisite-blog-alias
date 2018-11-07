@@ -11,7 +11,9 @@ if ( ! defined('ABSPATH') ) {
 require_once __DIR__ . DIRECTORY_SEPARATOR . 'include/autoload.php';
 
 function blog_alias_site_not_found( $current_site, $domain, $path ) {
+
 	$model = BlogAlias\Model\ModelAliasDomains::instance();
+
 	if ( $result = $model->fetch_one_by( 'domain_alias', $domain ) ) {
 		global $wpdb;
 		$scheme = is_ssl() ? 'https' : 'http';
@@ -23,9 +25,3 @@ function blog_alias_site_not_found( $current_site, $domain, $path ) {
 }
 
 add_action( 'ms_site_not_found', 'blog_alias_site_not_found', 10, 3 );
-
-
-
-//Core\Core::instance( __FILE__ );
-
-//Model\ModelAliasDomains::instance();
