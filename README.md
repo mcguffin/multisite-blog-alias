@@ -1,9 +1,9 @@
-WP Blog Alias
+WPMS Blog Alias
 ===============
 
-Multisite plugin to maintain alternative Domains for a blog.
+WordPress plugin to maintain alternative Domains for a blog.
 
-Blog Aliases will redirect to the blog they belong to.
+Blog Aliases will permanently redirect to the blog they belong to.
 
 Painless installation and activation – makes all necessary changes to `wp-config.php` and `wp-content/sunrise.php`.
 
@@ -12,8 +12,6 @@ wp-cli integration.
 ToDo:
 -----
  - [ ] Test with path install
- - [ ] Translate
-
 
 Installation
 ------------
