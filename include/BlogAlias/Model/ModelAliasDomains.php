@@ -35,15 +35,17 @@ class ModelAliasDomains extends Model {
 	 */
 	protected function __construct() {
 		parent::__construct();
-
-		add_filter("validate_{$this->_table}/domain_alias", array( $this, 'validate_domain_alias') );
+		if ( defined('FILTER_VALIDATE_DOMAIN') )  {
+			add_filter("validate_{$this->_table}/domain_alias", array( $this, 'validate_domain_alias') );
+		} else {
+			add_filter("validate_{$this->_table}/domain_alias", array( $this, 'legacy_validate_domain_alias') );
+		}
 
 	}
 
 	/**
 	 *	validate callback for domain alias
 	 *
-	 *	@param bool $valid Whether the vaue is valid
 	 *	@param string $alias Domain alias (valid hostname)
 	 *	@return bool|string false if invalid, sanitized value otherwise
 	 */
@@ -52,7 +54,19 @@ class ModelAliasDomains extends Model {
 		return filter_var( strtolower( trim( $alias ) ), FILTER_VALIDATE_DOMAIN );
 
 	}
-
+	/**
+	 *	PHP 5.5 Legacy Domain name validation by regEx.
+	 *
+	 *	@param string $alias Domain alias (valid hostname)
+	 *	@return bool|string false if invalid, sanitized value otherwise
+	 */
+	public function legacy_validate_domain_alias( $alias ) {
+		$alias = strtolower( trim( $alias ) );
+		if ( ! preg_match( '/^[a-z0-9][a-z0-9\-\_\.]+[a-z0-9]$/i', $alias ) ) {
+			return false;
+		}
+		return $alias;
+	}
 
 	/**
 	 *	@inheritdoc
