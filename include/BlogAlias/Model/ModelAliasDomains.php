@@ -33,6 +33,28 @@ class ModelAliasDomains extends Model {
 	/**
 	 *	@inheritdoc
 	 */
+	protected function __construct() {
+		parent::__construct();
+
+		add_filter("validate_{$this->_table}/domain_alias", array( $this, 'validate_domain_alias') );
+
+	}
+	/**
+	 *	validate callback for domain alias
+	 *	@param bool $valid Whether the vaue is valid
+	 *	@param string $alias Domain alias (valid hostname)
+	 *	@return bool|string false if invalid
+	 */
+	public function validate_domain_alias( $alias ) {
+
+		return filter_var( strtolower( trim( $alias ) ), FILTER_VALIDATE_DOMAIN );
+
+	}
+
+
+	/**
+	 *	@inheritdoc
+	 */
 	public function insert( $data, $format = null ) {
 		$data['created'] = strftime('%Y-%m-%d %H:%M:%S');
 		return parent::insert( $data, $format );

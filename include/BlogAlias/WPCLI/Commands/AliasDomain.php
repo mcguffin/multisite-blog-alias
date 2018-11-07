@@ -120,7 +120,7 @@ class AliasDomain extends Core\Singleton {
 		}
 
 		// invalid hostname
-		if ( ! preg_match( '/^[a-z0-9][a-zA-Z0-9\-\.]+[a-z0-9]{2,}$/', $domain_alias ) ) {
+		if ( false === $this->model->validate( 'domain_alias', $domain_alias ) ) {
 			\WP_CLI::error( __( 'Invalid domain_alias', 'wp-blog-alias' ) );
 		}
 

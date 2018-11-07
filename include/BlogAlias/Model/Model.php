@@ -212,7 +212,9 @@ abstract class Model extends Core\PluginComponent {
 			if ( $key === 'id' ) {
 				$key = 'ID';
 			}
-			$sane[$key] = $value;
+			if ( false !== $this->validate( $key, $value ) ) {
+				$sane[$key] = $value;
+			}
 		}
 		return $sane;
 	}
@@ -228,6 +230,13 @@ abstract class Model extends Core\PluginComponent {
 			$format[$key] = $this->fields[ $key ];
 		}
 		return $format;
+	}
+
+	/**
+	 *	validate value
+	 */
+	public function validate( $key, $value ) {
+		return apply_filters( "validate_{$this->_table}/{$key}", $value );
 	}
 
 }

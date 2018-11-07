@@ -19,32 +19,24 @@ class Core extends Plugin {
 	 */
 	protected function __construct() {
 
-		add_action( 'init' , array( $this , 'init' ) );
-
-		add_action( 'wp_enqueue_scripts' , array( $this , 'wp_enqueue_style' ) );
+		add_action( 'ms_site_not_found', array($this,'site_not_found'), 10, 3 );
 
 		$args = func_get_args();
 		parent::__construct( ...$args );
 	}
 
+
+
 	/**
 	 *	Load frontend styles and scripts
 	 *
-	 *	@action wp_enqueue_scripts
+	 *	@action ms_site_not_found
 	 */
-	public function wp_enqueue_style() {
+	public function site_not_found( $current_site, $domain, $path ) {
+		var_dump($current_site,$domain,$path);exit();
 	}
 
 
-
-
-	/**
-	 *	Init hook.
-	 *
-	 *  @action init
-	 */
-	public function init() {
-	}
 
 	/**
 	 *	Get asset url for this plugin

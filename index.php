@@ -53,17 +53,6 @@ Core\Core::instance( __FILE__ );
 
 Model\ModelAliasDomains::instance();
 
-
-
-
-
-
-
-if ( is_admin() || defined( 'DOING_AJAX' ) ) {
-
-//	Admin\Admin::instance();
-
-}
 if ( is_network_admin() || defined( 'DOING_AJAX' ) ) {
 	Admin\NetworkAdmin::instance();
 }

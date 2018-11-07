@@ -26,7 +26,7 @@ class Admin extends Core\Singleton {
 		$this->core = Core\Core::instance();
 
 		add_action( 'admin_init', array( $this , 'admin_init' ) );
-		add_action( 'admin_print_scripts', array( $this , 'enqueue_assets' ) );
+		// add_action( 'admin_print_scripts', array( $this , 'enqueue_assets' ) );
 	}
 
 
