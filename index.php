@@ -49,7 +49,7 @@ if ( ! defined('ABSPATH') ) {
 
 require_once __DIR__ . DIRECTORY_SEPARATOR . 'include/autoload.php';
 
-Core\Core::instance( __FILE__ );
+Core\Plugin::instance()->set_plugin_file( __FILE__ );
 
 Model\ModelAliasDomains::instance();
 

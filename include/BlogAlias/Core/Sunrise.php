@@ -20,7 +20,7 @@ class Sunrise extends PluginComponent {
 	 */
 	public function activate() {
 
-		$core = Core::instance();
+		$core = Plugin::instance();
 
 		if ( ! defined( 'SUNRISE' ) ) {
 			$wp_config = '';

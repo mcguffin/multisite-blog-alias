@@ -27,7 +27,7 @@ class NetworkAdmin extends Core\Singleton {
 	 */
 	protected function __construct() {
 
-		$this->core = Core\Core::instance();
+		$this->core = Core\Plugin::instance();
 		$this->model = Model\ModelAliasDomains::instance();
 
 		// render tab navigation

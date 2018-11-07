@@ -30,7 +30,7 @@ abstract class Singleton {
 
 		if ( ! isset( self::$instances[ $class ] ) ) {
 			$args = func_get_args();
-			self::$instances[ $class ] = new $class( ...$args );
+			self::$instances[ $class ] = new $class( );
 		}
 
 		return self::$instances[ $class ];

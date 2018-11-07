@@ -32,13 +32,7 @@ class Plugin extends PluginComponent {
 	/**
 	 *	@inheritdoc
 	 */
-	protected function __construct( $file ) {
-
-		$this->plugin_file = $file;
-
-		register_activation_hook( $this->get_plugin_file(), array( $this , 'activate' ) );
-		register_deactivation_hook( $this->get_plugin_file(), array( $this , 'deactivate' ) );
-		register_uninstall_hook( $this->get_plugin_file(), array( __CLASS__, 'uninstall' ) );
+	protected function __construct( ) {
 
 		add_action( 'admin_init', array( $this, 'maybe_upgrade' ) );
 		add_filter( 'extra_plugin_headers', array( $this, 'add_plugin_header' ) );
@@ -46,6 +40,16 @@ class Plugin extends PluginComponent {
 		add_action( 'plugins_loaded' , array( $this , 'load_textdomain' ) );
 
 		parent::__construct();
+	}
+
+	public function set_plugin_file( $file ) {
+
+		$this->plugin_file = $file;
+
+		register_activation_hook( $this->get_plugin_file(), array( $this , 'activate' ) );
+		register_deactivation_hook( $this->get_plugin_file(), array( $this , 'deactivate' ) );
+		register_uninstall_hook( $this->get_plugin_file(), array( __CLASS__, 'uninstall' ) );
+
 	}
 
 	/**
