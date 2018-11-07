@@ -18,7 +18,7 @@ Installation
 
 ### Production Install (using Github Updater)
  - Install [Andy Fragen's GitHub Updater](https://github.com/afragen/github-updater) first.
- - In WP Admin go to Settings / GitHub Updater / Install Plugin. Enter `mcguffin/wpms-blog-alias` as a Plugin-URI.
+ - In WP Network Admin go to Settings / GitHub Updater / Install Plugin. Enter `mcguffin/wpms-blog-alias` as a Plugin-URI.
 
 ### Development
  - cd into your plugin directory
