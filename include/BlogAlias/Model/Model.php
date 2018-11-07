@@ -18,6 +18,11 @@ use BlogAlias\Core;
 abstract class Model extends Core\PluginComponent {
 
 	/**
+	 *	@var assoc
+	 */
+	protected $fields = array();
+
+	/**
 	 *	@var string table name for model
 	 */
 	protected $_table = null;
@@ -40,6 +45,10 @@ abstract class Model extends Core\PluginComponent {
 	public function __get( $what ) {
 		if ( $what === 'table' ) {
 			return $this->_table;
+		}
+		global $wpdb;
+		if ( isset( $wpdb->$what ) ) {
+			return $wpdb->$what;
 		}
 	}
 
@@ -69,7 +78,7 @@ abstract class Model extends Core\PluginComponent {
 	 */
 	public function fetch_one_by( $field, $value ) {
 		global $wpdb;
-		$table = $this->table;
+		$table = $wpdb->{$this->table};
 		// check fields
 		if ( $field == 'id' ) {
 			$field = 'ID';
@@ -90,11 +99,11 @@ abstract class Model extends Core\PluginComponent {
 	 *
 	 *	@param	string 	$field
 	 *	@param	mixed	$value
-	 *	@return	null|object
+	 *	@return	null|array
 	 */
 	public function fetch_by( $field, $value ) {
 		global $wpdb;
-		$table = $this->table;
+		$table = $wpdb->{$this->table};
 		// check fields
 		if ( $field == 'id' ) {
 			$field = 'ID';
@@ -104,8 +113,18 @@ abstract class Model extends Core\PluginComponent {
 		}
 
 		$format = $this->fields[$field];
-
 		return $wpdb->get_results( $wpdb->prepare("SELECT * FROM $table WHERE $field = $format", $value ) );
+	}
+
+	/**
+	 *	Fetch all records
+	 *
+	 *	@return	array
+	 */
+	public function fetch_all() {
+		global $wpdb;
+		$table = $wpdb->{$this->table};
+		return $wpdb->get_results( "SELECT * FROM $table" );
 	}
 
 
@@ -118,7 +137,13 @@ abstract class Model extends Core\PluginComponent {
 	 */
 	public function insert( $data, $format = null ) {
 		global $wpdb;
+
 		$table = $this->table;
+		$data = $this->sanitize_data( $data );
+		if ( is_null( $format ) ) {
+			$format = $this->get_format_for_data( $data );
+		}
+
 		return $wpdb->insert( $wpdb->$table, $data, $format );
 	}
 
@@ -134,6 +159,13 @@ abstract class Model extends Core\PluginComponent {
 	public function update( $data, $where, $format = null, $where_format = null ) {
 		global $wpdb;
 		$table = $this->table;
+		$data = $this->sanitize_data( $data );
+		if ( is_null( $format ) ) {
+			$format = $this->get_format_for_data( $data );
+		}
+		if ( is_null( $where_format ) ) {
+			$where_format = $this->get_format_for_data( $where );
+		}
 		return $wpdb->update( $wpdb->$table, $data, $where, $format, $where_format );
 	}
 
@@ -147,6 +179,10 @@ abstract class Model extends Core\PluginComponent {
 	public function replace( $data, $format = null ) {
 		global $wpdb;
 		$table = $this->table;
+		$data = $this->sanitize_data( $data );
+		if ( is_null( $format ) ) {
+			$format = $this->get_format_for_data( $data );
+		}
 		return $wpdb->replace( $wpdb->$table, $data, $format );
 	}
 
@@ -160,8 +196,38 @@ abstract class Model extends Core\PluginComponent {
 	public function delete( $where, $where_format = null ) {
 		global $wpdb;
 		$table = $this->table;
+		$where = $this->sanitize_data( $where );
+		if ( is_null( $where_format ) ) {
+			$where_format = $this->get_format_for_data( $where );
+		}
 		return $wpdb->delete( $wpdb->$table, $where, $where_format );
 	}
 
+	/**
+	 *
+	 */
+	private function sanitize_data( $data ) {
+		$sane = array();
+		foreach ( $data as $key => $value ) {
+			if ( $key === 'id' ) {
+				$key = 'ID';
+			}
+			$sane[$key] = $value;
+		}
+		return $sane;
+	}
+	/**
+	 *
+	 */
+	private function get_format_for_data( $data ) {
+		$format = array();
+		foreach ( $data as $key => $val ) {
+			if ( $key === 'id' ) {
+				$key = 'ID';
+			}
+			$format[$key] = $this->fields[ $key ];
+		}
+		return $format;
+	}
 
 }

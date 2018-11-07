@@ -3,7 +3,7 @@
 /*
 Plugin Name: WP Blog Alias
 Plugin URI: http://wordpress.org/
-Description: Enter description here.
+Description: Alias Domains for Blogs
 Author: Jörn Lund
 Version: 0.0.1
 Author URI: https://github.com/mcguffin
@@ -12,6 +12,7 @@ Github Repository: mcguffin/wp-blog-alias
 GitHub Plugin URI: mcguffin/wp-blog-alias
 Requires WP: 4.8
 Requires PHP: 5.6
+Network: true
 Text Domain: wp-blog-alias
 Domain Path: /languages/
 */
@@ -50,7 +51,7 @@ require_once __DIR__ . DIRECTORY_SEPARATOR . 'include/autoload.php';
 
 Core\Core::instance( __FILE__ );
 
-Model\ModelRedirects::instance();
+Model\ModelAliasDomains::instance();
 
 
 
@@ -60,12 +61,13 @@ Model\ModelRedirects::instance();
 
 if ( is_admin() || defined( 'DOING_AJAX' ) ) {
 
+//	Admin\Admin::instance();
 
-	Admin\Admin::instance();
-
-
-
+}
+if ( is_network_admin() || defined( 'DOING_AJAX' ) ) {
+	Admin\NetworkAdmin::instance();
 }
 
 if ( defined( 'WP_CLI' ) && WP_CLI ) {
+	WPCLI\WPCLIAliasDomain::instance();
 }

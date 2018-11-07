@@ -25,7 +25,7 @@ class Plugin extends PluginComponent {
 
 	/** @var string plugin components which might need upgrade */
 	private static $components = array(
-		'BlogAlias\Model\ModelRedirects',
+		'BlogAlias\Model\ModelAliasDomains',
 	);
 
 	/**
