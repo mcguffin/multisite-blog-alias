@@ -30,17 +30,21 @@ class NetworkAdmin extends Core\Singleton {
 		$this->core = Core\Core::instance();
 		$this->model = Model\ModelAliasDomains::instance();
 
+		// render tab navigation
 		add_filter( 'network_edit_site_nav_links', array( $this, 'edit_site_nav_links'));
 
-		add_action( 'admin_init', array( $this , 'admin_init' ) );
-		// add_action( 'admin_print_scripts', array( $this , 'enqueue_assets' ) );
-
+		// editor
 		add_action( 'admin_action_alias-domains', array( $this, 'admin_alias_domains' ) );
+
+		// actions
 		add_action( 'admin_action_alias-domain-add', array( $this, 'add_alias_domain' ) );
 		add_action( 'admin_action_alias-domain-remove', array( $this, 'remove_alias_domain' ) );
 		add_action( 'admin_action_alias-domain-remove-all', array( $this, 'remove_alias_domains' ) );
 	}
 
+	/**
+	 *	@action admin_action_alias-domain-add
+	 */
 	public function add_alias_domain() {
 
 		check_admin_referer( 'alias-domain-add' );
@@ -94,6 +98,9 @@ class NetworkAdmin extends Core\Singleton {
 	}
 
 
+	/**
+	 *	@action admin_action_alias-domain-remove
+	 */
 	public function remove_alias_domain() {
 
 		current_user_can( $this->cap ) || wp_die(__('Insufficient permission'));
@@ -134,7 +141,7 @@ class NetworkAdmin extends Core\Singleton {
 	}
 
 	/**
-	 *
+	 *	@action admin_action_alias-domain-remove-all
 	 */
 	public function remove_alias_domains() {
 
@@ -174,7 +181,7 @@ class NetworkAdmin extends Core\Singleton {
 	 */
 	public function edit_site_nav_links( $links ) {
 		$links['alias'] = array(
-			 'label'	=> __( 'Alias Domains', 'wp-blog-alias' ),
+			 'label'	=> __( 'Alias Domains', 'wpms-blog-alias' ),
 			 'url'		=> 'admin.php?action=alias-domains',
 			 'cap'		=> $this->cap,
 		);
@@ -244,16 +251,16 @@ class NetworkAdmin extends Core\Singleton {
 			'success'	=> '',
 		);
 		if ( isset( $_GET['created'] ) ) {
-			$messages['updated'] = __( 'Alias created', 'wp-blog-alias');
+			$messages['updated'] = __( 'Alias created', 'wpms-blog-alias');
 		} else if ( isset( $_GET['deleted'] ) ) {
-			$messages['notice-warning'] = sprintf( _n('%d entry deleted', '%d entries deleted', $_GET['deleted'], 'wp-blog-alias' ), $_GET['deleted'] );
+			$messages['notice-warning'] = sprintf( _n('%d entry deleted', '%d entries deleted', $_GET['deleted'], 'wpms-blog-alias' ), $_GET['deleted'] );
 		} else if ( isset( $_GET['error'] ) ) {
 			$errors = array(
-				'add-site-exists'		=> __( 'Error: Another Blog is already using this domain.', 'wp-blog-alias' ),
-				'add-alias-exists'		=> __( 'Error: The Alias already exists', 'wp-blog-alias' ),
-				'add-invalid-domain'	=> __( 'Error: Invalid domain name', 'wp-blog-alias' ),
-				'delete'				=> __( 'Error during delete', 'wp-blog-alias'  ),
-				'default'				=> __( 'Something went wrong...', 'wp-blog-alias' ),
+				'add-site-exists'		=> __( 'Error: Another Blog is already using this domain.', 'wpms-blog-alias' ),
+				'add-alias-exists'		=> __( 'Error: The Alias already exists', 'wpms-blog-alias' ),
+				'add-invalid-domain'	=> __( 'Error: Invalid domain name', 'wpms-blog-alias' ),
+				'delete'				=> __( 'Error during delete', 'wpms-blog-alias'  ),
+				'default'				=> __( 'Something went wrong...', 'wpms-blog-alias' ),
 			);
 			$messages['error'] = isset( $errors[ $_GET['error'] ] ) ? $errors[ $_GET['error'] ] : $errors['default'];
 
@@ -287,7 +294,7 @@ class NetworkAdmin extends Core\Singleton {
 			// form
 			?>
 			<!-- add -->
-			<h2><?php _e('Add Domain Alias','wp-blog-alias'); ?></h2>
+			<h2><?php _e('Add Domain Alias','wpms-blog-alias'); ?></h2>
 			<form method="post" action="admin.php?action=alias-domain-add">
 				<?php wp_nonce_field( 'alias-domain-add' ); ?>
 				<input type="hidden" name="blog_id" value="<?php echo esc_attr( $this->blog_details->id ) ?>" />
@@ -298,18 +305,18 @@ class NetworkAdmin extends Core\Singleton {
 								<input id="add-domain-alias" placeholder="subdomain.domain.tld" type="text" name="domain_alias" class="widefat code" />
 							</td>
 							<td class="action-links">
-								<button class="button-primary" type="submit"><?php _e('Add','wp-blog-alias'); ?></button>
+								<button class="button-primary" type="submit"><?php _e('Add','wpms-blog-alias'); ?></button>
 							</td>
 						</tr>
 					</tbody>
 				</table>
 			</form>
 			<!-- remove -->
-			<h2><?php _e('Domain Aliases','wp-blog-alias'); ?></h2>
+			<h2><?php _e('Domain Aliases','wpms-blog-alias'); ?></h2>
 			<?php if ( empty( $aliases ) ) {
 
 				?>
-					<p><?php _e('– No Domain Aliases –', 'wp-blog-alias'); ?></p>
+					<p><?php _e('– No Domain Aliases –', 'wpms-blog-alias'); ?></p>
 				<?php
 
 			} else {
@@ -331,7 +338,7 @@ class NetworkAdmin extends Core\Singleton {
 										<?php wp_nonce_field( 'alias-domain-remove-' . $alias->ID ); ?>
 										<input type="hidden" name="blog_id" value="<?php echo esc_attr( $this->blog_details->id ) ?>" />
 										<button class="button-secondary" type="submit" name="id" value="<?php echo $alias->ID; ?>">
-											<?php _e('Remove','wp-blog-alias'); ?>
+											<?php _e('Remove','wpms-blog-alias'); ?>
 										</button>
 									</form>
 								</td>
@@ -347,7 +354,7 @@ class NetworkAdmin extends Core\Singleton {
 								<form method="post" action="admin.php?action=alias-domain-remove-all">
 									<?php wp_nonce_field( 'alias-domain-remove-all' ); ?>
 									<button class="button-secondary" type="submit" name="blog_id" value="<?php echo $this->blog_details->id; ?>">
-										<?php _e('Remove All','wp-blog-alias'); ?>
+										<?php _e('Remove All','wpms-blog-alias'); ?>
 									</button>
 								</form>
 							</th>
@@ -371,23 +378,5 @@ class NetworkAdmin extends Core\Singleton {
 		require( ABSPATH . 'wp-admin/admin-footer.php' );
 	}
 
-	/**
-	 *	Admin init
-	 *	@action admin_init
-	 */
-	function admin_init() {
-	}
-
-	/**
-	 *	Enqueue options Assets
-	 *	@action admin_print_scripts
-	 */
-	function enqueue_assets() {
-		wp_enqueue_style( 'blog_alias-admin' , $this->core->get_asset_url( '/css/admin.css' ) );
-
-		wp_enqueue_script( 'blog_alias-admin' , $this->core->get_asset_url( 'js/admin.js' ) );
-		wp_localize_script('blog_alias-admin' , 'blog_alias_admin' , array(
-		) );
-	}
 
 }

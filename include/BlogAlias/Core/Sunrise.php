@@ -16,7 +16,7 @@ class Sunrise extends PluginComponent {
 
 
 	/**
-	 *	Fired on plugin activation
+	 *	@inheritdoc
 	 */
 	public function activate() {
 
@@ -54,28 +54,21 @@ class Sunrise extends PluginComponent {
 			$sunrise_contents = preg_replace('@//BEGIN:blog_alias(.*)END:blog_alias//@imsU', '', $sunrise_contents );
 		}
 		$sunrise_contents .= '//BEGIN:blog_alias' . "\n";
-		$sunrise_contents .= 'require_once WP_CONTENT_DIR . \'/plugins/'.$core->get_wp_plugin().'\';' . "\n";
+		$sunrise_contents .= 'require_once WP_CONTENT_DIR . \'/plugins/'. dirname( $core->get_wp_plugin() ).'/sunrise.php\';' . "\n";
 		$sunrise_contents .= '//END:blog_alias//' . "\n";
 		file_put_contents( WP_CONTENT_DIR . '/sunrise.php', $sunrise_contents );
 	}
 
 
 	/**
-	 *	Fired on plugin updgrade
-	 *
-	 *	@param string $nev_version
-	 *	@param string $old_version
-	 *	@return array(
-	 *		'success' => bool,
-	 *		'messages' => array,
-	 * )
+	 *	@inheritdoc
 	 */
 	public function upgrade( $new_version, $old_version ) {
 
 	}
 
 	/**
-	 *	Fired on plugin deactivation
+	 *	@inheritdoc
 	 */
 	public function deactivate() {
 		if ( file_exists( WP_CONTENT_DIR . '/sunrise.php' ) ) {
@@ -83,11 +76,10 @@ class Sunrise extends PluginComponent {
 			$sunrise_contents = preg_replace('@//BEGIN:blog_alias(.*)END:blog_alias//@imsU', '', $sunrise_contents );
 			file_put_contents( WP_CONTENT_DIR . '/sunrise.php', $sunrise_contents );
 		}
-
 	}
 
 	/**
-	 *	Fired on plugin deinstallation
+	 *	@inheritdoc
 	 */
 	public static function uninstall() {
 

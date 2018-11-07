@@ -8,12 +8,12 @@ Author: Jörn Lund
 Version: 0.0.1
 Author URI: https://github.com/mcguffin
 License: GPL3
-Github Repository: mcguffin/wp-blog-alias
-GitHub Plugin URI: mcguffin/wp-blog-alias
+Github Repository: mcguffin/wpms-blog-alias
+GitHub Plugin URI: mcguffin/wpms-blog-alias
 Requires WP: 4.8
 Requires PHP: 5.6
 Network: true
-Text Domain: wp-blog-alias
+Text Domain: wpms-blog-alias
 Domain Path: /languages/
 */
 

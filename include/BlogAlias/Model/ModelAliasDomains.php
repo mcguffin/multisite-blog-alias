@@ -39,11 +39,13 @@ class ModelAliasDomains extends Model {
 		add_filter("validate_{$this->_table}/domain_alias", array( $this, 'validate_domain_alias') );
 
 	}
+
 	/**
 	 *	validate callback for domain alias
+	 *
 	 *	@param bool $valid Whether the vaue is valid
 	 *	@param string $alias Domain alias (valid hostname)
-	 *	@return bool|string false if invalid
+	 *	@return bool|string false if invalid, sanitized value otherwise
 	 */
 	public function validate_domain_alias( $alias ) {
 

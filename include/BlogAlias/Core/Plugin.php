@@ -88,6 +88,7 @@ class Plugin extends PluginComponent {
 	 *	@return string current plugin version
 	 */
 	public function get_version() {
+
 		return $this->get_plugin_meta( 'Version' );
 	}
 
@@ -131,7 +132,7 @@ class Plugin extends PluginComponent {
 	 */
 	public function load_textdomain() {
 		$path = pathinfo( $this->get_plugin_file(), PATHINFO_FILENAME );
-		load_plugin_textdomain( 'wp-blog-alias', false, $path . '/languages' );
+		load_plugin_textdomain( 'wpms-blog-alias', false, $path . '/languages' );
 	}
 
 

@@ -204,7 +204,9 @@ abstract class Model extends Core\PluginComponent {
 	}
 
 	/**
+	 *	sanitize values
 	 *
+	 *	@return assoc
 	 */
 	private function sanitize_data( $data ) {
 		$sane = array();
@@ -218,8 +220,9 @@ abstract class Model extends Core\PluginComponent {
 		}
 		return $sane;
 	}
+
 	/**
-	 *
+	 *	@return assoc
 	 */
 	private function get_format_for_data( $data ) {
 		$format = array();
@@ -234,6 +237,8 @@ abstract class Model extends Core\PluginComponent {
 
 	/**
 	 *	validate value
+	 *
+	 *	@return mixed
 	 */
 	public function validate( $key, $value ) {
 		return apply_filters( "validate_{$this->_table}/{$key}", $value );

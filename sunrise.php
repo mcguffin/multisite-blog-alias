@@ -8,9 +8,9 @@ if ( ! defined('ABSPATH') ) {
 }
 
 
-require_once __DIR__ . DIRECTORY_SEPARATOR . 'include/autoload.php';
-
 function blog_alias_site_not_found( $current_site, $domain, $path ) {
+
+	require_once __DIR__ . DIRECTORY_SEPARATOR . 'include/autoload.php';
 
 	$model = BlogAlias\Model\ModelAliasDomains::instance();
 
@@ -19,7 +19,9 @@ function blog_alias_site_not_found( $current_site, $domain, $path ) {
 		$scheme = is_ssl() ? 'https' : 'http';
 		$blog = $wpdb->get_row( $wpdb->prepare("SELECT domain,path FROM $wpdb->blogs WHERE blog_id=%d", $result->blog_id));
 
+		http_response_code(301);
 		header( 'Location: ' . "{$scheme}://{$blog->domain}{$blog->path}" );
+
 		exit();
 	}
 }
