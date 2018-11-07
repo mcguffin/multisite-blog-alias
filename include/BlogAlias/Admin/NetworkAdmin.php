@@ -66,13 +66,14 @@ class NetworkAdmin extends Core\Singleton {
 			$redirect_args['error']	= 'add-invalid-domain';
 		}
 
-		if ( $other_blog_id = get_blog_id_from_url( $domain_alias ) ) {
-			$redirect_args['error']	= 'add-site-exists';
-		}
 
 		// alias exists
 		if ( $record = $this->model->fetch_one_by('domain_alias', $domain_alias ) ) {
 			$redirect_args['error']	= 'add-alias-exists';
+		}
+
+		if ( $other_blog_id = get_blog_id_from_url( $domain_alias ) ) {
+			$redirect_args['notice']	= 'add-site-exists';
 		}
 
 		if ( ! isset( $redirect_args['error'] ) ) {
@@ -250,13 +251,13 @@ class NetworkAdmin extends Core\Singleton {
 			'error'		=> '',
 			'success'	=> '',
 		);
+
 		if ( isset( $_GET['created'] ) ) {
 			$messages['updated'] = __( 'Alias created', 'wpms-blog-alias');
 		} else if ( isset( $_GET['deleted'] ) ) {
 			$messages['notice-warning'] = sprintf( _n('%d entry deleted', '%d entries deleted', $_GET['deleted'], 'wpms-blog-alias' ), $_GET['deleted'] );
 		} else if ( isset( $_GET['error'] ) ) {
 			$errors = array(
-				'add-site-exists'		=> __( 'Error: Another Blog is already using this domain.', 'wpms-blog-alias' ),
 				'add-alias-exists'		=> __( 'Error: The Alias already exists.', 'wpms-blog-alias' ),
 				'add-invalid-domain'	=> __( 'Error: Invalid domain name', 'wpms-blog-alias' ),
 				'delete'				=> __( 'Error during delete', 'wpms-blog-alias'  ),
@@ -264,6 +265,9 @@ class NetworkAdmin extends Core\Singleton {
 			);
 			$messages['error'] = isset( $errors[ $_GET['error'] ] ) ? $errors[ $_GET['error'] ] : $errors['default'];
 
+		}
+		if ( isset( $_GET['notice'] ) && $_GET['notice'] == 'add-site-exists' ) {
+			$messages['notice-warning'] = __( 'Notice: Another Blog is already using this domain. The redirect will not work until this blog is deleted.', 'wpms-blog-alias' );
 		}
 		?>
 

@@ -126,7 +126,7 @@ class AliasDomain extends Core\Singleton {
 
 		// url exists as blog
 		if ( $other_blog_id = get_blog_id_from_url( $domain_alias ) ) {
-			\WP_CLI::error( sprintf(__( 'Domain %s exists for blog %d', 'wpms-blog-alias-cli' ), $domain_alias, $other_blog_id ) );
+			\WP_CLI::warning( sprintf(__( 'Domain %s exists for blog %d', 'wpms-blog-alias-cli' ), $domain_alias, $other_blog_id ) );
 		}
 
 		// alias exists
