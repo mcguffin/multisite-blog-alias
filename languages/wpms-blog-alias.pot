@@ -3,10 +3,10 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: WP Blog Alias v0.0.1\n"
+"Project-Id-Version: WP Blog Alias v0.2.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-11-07T15:58:07+00:00\n"
-"PO-Revision-Date: 2018-11-07T15:58:07+00:00\n"
+"POT-Creation-Date: 2018-11-07T23:24:43+00:00\n"
+"PO-Revision-Date: 2018-11-07T23:24:43+00:00\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -24,61 +24,61 @@ msgstr ""
 "X-Poedit-SearchPath-0: ..\n"
 "X-Poedit-SearchPathExcluded-0: node_modules\n"
 
-#: include/BlogAlias/Admin/NetworkAdmin.php:184
+#: include/BlogAlias/Admin/NetworkAdmin.php:185
 msgid "Alias Domains"
 msgstr ""
 
-#: include/BlogAlias/Admin/NetworkAdmin.php:254
+#: include/BlogAlias/Admin/NetworkAdmin.php:256
 msgid "Alias created"
 msgstr ""
 
-#: include/BlogAlias/Admin/NetworkAdmin.php:256
+#: include/BlogAlias/Admin/NetworkAdmin.php:258
 msgid "%d entry deleted"
 msgid_plural "%d entries deleted"
 msgstr[0] ""
 msgstr[1] ""
 
-#: include/BlogAlias/Admin/NetworkAdmin.php:259
-msgid "Error: Another Blog is already using this domain."
-msgstr ""
-
-#: include/BlogAlias/Admin/NetworkAdmin.php:260
+#: include/BlogAlias/Admin/NetworkAdmin.php:261
 msgid "Error: The Alias already exists."
 msgstr ""
 
-#: include/BlogAlias/Admin/NetworkAdmin.php:261
+#: include/BlogAlias/Admin/NetworkAdmin.php:262
 msgid "Error: Invalid domain name"
 msgstr ""
 
-#: include/BlogAlias/Admin/NetworkAdmin.php:262
+#: include/BlogAlias/Admin/NetworkAdmin.php:263
 msgid "Error during delete"
 msgstr ""
 
-#: include/BlogAlias/Admin/NetworkAdmin.php:263
+#: include/BlogAlias/Admin/NetworkAdmin.php:264
 msgid "Something went wrong..."
 msgstr ""
 
-#: include/BlogAlias/Admin/NetworkAdmin.php:297
+#: include/BlogAlias/Admin/NetworkAdmin.php:270
+msgid "Notice: Another Blog is already using this domain. The redirect will not work until this blog is deleted."
+msgstr ""
+
+#: include/BlogAlias/Admin/NetworkAdmin.php:301
 msgid "Add Domain Alias"
 msgstr ""
 
-#: include/BlogAlias/Admin/NetworkAdmin.php:308
+#: include/BlogAlias/Admin/NetworkAdmin.php:312
 msgid "Add"
 msgstr ""
 
-#: include/BlogAlias/Admin/NetworkAdmin.php:315
+#: include/BlogAlias/Admin/NetworkAdmin.php:319
 msgid "Domain Aliases"
 msgstr ""
 
-#: include/BlogAlias/Admin/NetworkAdmin.php:319
+#: include/BlogAlias/Admin/NetworkAdmin.php:323
 msgid "– No Domain Aliases –"
 msgstr ""
 
-#: include/BlogAlias/Admin/NetworkAdmin.php:341
+#: include/BlogAlias/Admin/NetworkAdmin.php:345
 msgid "Remove"
 msgstr ""
 
-#: include/BlogAlias/Admin/NetworkAdmin.php:357
+#: include/BlogAlias/Admin/NetworkAdmin.php:361
 msgid "Remove All"
 msgstr ""
 
