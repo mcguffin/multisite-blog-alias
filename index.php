@@ -5,7 +5,7 @@ Plugin Name: WP Blog Alias
 Plugin URI: http://wordpress.org/
 Description: Alias Domains for Blogs
 Author: Jörn Lund
-Version: 0.2.0
+Version: 0.2.1
 Author URI: https://github.com/mcguffin
 License: GPL3
 Github Repository: mcguffin/wpms-blog-alias
