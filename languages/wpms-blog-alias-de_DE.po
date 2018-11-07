@@ -1,0 +1,102 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: WPMS Blog Alias\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2018-11-07T15:58:07+00:00\n"
+"PO-Revision-Date: 2018-11-07 16:58+0100\n"
+"Last-Translator: Jörn Lund <joern@podpirate.org>\n"
+"Language-Team: \n"
+"Language: de_DE\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Poedit 2.0.8\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"X-Poedit-KeywordsList: __;_e;__ngettext:1,2;_n:1,2;__ngettext_noop:1,2;"
+"_n_noop:1,2;_x:1,2c;_nx:4c,1,2;_nx_noop:4c,1,2;_ex:1,2c;esc_attr__;"
+"esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c\n"
+"X-Poedit-Basepath: ..\n"
+"X-Textdomain-Support: yes\n"
+"X-Poedit-SearchPath-0: .\n"
+"X-Poedit-SearchPathExcluded-0: node_modules\n"
+
+#: include/BlogAlias/Admin/NetworkAdmin.php:184
+msgid "Alias Domains"
+msgstr "Alias Domains"
+
+#: include/BlogAlias/Admin/NetworkAdmin.php:254
+msgid "Alias created"
+msgstr "Alias erstellt"
+
+#: include/BlogAlias/Admin/NetworkAdmin.php:256
+msgid "%d entry deleted"
+msgid_plural "%d entries deleted"
+msgstr[0] "%d Eintrag gelöscht"
+msgstr[1] "%d Einträge gelöscht"
+
+#: include/BlogAlias/Admin/NetworkAdmin.php:259
+msgid "Error: Another Blog is already using this domain."
+msgstr "Fehler: Ein anderer Blog nutzt diese Domain bereits."
+
+#: include/BlogAlias/Admin/NetworkAdmin.php:260
+msgid "Error: The Alias already exists."
+msgstr "Fehler: Das Alias existiert bereits."
+
+#: include/BlogAlias/Admin/NetworkAdmin.php:261
+msgid "Error: Invalid domain name"
+msgstr "Fehler: ungültiger Domain-Name"
+
+#: include/BlogAlias/Admin/NetworkAdmin.php:262
+msgid "Error during delete"
+msgstr "Fehler während des Löschens"
+
+#: include/BlogAlias/Admin/NetworkAdmin.php:263
+msgid "Something went wrong..."
+msgstr "Etwas ist schief gelaufen..."
+
+#: include/BlogAlias/Admin/NetworkAdmin.php:297
+msgid "Add Domain Alias"
+msgstr "Neues Domain Alias"
+
+#: include/BlogAlias/Admin/NetworkAdmin.php:308
+msgid "Add"
+msgstr "Hinzufügen"
+
+#: include/BlogAlias/Admin/NetworkAdmin.php:315
+msgid "Domain Aliases"
+msgstr "Domain Aliase"
+
+#: include/BlogAlias/Admin/NetworkAdmin.php:319
+msgid "– No Domain Aliases –"
+msgstr "– Keine Domain Aliase –"
+
+#: include/BlogAlias/Admin/NetworkAdmin.php:341
+msgid "Remove"
+msgstr "Entfernen"
+
+#: include/BlogAlias/Admin/NetworkAdmin.php:357
+msgid "Remove All"
+msgstr "Alle Entfernen"
+
+#~ msgid "%d Aliases total"
+#~ msgstr "%d Aliase insgesamt"
+
+#~ msgid "ID"
+#~ msgstr "ID"
+
+#~ msgctxt "1: ACF Pro URL, 2: plugins page url"
+#~ msgid ""
+#~ "The ACF Duplicate Repeater plugin only provies support for <a href=\"%1$s"
+#~ "\">ACF Pro</a>. You can disable and uninstall it on the <a href=\"%2$s"
+#~ "\">plugins page</a>."
+#~ msgstr ""
+#~ "Das ACF Duplicate Repeater Plugin unterstützt nur <a href=\"%1$s\">ACF "
+#~ "Pro</a>. Du kannst es auf der <a href=\"%2$s\">plugins page</a> "
+#~ "deaktivieren und löschen."
+
+#~ msgid "Duplicate Entry"
+#~ msgstr "Eintrag duplizieren"
+
+#~ msgid "Duplicate Layout"
+#~ msgstr "Layout duplizieren"

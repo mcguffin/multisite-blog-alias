@@ -257,7 +257,7 @@ class NetworkAdmin extends Core\Singleton {
 		} else if ( isset( $_GET['error'] ) ) {
 			$errors = array(
 				'add-site-exists'		=> __( 'Error: Another Blog is already using this domain.', 'wpms-blog-alias' ),
-				'add-alias-exists'		=> __( 'Error: The Alias already exists', 'wpms-blog-alias' ),
+				'add-alias-exists'		=> __( 'Error: The Alias already exists.', 'wpms-blog-alias' ),
 				'add-invalid-domain'	=> __( 'Error: Invalid domain name', 'wpms-blog-alias' ),
 				'delete'				=> __( 'Error during delete', 'wpms-blog-alias'  ),
 				'default'				=> __( 'Something went wrong...', 'wpms-blog-alias' ),
