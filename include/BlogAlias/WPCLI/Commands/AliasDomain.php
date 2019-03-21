@@ -40,7 +40,7 @@ class AliasDomain extends Core\Singleton {
 	 *
 	 *	@alias comment-check
 	 */
-	public function list( $args, $kwargs ) {
+	public function get_list( $args, $kwargs ) {
 
 		extract( $kwargs );
 		if ( $blog_id ){
