@@ -164,7 +164,7 @@ class ModelAliasDomains extends Model {
 			`blog_id` bigint(20) unsigned NOT NULL,
 			`domain_alias` varchar(200) NOT NULL,
 			`redirect` tinyint(2) NOT NULL default '1',
-			PRIMARY KEY (`id`),
+			PRIMARY KEY (`ID`),
 			UNIQUE KEY `domain_alias` (`domain_alias`)
 		) $charset_collate;";
 
