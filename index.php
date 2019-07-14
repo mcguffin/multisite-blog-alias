@@ -2,7 +2,7 @@
 
 /*
 Plugin Name: WP Blog Alias
-Plugin URI: http://wordpress.org/
+Plugin URI: https://github.com/mcguffin/wpms-blog-alias
 Description: Alias Domains for Blogs
 Author: Jörn Lund
 Version: 0.2.1
@@ -20,7 +20,7 @@ Domain Path: /languages/
 /*  Copyright 2018 Jörn Lund
 
     This program is free software; you can redistribute it and/or modify
-    it under the terms of the GNU General Public License, version 2, as
+    it under the terms of the GNU General Public License, version 3, as
     published by the Free Software Foundation.
 
     This program is distributed in the hope that it will be useful,
