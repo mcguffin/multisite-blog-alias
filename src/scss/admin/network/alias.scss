@@ -1,0 +1,28 @@
+@import '../../mixins/index';
+@import '../../variables/index';
+
+.admin-domain-alias {
+	td {
+		&.status {
+			width:40%;
+		}
+	}
+	.dashicons {
+		&.error,
+		&.warning,
+		&.success {
+			font-size:24px;
+			width:auto;
+			height:auto;
+		}
+		&.error {
+			color:$wp-red;
+		}
+		&.warning {
+			color:$wp-yellow;
+		}
+		&.success {
+			color:$wp-green;
+		}
+	}
+}
