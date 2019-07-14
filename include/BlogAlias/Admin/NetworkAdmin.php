@@ -257,6 +257,7 @@ class NetworkAdmin extends Core\Singleton {
 		if ( isset( $_GET['created'] ) ) {
 			$messages['updated'] = __( 'Alias created', 'wpms-blog-alias');
 		} else if ( isset( $_GET['deleted'] ) ) {
+			/* translators: number of deleted entries */
 			$messages['notice-warning'] = sprintf( _n('%d entry deleted', '%d entries deleted', $_GET['deleted'], 'wpms-blog-alias' ), $_GET['deleted'] );
 		} else if ( isset( $_GET['error'] ) ) {
 			$errors = array(
@@ -269,7 +270,7 @@ class NetworkAdmin extends Core\Singleton {
 
 		}
 		if ( isset( $_GET['notice'] ) && $_GET['notice'] == 'add-site-exists' ) {
-			$messages['notice-warning'] = __( 'Notice: Another Blog is already using this domain. The redirect will not work until this blog is deleted.', 'wpms-blog-alias' );
+			$messages['notice-warning'] = __( 'Notice: A different Blog is already using this domain. The redirect will not work until this blog is deleted.', 'wpms-blog-alias' );
 		}
 		?>
 
@@ -351,8 +352,7 @@ class NetworkAdmin extends Core\Singleton {
 										$status = $this->model->check_status( $alias, $this->blog_details->id );
 										if ( is_wp_error( $status ) ) {
 											$code = $status->get_error_code();
-											
-											
+
 											if ( $code === 'usedby-self' ) {
 												echo '<a href="#" class="warning dashicons dashicons-warning"></a>';
 												?>
@@ -382,10 +382,14 @@ class NetworkAdmin extends Core\Singleton {
 																	__( 'View', 'wpms-blog-alias' )
 																);
 															} else if ( $code === 'redirect-http_error' ) {
-																printf( '<br /> %s<code>%s</code>', __('Error message:','wpms-blog-alias'), $data->get_error_message() );
+																printf( '<br />%s <code>%s</code>', __('Error message:','wpms-blog-alias'), $data->get_error_message() );
 																
 															} else if ( $code === 'redirect-target_invalid' ) {
 																// 
+																printf( '<br />%1$s <a href="%2$s" target="_blank">%2$s</a>', 
+																	__( 'Last Redirect to:', 'wpms-blog-alias' ),
+																	$data
+																);
 															}
 														
 														?>

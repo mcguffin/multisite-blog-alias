@@ -1,7 +1,7 @@
 <?php
 
 /*
-Plugin Name: WP Blog Alias
+Plugin Name: Multisite Blog Alias
 Plugin URI: https://github.com/mcguffin/wpms-blog-alias
 Description: Alias Domains for Blogs
 Author: Jörn Lund
@@ -11,7 +11,7 @@ License: GPL3
 Github Repository: mcguffin/wpms-blog-alias
 GitHub Plugin URI: mcguffin/wpms-blog-alias
 Requires WP: 4.8
-Requires PHP: 5.6
+Requires PHP: 5.5
 Network: true
 Text Domain: wpms-blog-alias
 Domain Path: /languages/

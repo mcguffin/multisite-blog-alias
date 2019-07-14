@@ -1,9 +1,9 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: WPMS Blog Alias\n"
-"Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-11-07T23:24:43+00:00\n"
-"PO-Revision-Date: 2018-11-08 00:26+0100\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/wpms-blog-alias\n"
+"POT-Creation-Date: 2019-07-14T11:55:37+00:00\n"
+"PO-Revision-Date: 2019-07-14 13:55+0200\n"
 "Last-Translator: Jörn Lund <joern@podpirate.org>\n"
 "Language-Team: \n"
 "Language: de_DE\n"
@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Poedit 2.0.8\n"
+"X-Generator: Poedit 2.2\n"
 "X-Poedit-SourceCharset: UTF-8\n"
 "X-Poedit-KeywordsList: __;_e;__ngettext:1,2;_n:1,2;__ngettext_noop:1,2;"
 "_n_noop:1,2;_x:1,2c;_nx:4c,1,2;_nx_noop:4c,1,2;_ex:1,2c;esc_attr__;"
@@ -21,67 +21,132 @@ msgstr ""
 "X-Poedit-SearchPath-0: .\n"
 "X-Poedit-SearchPathExcluded-0: node_modules\n"
 
-#: include/BlogAlias/Admin/NetworkAdmin.php:185
+#. Plugin Name of the plugin
+msgid "Multisite Blog Alias"
+msgstr "Multisite Blog Alias"
+
+#. Plugin URI of the plugin
+msgid "https://github.com/mcguffin/wpms-blog-alias"
+msgstr "https://github.com/mcguffin/wpms-blog-alias"
+
+#. Description of the plugin
+msgid "Alias Domains for Blogs"
+msgstr "Alias Domains für Blogs"
+
+#. Author of the plugin
+msgid "Jörn Lund"
+msgstr "Jörn Lund"
+
+#. Author URI of the plugin
+msgid "https://github.com/mcguffin"
+msgstr "https://github.com/mcguffin"
+
+#: include/BlogAlias/Admin/NetworkAdmin.php:186
 msgid "Alias Domains"
 msgstr "Alias Domains"
 
-#: include/BlogAlias/Admin/NetworkAdmin.php:256
+#: include/BlogAlias/Admin/NetworkAdmin.php:258
 msgid "Alias created"
 msgstr "Alias erstellt"
 
-#: include/BlogAlias/Admin/NetworkAdmin.php:258
+#. translators: number of deleted entries
+#: include/BlogAlias/Admin/NetworkAdmin.php:261
 msgid "%d entry deleted"
 msgid_plural "%d entries deleted"
 msgstr[0] "%d Eintrag gelöscht"
 msgstr[1] "%d Einträge gelöscht"
 
-#: include/BlogAlias/Admin/NetworkAdmin.php:261
+#: include/BlogAlias/Admin/NetworkAdmin.php:264
 msgid "Error: The Alias already exists."
 msgstr "Fehler: Das Alias existiert bereits."
 
-#: include/BlogAlias/Admin/NetworkAdmin.php:262
+#: include/BlogAlias/Admin/NetworkAdmin.php:265
 msgid "Error: Invalid domain name"
 msgstr "Fehler: ungültiger Domain-Name"
 
-#: include/BlogAlias/Admin/NetworkAdmin.php:263
+#: include/BlogAlias/Admin/NetworkAdmin.php:266
 msgid "Error during delete"
 msgstr "Fehler während des Löschens"
 
-#: include/BlogAlias/Admin/NetworkAdmin.php:264
+#: include/BlogAlias/Admin/NetworkAdmin.php:267
 msgid "Something went wrong..."
 msgstr "Etwas ist schief gelaufen..."
 
-#: include/BlogAlias/Admin/NetworkAdmin.php:270
+#: include/BlogAlias/Admin/NetworkAdmin.php:273
 msgid ""
-"Notice: Another Blog is already using this domain. The redirect will not "
+"Notice: A different Blog is already using this domain. The redirect will not "
 "work until this blog is deleted."
 msgstr ""
 "Ein anderer Blog benutzt diese Domain bereits. Die Weiterleitung wird nicht "
 "funktionieren, bis der Blog gelöscht wird."
 
-#: include/BlogAlias/Admin/NetworkAdmin.php:301
+#: include/BlogAlias/Admin/NetworkAdmin.php:304
 msgid "Add Domain Alias"
 msgstr "Neues Domain Alias"
 
-#: include/BlogAlias/Admin/NetworkAdmin.php:312
+#: include/BlogAlias/Admin/NetworkAdmin.php:315
 msgid "Add"
 msgstr "Hinzufügen"
 
-#: include/BlogAlias/Admin/NetworkAdmin.php:319
+#: include/BlogAlias/Admin/NetworkAdmin.php:322
 msgid "Domain Aliases"
 msgstr "Domain Aliase"
 
-#: include/BlogAlias/Admin/NetworkAdmin.php:323
+#: include/BlogAlias/Admin/NetworkAdmin.php:326
 msgid "– No Domain Aliases –"
 msgstr "– Keine Domain Aliase –"
 
-#: include/BlogAlias/Admin/NetworkAdmin.php:345
+#: include/BlogAlias/Admin/NetworkAdmin.php:334
+msgid "Alias Domain"
+msgstr "Alias Domain"
+
+#: include/BlogAlias/Admin/NetworkAdmin.php:335
+msgid "Status"
+msgstr "Status"
+
+#: include/BlogAlias/Admin/NetworkAdmin.php:378
+msgid "Edit"
+msgstr "Bearbeiten"
+
+#: include/BlogAlias/Admin/NetworkAdmin.php:383
+msgid "View"
+msgstr "Ansehen"
+
+#: include/BlogAlias/Admin/NetworkAdmin.php:386
+msgid "Error message:"
+msgstr "Fehlermeldung:"
+
+#: include/BlogAlias/Admin/NetworkAdmin.php:391
+msgid "Last Redirect to:"
+msgstr "Letzte Weiterleitung:"
+
+#: include/BlogAlias/Admin/NetworkAdmin.php:412
 msgid "Remove"
 msgstr "Entfernen"
 
-#: include/BlogAlias/Admin/NetworkAdmin.php:361
+#: include/BlogAlias/Admin/NetworkAdmin.php:428
 msgid "Remove All"
 msgstr "Alle Entfernen"
+
+#: include/BlogAlias/Model/ModelAliasDomains.php:66
+msgid "WP-Site for this alias could not be found."
+msgstr "Konnte keine WP-Site für dieses Alias finden."
+
+#: include/BlogAlias/Model/ModelAliasDomains.php:71
+msgid "The domain is already used by another site."
+msgstr "Die Domain wird schon von einer anderen Site genutzt."
+
+#: include/BlogAlias/Model/ModelAliasDomains.php:73
+msgid "The domain matches the site URL of this blog."
+msgstr "Die Domain entspricht der URL dieses Blogs."
+
+#: include/BlogAlias/Model/ModelAliasDomains.php:86
+msgid "The domain is unreachable."
+msgstr "Die Domain ist unerreichbar."
+
+#: include/BlogAlias/Model/ModelAliasDomains.php:92
+msgid "The redirect does not target to this blog."
+msgstr "Die Weiterleitung endet nicht bei diesem Blog."
 
 #~ msgid "Error: Another Blog is already using this domain."
 #~ msgstr "Fehler: Ein anderer Blog nutzt diese Domain bereits."

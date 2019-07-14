@@ -89,7 +89,7 @@ class ModelAliasDomains extends Model {
 			$loc = $response['headers']->offsetGet( 'location' );
 
 			if ( ! $loc ) {
-				return new \WP_Error( 'redirect-target_invalid', __( 'The redirect chain ended before the trget site was reached', 'wpms-blog-alias' ), $location );
+				return new \WP_Error( 'redirect-target_invalid', __( 'The redirect does not target to this blog.', 'wpms-blog-alias' ), $location );
 			}
 			$location = $loc;
 			if ( $site_url === $location ) {
