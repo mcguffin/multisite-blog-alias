@@ -20,7 +20,7 @@ class WPCLIAliasDomain extends Core\Singleton {
 	 */
 	protected function __construct() {
 		$command = Commands\AliasDomain::instance();
-		\WP_CLI::add_command( 'alias-domains list', array( $command, 'list' ), array(
+		\WP_CLI::add_command( 'alias-domains list', array( $command, 'get_list' ), array(
 			'shortdesc'		=> 'List blog aliases',
 			'is_deferred'	=> false,
 		) );
