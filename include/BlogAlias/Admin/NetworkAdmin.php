@@ -73,7 +73,8 @@ class NetworkAdmin extends Core\Singleton {
 		}
 
 		if ( $other_blog_id = get_blog_id_from_url( $domain_alias ) ) {
-			$redirect_args['notice']	= 'add-site-exists';
+			$redirect_args['notice']		= 'add-site-exists';
+			$redirect_args['other_blog']	= $other_blog_id;
 		}
 
 		if ( ! isset( $redirect_args['error'] ) ) {
@@ -137,7 +138,7 @@ class NetworkAdmin extends Core\Singleton {
 		} else {
 			$redirect_args['error'] = 'delete';
 		}
-		var_dump(wp_safe_redirect( add_query_arg( $redirect_args, network_admin_url('admin.php')) ));
+		wp_safe_redirect( add_query_arg( $redirect_args, network_admin_url('admin.php')) );
 		exit();
 	}
 
@@ -235,7 +236,8 @@ class NetworkAdmin extends Core\Singleton {
 		$parent_file = 'sites.php';
 		$submenu_file = 'sites.php';
 		$title = sprintf( __( 'Edit Site: %s' ), esc_html( $this->blog_details->blogname ) );
-
+		wp_enqueue_script('admin-alias-domain', $this->core->get_asset_url('js/admin/network/alias.js'), ['jquery'], $this->core->get_version(), true );
+		wp_enqueue_style('admin-alias-domain', $this->core->get_asset_url('css/admin/network/alias.css'), [], $this->core->get_version() );
 		require( ABSPATH . 'wp-admin/admin-header.php' );
 
 	}
@@ -271,7 +273,7 @@ class NetworkAdmin extends Core\Singleton {
 		}
 		?>
 
-		<div class="wrap">
+		<div class="wrap admin-domain-alias">
 		<h1 id="edit-site"><?php echo $title; ?></h1>
 
 		<p class="edit-site-actions"><a href="<?php echo esc_url( get_home_url( $id, '/' ) ); ?>"><?php _e( 'Visit' ); ?></a> | <a href="<?php echo esc_url( get_admin_url( $id ) ); ?>"><?php _e( 'Dashboard' ); ?></a></p>
@@ -327,15 +329,75 @@ class NetworkAdmin extends Core\Singleton {
 				?>
 
 				<table class="widefat striped">
+					<thead>
+						<th><?php _e('Alias Domain','wpms-blog-alias'); ?></th>
+						<th class="cb status"><?php _e( 'Status', 'wpms-blog-alias' ) ?></th>
+						<th class="action-links"></th>
+					</thead>
 					<tbody>
 						<?php
 						// edit aliases
 
 						foreach ( $aliases as $alias ) {
+							
 							?>
 							<tr>
 								<td>
 									<code><?php echo $alias->domain_alias ?></code>
+								</td>
+								<td class="status">
+									<?php 
+										// occupied by another domain...
+										$status = $this->model->check_status( $alias, $this->blog_details->id );
+										if ( is_wp_error( $status ) ) {
+											$code = $status->get_error_code();
+											
+											
+											if ( $code === 'usedby-self' ) {
+												echo '<a href="#" class="warning dashicons dashicons-warning"></a>';
+												?>
+												<div class="notice notice-warning inline hidden">
+													<p><strong><?php echo $status->get_error_message(); ?></strong></p>
+												</div>
+												<?php
+											} else {
+												echo '<a href="#" class="error dashicons dashicons-no"></a>';
+												?>
+												<div class="notice error inline hidden">
+													<p>
+														<strong><?php echo $status->get_error_message();  ?></strong>
+														<?php 
+															
+															$data = $status->get_error_data( $code );
+															
+															if ( $code === 'usedby-ms_site' ) {
+																echo ' ';
+																printf( '<a href="%s">%s</a>', 
+																	esc_url( network_admin_url( 'site-info.php?id=' . $data->blog_id ) ), 
+																	__( 'Edit', 'wpms-blog-alias' )
+																);
+																echo ' ';
+																printf( '<a href="%s">%s</a>', 
+																	esc_url( get_site_url( $data->blog_id ) ), 
+																	__( 'View', 'wpms-blog-alias' )
+																);
+															} else if ( $code === 'redirect-http_error' ) {
+																printf( '<br /> %s<code>%s</code>', __('Error message:','wpms-blog-alias'), $data->get_error_message() );
+																
+															} else if ( $code === 'redirect-target_invalid' ) {
+																// 
+															}
+														
+														?>
+													</p>
+												</div>
+												<?php
+												
+											}
+										} else {
+											echo '<span class="success dashicons dashicons-yes"></span>';
+										}
+									?>
 								</td>
 								<td class="action-links">
 									<form method="post" action="admin.php?action=alias-domain-remove">
@@ -354,7 +416,7 @@ class NetworkAdmin extends Core\Singleton {
 					</tbody>
 					<tfoot>
 						<tr>
-							<th colspan="2" class="action-links">
+							<th colspan="3" class="action-links">
 								<form method="post" action="admin.php?action=alias-domain-remove-all">
 									<?php wp_nonce_field( 'alias-domain-remove-all' ); ?>
 									<button class="button-secondary" type="submit" name="blog_id" value="<?php echo $this->blog_details->id; ?>">
@@ -374,6 +436,8 @@ class NetworkAdmin extends Core\Singleton {
 
 
 	}
+
+	
 
 	/**
 	 *	Print blog admin page footer

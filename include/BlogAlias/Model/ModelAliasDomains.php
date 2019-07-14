@@ -44,6 +44,64 @@ class ModelAliasDomains extends Model {
 	}
 
 	/**
+	 *	Check alias status
+	 *	@param int|stdClass $alias Alias domain
+	 *	@param int|null $site_id Check validity for current site
+	 *	@return boolean|WP_Error 
+	 */
+	public function check_status( $alias, $site_id = null ) {
+		if ( is_numeric( $alias ) ) {
+			$alias = $this->fetch_one_by( 'ID', $alias );
+		}
+
+		$site = get_site_by_path( $alias->domain_alias, '/' );
+
+		$site_url = get_site_url( $alias->blog_id );
+
+		if ( ! $site_url ) {
+			return new \WP_Error( 'site-not_found', __( 'WP-Site for this alias could not be found.', 'wpms-blog-alias' ) );
+		}
+		// test if used by other sites
+		if ( $site !== false ) {
+			if ( intval( $site->blog_id ) !== intval( $site_id ) ) {
+				return new \WP_Error( 'usedby-ms_site', __( 'The domain is already used by another site.', 'wpms-blog-alias' ), $site );				
+			} else {
+				return new \WP_Error( 'usedby-self', __( 'The domain matches the site URL of this blog.', 'wpms-blog-alias' ) );
+			}
+		}
+
+		// test redirects
+		$location = "http://{$alias->domain_alias}";
+		$site_url = trailingslashit($site_url);
+		while ( true ) {
+			$response = wp_remote_head( $location, array(
+				'redirection'	=> 0,
+				'sslverify'		=> false,
+			) );
+			if ( is_wp_error( $response ) ) {
+				return new \WP_Error( 'redirect-http_error', __( 'The domain is unreachable.', 'wpms-blog-alias' ), $response );
+			}
+
+			$loc = $response['headers']->offsetGet( 'location' );
+
+			if ( ! $loc ) {
+				return new \WP_Error( 'redirect-target_invalid', __( 'The redirect chain ended before the trget site was reached', 'wpms-blog-alias' ), $location );
+			}
+			$location = $loc;
+			if ( $site_url === $location ) {
+				// test passed!
+				break;
+			}
+//			$pattern = "@^https?://{$alias_site->domain}{$alias_site->path}$@imsU";
+//			var_dump(preg_quote($pattern),preg_match( preg_quote($pattern), $location ));
+			
+			// check if $location matches $alias_site->
+		}
+
+		return true;
+	}
+
+	/**
 	 *	validate callback for domain alias
 	 *
 	 *	@param string $alias Domain alias (valid hostname)

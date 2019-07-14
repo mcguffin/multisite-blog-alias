@@ -140,6 +140,27 @@ class Plugin extends PluginComponent {
 	}
 
 
+	/**
+	 *	Get asset url for this plugin
+	 *
+	 *	@param	string	$asset	URL part relative to plugin class
+	 *	@return string URL
+	 */
+	public function get_asset_url( $asset ) {
+		return plugins_url( $asset, $this->get_plugin_file() );
+	}
+
+
+	/**
+	 *	Get asset url for this plugin
+	 *
+	 *	@param	string	$asset	URL part relative to plugin class
+	 *	@return string URL
+	 */
+	public function get_asset_path( $asset ) {
+		return $this->get_plugin_dir() . '/' . preg_replace( '/^(\/+)/', '', $asset );
+	}
+
 
 	/**
 	 *	Fired on plugin activation
