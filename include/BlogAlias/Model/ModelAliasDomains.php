@@ -45,6 +45,10 @@ class ModelAliasDomains extends Model {
 
 	/**
 	 *	Check alias status
+	 *	Checks:
+	 *	1. Is domain is used by another wp-site?
+	 *	2. Is domain reachable and redirects to actual domain?
+	 *
 	 *	@param int|stdClass $alias Alias domain
 	 *	@param int|null $site_id Check validity for current site
 	 *	@return boolean|WP_Error 
@@ -92,10 +96,6 @@ class ModelAliasDomains extends Model {
 				// test passed!
 				break;
 			}
-//			$pattern = "@^https?://{$alias_site->domain}{$alias_site->path}$@imsU";
-//			var_dump(preg_quote($pattern),preg_match( preg_quote($pattern), $location ));
-			
-			// check if $location matches $alias_site->
 		}
 
 		return true;
