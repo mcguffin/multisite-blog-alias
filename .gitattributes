@@ -9,3 +9,8 @@ package*.json export-ignore
 wp-plugin-boilerplate.json export-ignore
 .wporg export-ignore
 *.md export-ignore
+.sassrc export-ignore
+.eslintrc export-ignore
+.eslintignore export-ignore
+.editorconfig export-ignore
+.babelrc export-ignore
