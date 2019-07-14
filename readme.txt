@@ -1,6 +1,6 @@
 === Multisite Blog Alias ===
 Contributors: podpirate
-Donate link:
+Donate link: https://www.msf.org/donate
 Tags: network redirect multisite domain
 Requires at least: 4.8
 Requires PHP: 5.5
