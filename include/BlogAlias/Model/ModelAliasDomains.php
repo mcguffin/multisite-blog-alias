@@ -51,7 +51,7 @@ class ModelAliasDomains extends Model {
 	 *
 	 *	@param int|stdClass $alias Alias domain
 	 *	@param int|null $site_id Check validity for current site
-	 *	@return boolean|WP_Error 
+	 *	@return boolean|WP_Error
 	 */
 	public function check_status( $alias, $site_id = null ) {
 		if ( is_numeric( $alias ) ) {
@@ -68,7 +68,7 @@ class ModelAliasDomains extends Model {
 		// test if used by other sites
 		if ( $site !== false ) {
 			if ( intval( $site->blog_id ) !== intval( $site_id ) ) {
-				return new \WP_Error( 'usedby-ms_site', __( 'The domain is already used by another site.', 'wpms-blog-alias' ), $site );				
+				return new \WP_Error( 'usedby-ms_site', __( 'The domain is already used by another site.', 'wpms-blog-alias' ), $site );
 			} else {
 				return new \WP_Error( 'usedby-self', __( 'The domain matches the site URL of this blog.', 'wpms-blog-alias' ) );
 			}
@@ -89,7 +89,7 @@ class ModelAliasDomains extends Model {
 			$loc = $response['headers']->offsetGet( 'location' );
 
 			if ( ! $loc ) {
-				return new \WP_Error( 'redirect-target_invalid', __( 'The redirect does not target to this blog.', 'wpms-blog-alias' ), $location );
+				return new \WP_Error( 'redirect-target_invalid', __( 'The domain or a redirect does not point to this blog.', 'wpms-blog-alias' ), $location );
 			}
 			$location = $loc;
 			if ( $site_url === $location ) {

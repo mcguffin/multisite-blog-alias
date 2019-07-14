@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WPMS Blog Alias\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/wpms-blog-alias\n"
-"POT-Creation-Date: 2019-07-14T14:08:31+00:00\n"
-"PO-Revision-Date: 2019-07-14 16:08+0200\n"
+"POT-Creation-Date: 2019-07-14T14:26:09+00:00\n"
+"PO-Revision-Date: 2019-07-14 16:26+0200\n"
 "Last-Translator: Jörn Lund <joern@podpirate.org>\n"
 "Language-Team: \n"
 "Language: de_DE\n"
@@ -41,21 +41,21 @@ msgstr "Jörn Lund"
 msgid "https://github.com/mcguffin"
 msgstr "https://github.com/mcguffin"
 
-#: include/BlogAlias/Admin/Ajax.php:69
+#: include/BlogAlias/Admin/Ajax.php:67
 #: include/BlogAlias/Admin/NetworkAdmin.php:283
 msgid "Edit"
 msgstr "Bearbeiten"
 
-#: include/BlogAlias/Admin/Ajax.php:74
+#: include/BlogAlias/Admin/Ajax.php:72
 #: include/BlogAlias/Admin/NetworkAdmin.php:280
 msgid "View"
 msgstr "Ansehen"
 
-#: include/BlogAlias/Admin/Ajax.php:77
+#: include/BlogAlias/Admin/Ajax.php:75
 msgid "Error message:"
 msgstr "Fehlermeldung:"
 
-#: include/BlogAlias/Admin/Ajax.php:82
+#: include/BlogAlias/Admin/Ajax.php:80
 msgid "Last Redirect to:"
 msgstr "Letzte Weiterleitung:"
 
@@ -122,15 +122,15 @@ msgstr "Alias Domain"
 msgid "Status"
 msgstr "Status"
 
-#: include/BlogAlias/Admin/NetworkAdmin.php:386
+#: include/BlogAlias/Admin/NetworkAdmin.php:378
 msgid "Remove"
 msgstr "Entfernen"
 
-#: include/BlogAlias/Admin/NetworkAdmin.php:400
+#: include/BlogAlias/Admin/NetworkAdmin.php:395
 msgid "Check Status"
 msgstr "Status prüfen"
 
-#: include/BlogAlias/Admin/NetworkAdmin.php:406
+#: include/BlogAlias/Admin/NetworkAdmin.php:397
 msgid "Remove All"
 msgstr "Alle Entfernen"
 
@@ -151,8 +151,8 @@ msgid "The domain is unreachable."
 msgstr "Die Domain ist unerreichbar."
 
 #: include/BlogAlias/Model/ModelAliasDomains.php:92
-msgid "The redirect does not target to this blog."
-msgstr "Die Weiterleitung endet nicht bei diesem Blog."
+msgid "The domain or a redirect does not point to this blog."
+msgstr "Die Domain oder eine Weiterleitung zeigen nicht auf diesen Blog."
 
 #~ msgid "Error: Another Blog is already using this domain."
 #~ msgstr "Fehler: Ein anderer Blog nutzt diese Domain bereits."
