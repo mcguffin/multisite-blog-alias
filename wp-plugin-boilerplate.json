@@ -4,20 +4,25 @@
       "css": true,
       "js": true
     },
-    "git": {},
+    "ajax": {},
+    "git": {
+      "git_host": false,
+      "git_repo": "mcguffin/wpms-blog-alias",
+      "git_user": "mcguffin"
+    },
     "model": {
       "alias_domains": {}
     },
-    "rest": {},
     "wpcli": {
       "alias_domain": {}
     }
   },
   "plugin_author": "J\u00f6rn Lund",
-  "plugin_author_uri": "",
+  "plugin_author_uri": "https://github.com/mcguffin",
   "plugin_name": "WPMS Blog Alias",
   "plugin_namespace": "BlogAlias",
   "plugin_slug": "blog_alias",
+  "plugin_slug_upper": "BLOG_ALIAS",
   "this_year": 2018,
   "wp_plugin_slug": "wpms-blog-alias"
 }

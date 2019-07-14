@@ -1,21 +1,29 @@
-=== WP Blog Alias ===
-Contributors: #### Your wordpress.org Username ####
-Donate link: #### donate link ####
-Tags: #### donate link ####
-Requires at least: 3.8
-Requires PHP: 5.3
-Tested up to: 4.9
+=== Multisite Blog Alias ===
+Contributors: podpirate
+Donate link:
+Tags: network redirect multisite domain
+Requires at least: 4.8
+Requires PHP: 5.5
+Tested up to: 5.2.2
 Stable tag: 0.2.2
-License: GPLv2 or later
-License URI: http://www.gnu.org/licenses/gpl-2.0.html
+License: GPLv3 or later
+License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
-#### Short Description ####
+Configure Redirects for Multisite-Blogs.
 
 == Description ==
 
-#### Long Description ####
+WordPress plugin to maintain alternative Domains for a blog.
 
+## Features
+ - Permanent 301 Redirect to blogs main domain
+ - Painless installation and activation – no file access necessary.
+ - Checks domain status
+ - [WP-Cli](https://wp-cli.org/) commands
 
+## Development
+
+Please head over to the source code [on Github](https://github.com/mcguffin/wpms-blog-alias).
 
 == Installation ==
 
@@ -25,42 +33,29 @@ Follow the standard [WordPress plugin installation procedere](http://codex.wordp
 
 = I found a bug. Where should I post it? =
 
-You can can either go into the Support forum, or in the [WP Blog Alias Repository](https://github.com//wpms-blog-alias).
+Please use the issues section in the [GitHub-Repository](https://github.com/mcguffin/acf-openstreetmap-field/issues).
+
+I will most likely not maintain the forum support forum on wordpress.org. Anyway, other users might have an answer for you, so it's worth a shot.
 
 = I'd like to suggest a feature. Where should I post it? =
 
-I personally prefer GitHub. The plugin code is here: [GitHub](https://github.com//wpms-blog-alias)
-(See above as well.)
+Please post an issue in the [GitHub-Repository](https://github.com/mcguffin/acf-openstreetmap-field/issues)
 
-= I want to use the latest files. How can I do this? =
+= Will you anwser support requests by email? =
 
-Use the GitHub Repo rather than the WordPress Plugin. Do as follows:
-
-1. If you haven't done so: [Install git](https://help.github.com/articles/set-up-git)
-
-2. in the console cd into Your 'wp-content/plugins' directory
-
-3. type `git clone git@github.com:/wpms-blog-alias.git`
-
-4. If you want to update to the latest files (be careful, might be untested with your WP-Version) type `git pull`.
-
-= I found a bug and fixed it. How can I let You know? =
-
-Either post it on the [GitHub-repo](https://github.com//wpms-blog-alias) or—if you cloned the repository—send me a pull request.
-
-= Will you accept translations? =
-
-Yep sure! (And a warm thankyou in advance.) It might take some time until your localization
-will appear in an official plugin release, and it is not unlikely that I will have added
-or removed some strings in the meantime.
-
-As soon as there is a [public centralized repository for WordPress plugin translations](https://translate.wordpress.org/projects/wp-plugins)
-I will migrate all the translation stuff there.
+No.
 
 
 == Screenshots ==
+1. Network admin - Edit site
+
+== Upgrade Notice ==
+
+On the whole upgrading is always a good idea.
 
 == Changelog ==
 
-= 1.0.0 =
-Initial Release
+= 0.3.0 =
+ - Feature: Show Domain status
+ - More Failsafe sunrise
+ - Fix db error message on activation
