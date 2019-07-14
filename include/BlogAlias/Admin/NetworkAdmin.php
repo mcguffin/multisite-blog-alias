@@ -40,7 +40,9 @@ class NetworkAdmin extends Core\Singleton {
 		add_action( 'admin_action_alias-domain-add', array( $this, 'add_alias_domain' ) );
 		add_action( 'admin_action_alias-domain-remove', array( $this, 'remove_alias_domain' ) );
 		add_action( 'admin_action_alias-domain-remove-all', array( $this, 'remove_alias_domains' ) );
+
 	}
+
 
 	/**
 	 *	@action admin_action_alias-domain-add
@@ -271,13 +273,25 @@ class NetworkAdmin extends Core\Singleton {
 		}
 		if ( isset( $_GET['notice'] ) && $_GET['notice'] == 'add-site-exists' ) {
 			$messages['notice-warning'] = __( 'Notice: A different Blog is already using this domain. The redirect will not work until this blog is deleted.', 'wpms-blog-alias' );
+
+			if ( isset( $_GET['other_blog'] ) ) {
+				$messages['notice-warning'] .= sprintf( '<a href="%s">%s</a> <a href="%s">%s</a>',
+					esc_url( get_site_url( $_GET['other_blog'] ) ),
+					__( 'View', 'wpms-blog-alias' ),
+
+					esc_url( network_admin_url( 'site-info.php?id=' . $_GET['other_blog'] ) ),
+					__( 'Edit', 'wpms-blog-alias' )
+				);
+
+			}
+
 		}
 		?>
 
 		<div class="wrap admin-domain-alias">
 		<h1 id="edit-site"><?php echo $title; ?></h1>
 
-		<p class="edit-site-actions"><a href="<?php echo esc_url( get_home_url( $id, '/' ) ); ?>"><?php _e( 'Visit' ); ?></a> | <a href="<?php echo esc_url( get_admin_url( $id ) ); ?>"><?php _e( 'Dashboard' ); ?></a></p>
+		<p class="edit-site-actions"><a href="<?php echo esc_url( get_home_url( $this->blog_details->id, '/' ) ); ?>"><?php _e( 'Visit' ); ?></a> | <a href="<?php echo esc_url( get_admin_url( $this->blog_details->id ) ); ?>"><?php _e( 'Dashboard' ); ?></a></p>
 		<?php
 
 			network_edit_site_nav( array(
@@ -329,80 +343,33 @@ class NetworkAdmin extends Core\Singleton {
 			} else {
 				?>
 
-				<table class="widefat striped">
+				<table class="widefat striped domain-status-list-table">
 					<thead>
 						<th><?php _e('Alias Domain','wpms-blog-alias'); ?></th>
-						<th class="cb status"><?php _e( 'Status', 'wpms-blog-alias' ) ?></th>
+						<th class="status"><?php _e( 'Status', 'wpms-blog-alias' ) ?></th>
 						<th class="action-links"></th>
 					</thead>
 					<tbody>
 						<?php
 						// edit aliases
-
+						$admin = Ajax::instance();
 						foreach ( $aliases as $alias ) {
-							
+							$get_status = add_query_arg(
+								array(
+									'action'	=> $admin->ajax_handler->action,
+									'alias_id'	=> $alias->ID,
+									'blog_id'	=> $this->blog_details->id,
+									'nonce'		=> $admin->ajax_handler->nonce,
+								),
+								get_admin_url( 1, 'admin-ajax.php')
+							); // add_query_arg
 							?>
 							<tr>
 								<td>
 									<code><?php echo $alias->domain_alias ?></code>
 								</td>
-								<td class="status">
-									<?php 
-										// occupied by another domain...
-										$status = $this->model->check_status( $alias, $this->blog_details->id );
-										if ( is_wp_error( $status ) ) {
-											$code = $status->get_error_code();
 
-											if ( $code === 'usedby-self' ) {
-												echo '<a href="#" class="warning dashicons dashicons-warning"></a>';
-												?>
-												<div class="notice notice-warning inline hidden">
-													<p><strong><?php echo $status->get_error_message(); ?></strong></p>
-												</div>
-												<?php
-											} else {
-												echo '<a href="#" class="error dashicons dashicons-no"></a>';
-												?>
-												<div class="notice error inline hidden">
-													<p>
-														<strong><?php echo $status->get_error_message();  ?></strong>
-														<?php 
-															
-															$data = $status->get_error_data( $code );
-															
-															if ( $code === 'usedby-ms_site' ) {
-																echo ' ';
-																printf( '<a href="%s">%s</a>', 
-																	esc_url( network_admin_url( 'site-info.php?id=' . $data->blog_id ) ), 
-																	__( 'Edit', 'wpms-blog-alias' )
-																);
-																echo ' ';
-																printf( '<a href="%s">%s</a>', 
-																	esc_url( get_site_url( $data->blog_id ) ), 
-																	__( 'View', 'wpms-blog-alias' )
-																);
-															} else if ( $code === 'redirect-http_error' ) {
-																printf( '<br />%s <code>%s</code>', __('Error message:','wpms-blog-alias'), $data->get_error_message() );
-																
-															} else if ( $code === 'redirect-target_invalid' ) {
-																// 
-																printf( '<br />%1$s <a href="%2$s" target="_blank">%2$s</a>', 
-																	__( 'Last Redirect to:', 'wpms-blog-alias' ),
-																	$data
-																);
-															}
-														
-														?>
-													</p>
-												</div>
-												<?php
-												
-											}
-										} else {
-											echo '<span class="success dashicons dashicons-yes"></span>';
-										}
-									?>
-								</td>
+								<td class="status" data-check-status="<?php esc_attr_e( $get_status ); ?>"></td>
 								<td class="action-links">
 									<form method="post" action="admin.php?action=alias-domain-remove">
 										<?php wp_nonce_field( 'alias-domain-remove-' . $alias->ID ); ?>
@@ -420,9 +387,12 @@ class NetworkAdmin extends Core\Singleton {
 					</tbody>
 					<tfoot>
 						<tr>
-							<th colspan="3" class="action-links">
+							<th></th>
+							<th class="status"></th>
+							<th class="action-links">
 								<form method="post" action="admin.php?action=alias-domain-remove-all">
 									<?php wp_nonce_field( 'alias-domain-remove-all' ); ?>
+									<a href="#" data-action="check-alias-status" class="button"><?php _e( 'Check Status', 'wpms-blog-alias' ) ?></a>
 									<button class="button-secondary" type="submit" name="blog_id" value="<?php echo $this->blog_details->id; ?>">
 										<?php _e('Remove All','wpms-blog-alias'); ?>
 									</button>
@@ -441,7 +411,7 @@ class NetworkAdmin extends Core\Singleton {
 
 	}
 
-	
+
 
 	/**
 	 *	Print blog admin page footer

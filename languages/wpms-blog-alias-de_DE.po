@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WPMS Blog Alias\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/wpms-blog-alias\n"
-"POT-Creation-Date: 2019-07-14T11:55:37+00:00\n"
-"PO-Revision-Date: 2019-07-14 13:55+0200\n"
+"POT-Creation-Date: 2019-07-14T14:08:31+00:00\n"
+"PO-Revision-Date: 2019-07-14 16:08+0200\n"
 "Last-Translator: Jörn Lund <joern@podpirate.org>\n"
 "Language-Team: \n"
 "Language: de_DE\n"
@@ -41,38 +41,56 @@ msgstr "Jörn Lund"
 msgid "https://github.com/mcguffin"
 msgstr "https://github.com/mcguffin"
 
-#: include/BlogAlias/Admin/NetworkAdmin.php:186
+#: include/BlogAlias/Admin/Ajax.php:69
+#: include/BlogAlias/Admin/NetworkAdmin.php:283
+msgid "Edit"
+msgstr "Bearbeiten"
+
+#: include/BlogAlias/Admin/Ajax.php:74
+#: include/BlogAlias/Admin/NetworkAdmin.php:280
+msgid "View"
+msgstr "Ansehen"
+
+#: include/BlogAlias/Admin/Ajax.php:77
+msgid "Error message:"
+msgstr "Fehlermeldung:"
+
+#: include/BlogAlias/Admin/Ajax.php:82
+msgid "Last Redirect to:"
+msgstr "Letzte Weiterleitung:"
+
+#: include/BlogAlias/Admin/NetworkAdmin.php:188
 msgid "Alias Domains"
 msgstr "Alias Domains"
 
-#: include/BlogAlias/Admin/NetworkAdmin.php:258
+#: include/BlogAlias/Admin/NetworkAdmin.php:260
 msgid "Alias created"
 msgstr "Alias erstellt"
 
 #. translators: number of deleted entries
-#: include/BlogAlias/Admin/NetworkAdmin.php:261
+#: include/BlogAlias/Admin/NetworkAdmin.php:263
 msgid "%d entry deleted"
 msgid_plural "%d entries deleted"
 msgstr[0] "%d Eintrag gelöscht"
 msgstr[1] "%d Einträge gelöscht"
 
-#: include/BlogAlias/Admin/NetworkAdmin.php:264
+#: include/BlogAlias/Admin/NetworkAdmin.php:266
 msgid "Error: The Alias already exists."
 msgstr "Fehler: Das Alias existiert bereits."
 
-#: include/BlogAlias/Admin/NetworkAdmin.php:265
+#: include/BlogAlias/Admin/NetworkAdmin.php:267
 msgid "Error: Invalid domain name"
 msgstr "Fehler: ungültiger Domain-Name"
 
-#: include/BlogAlias/Admin/NetworkAdmin.php:266
+#: include/BlogAlias/Admin/NetworkAdmin.php:268
 msgid "Error during delete"
 msgstr "Fehler während des Löschens"
 
-#: include/BlogAlias/Admin/NetworkAdmin.php:267
+#: include/BlogAlias/Admin/NetworkAdmin.php:269
 msgid "Something went wrong..."
 msgstr "Etwas ist schief gelaufen..."
 
-#: include/BlogAlias/Admin/NetworkAdmin.php:273
+#: include/BlogAlias/Admin/NetworkAdmin.php:275
 msgid ""
 "Notice: A different Blog is already using this domain. The redirect will not "
 "work until this blog is deleted."
@@ -80,51 +98,39 @@ msgstr ""
 "Ein anderer Blog benutzt diese Domain bereits. Die Weiterleitung wird nicht "
 "funktionieren, bis der Blog gelöscht wird."
 
-#: include/BlogAlias/Admin/NetworkAdmin.php:304
+#: include/BlogAlias/Admin/NetworkAdmin.php:318
 msgid "Add Domain Alias"
 msgstr "Neues Domain Alias"
 
-#: include/BlogAlias/Admin/NetworkAdmin.php:315
+#: include/BlogAlias/Admin/NetworkAdmin.php:329
 msgid "Add"
 msgstr "Hinzufügen"
 
-#: include/BlogAlias/Admin/NetworkAdmin.php:322
+#: include/BlogAlias/Admin/NetworkAdmin.php:336
 msgid "Domain Aliases"
 msgstr "Domain Aliase"
 
-#: include/BlogAlias/Admin/NetworkAdmin.php:326
+#: include/BlogAlias/Admin/NetworkAdmin.php:340
 msgid "– No Domain Aliases –"
 msgstr "– Keine Domain Aliase –"
 
-#: include/BlogAlias/Admin/NetworkAdmin.php:334
+#: include/BlogAlias/Admin/NetworkAdmin.php:348
 msgid "Alias Domain"
 msgstr "Alias Domain"
 
-#: include/BlogAlias/Admin/NetworkAdmin.php:335
+#: include/BlogAlias/Admin/NetworkAdmin.php:349
 msgid "Status"
 msgstr "Status"
 
-#: include/BlogAlias/Admin/NetworkAdmin.php:378
-msgid "Edit"
-msgstr "Bearbeiten"
-
-#: include/BlogAlias/Admin/NetworkAdmin.php:383
-msgid "View"
-msgstr "Ansehen"
-
 #: include/BlogAlias/Admin/NetworkAdmin.php:386
-msgid "Error message:"
-msgstr "Fehlermeldung:"
-
-#: include/BlogAlias/Admin/NetworkAdmin.php:391
-msgid "Last Redirect to:"
-msgstr "Letzte Weiterleitung:"
-
-#: include/BlogAlias/Admin/NetworkAdmin.php:412
 msgid "Remove"
 msgstr "Entfernen"
 
-#: include/BlogAlias/Admin/NetworkAdmin.php:428
+#: include/BlogAlias/Admin/NetworkAdmin.php:400
+msgid "Check Status"
+msgstr "Status prüfen"
+
+#: include/BlogAlias/Admin/NetworkAdmin.php:406
 msgid "Remove All"
 msgstr "Alle Entfernen"
 

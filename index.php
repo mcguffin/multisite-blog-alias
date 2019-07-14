@@ -57,6 +57,10 @@ if ( is_network_admin() || defined( 'DOING_AJAX' ) ) {
 	Admin\NetworkAdmin::instance();
 }
 
+if ( defined( 'DOING_AJAX' ) && DOING_AJAX ) {
+	Admin\Ajax::instance();
+}
+
 if ( defined( 'WP_CLI' ) && WP_CLI ) {
 	WPCLI\WPCLIAliasDomain::instance();
 }

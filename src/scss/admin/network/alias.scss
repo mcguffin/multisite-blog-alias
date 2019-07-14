@@ -1,10 +1,22 @@
 @import '../../mixins/index';
 @import '../../variables/index';
 
-.admin-domain-alias {
-	td {
+.domain-status-list-table {
+	th,td {
 		&.status {
 			width:40%;
+			display:none;
+			.spinner {
+				float:none;
+				margin:0;
+			}
+		}
+	}
+	&.has-status {
+		th,td {
+			&.status {
+				display:table-cell;
+			}
 		}
 	}
 	.dashicons {
