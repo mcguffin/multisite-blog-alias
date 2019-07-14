@@ -3,7 +3,7 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: WP Blog Alias v0.2.1\n"
+"Project-Id-Version: Multisite Blog Alias 0.3.0\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2018-11-07T23:24:47+00:00\n"
 "PO-Revision-Date: 2018-11-07T23:24:47+00:00\n"
