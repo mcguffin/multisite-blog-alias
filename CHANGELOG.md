@@ -1,6 +1,15 @@
 WPMS Blog Alias Changelog
 =========================
 
+0.3.2
+-----
+ - Check for multisite on activation
+ - fix i18n issue
+
+0.3.1
+-----
+ - WP-Cli: args for list output format 
+
 0.3.0
 -----
  - Feature: Show Domain status
