@@ -40,7 +40,7 @@ class Ajax extends Core\Singleton {
 		$model = Model\ModelAliasDomains::instance();
 
 		// occupied by another domain...
-		$status = $model->check_status( $args['alias_id'], $args['blog_id'] );
+		$status = $model->check_status( $args['alias_id'] );
 
 		if ( is_wp_error( $status ) ) {
 			$code = $status->get_error_code();

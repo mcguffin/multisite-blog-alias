@@ -53,9 +53,12 @@ class ModelAliasDomains extends Model {
 	 *	@param int|null $site_id Check validity for current site
 	 *	@return boolean|WP_Error
 	 */
-	public function check_status( $alias, $site_id = null ) {
+	public function check_status( $alias ) {
 		if ( is_numeric( $alias ) ) {
 			$alias = $this->fetch_one_by( 'ID', $alias );
+			if ( ! $alias ) {
+				return new \WP_Error( 'not-an-alias', __( 'Domain alias not found.', 'wpms-blog-alias' ) );
+			}
 		}
 
 		$site = get_site_by_path( $alias->domain_alias, '/' );
@@ -67,7 +70,7 @@ class ModelAliasDomains extends Model {
 		}
 		// test if used by other sites
 		if ( $site !== false ) {
-			if ( intval( $site->blog_id ) !== intval( $site_id ) ) {
+			if ( intval( $site->blog_id ) !== intval( $alias->blog_id ) ) {
 				return new \WP_Error( 'usedby-ms_site', __( 'The domain is already used by another site.', 'wpms-blog-alias' ), $site );
 			} else {
 				return new \WP_Error( 'usedby-self', __( 'The domain matches the site URL of this blog.', 'wpms-blog-alias' ) );
@@ -86,8 +89,8 @@ class ModelAliasDomains extends Model {
 			) );
 			if ( is_wp_error( $response ) ) {
 
-
 				return new \WP_Error( 'redirect-http_error', __( 'The domain is unreachable.', 'wpms-blog-alias' ), $response );
+
 			}
 
 			$loc = $response['headers']->offsetGet( 'location' );

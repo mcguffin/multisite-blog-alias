@@ -225,8 +225,8 @@ class AliasDomain extends Core\Singleton {
 
 
 	/**
-	 * Add a Domain alias.
-	 * You must either specify a blog ID or a blog Domain
+	 * Remove a Domain alias.
+	 * You must either specify an ID, a blog ID, a blog Domain or an alias domain
 	 *
 	 * ## OPTIONS
 	 *
@@ -306,4 +306,93 @@ class AliasDomain extends Core\Singleton {
 
 	}
 
+
+	/**
+	 * Test a Domain alias.
+	 * You must either specify an alias ID or an alias Domain
+	 *
+	 * ## OPTIONS
+	 *
+	 * --id=<id>
+	 * : The recored ID. See command list
+	 * ---
+     * default: 0
+	 * ---
+	 *
+	 * --domain_alias=<domain_name>
+	 * : Alias Domain to remove
+	 * ---
+     * default: ''
+	 * ---
+	 *
+	 * [--compact[=<compact>]]
+	 * : Just print the ID
+	 * ---
+	 * default: 1
+	 * options:
+	 *   - 0
+	 *   - 1
+	 * ---
+	 *
+	 * ## EXAMPLES
+	 *
+	 *     wp alias-domains test --domain_alias=sub.domain.tld
+	 *
+	 *     // test alias 123
+	 *     wp alias-domains test --id=123
+	 *
+	 *     // test domain
+	 *     wp alias-domains test --id=123
+	 *
+	 *	@alias comment-check
+	 */
+	 public function test( $args, $kwargs ) {
+
+ 		$kwargs = wp_parse_args($kwargs,array(
+ 			'compact' => false,
+ 		));
+		extract( $kwargs );
+		if ( ! $id && empty( $domain_alias ) ) {
+			\WP_CLI::error( __( 'Must specify either `id` or `domain_alias` to test', 'wpms-blog-alias-cli' ) );
+		}
+
+		if ( ! empty( $domain_alias ) ) {
+			if ( ! $record = $this->model->fetch_one_by( 'domain_alias', $domain_alias ) ) {
+				/* Translators: Alias Domain */
+				if ( $compact ) {
+					\WP_CLI::line('not-an-alias');
+					return;
+				} else {
+					\WP_CLI::error( sprintf(__( 'Domain Alias %s does not exist', 'wpms-blog-alias-cli' ), $domain_alias ) );
+				}
+			}
+		} else if ( $id ) {
+			if ( ! $record = $this->model->fetch_one_by( 'id', $id ) ) {
+				/* Translators: Domain Alias ID */
+				if ( $compact ) {
+					\WP_CLI::line('not-an-alias');
+					return;
+				} else {
+					\WP_CLI::error( sprintf(__( 'Domain Alias with ID %d does not exist', 'wpms-blog-alias-cli' ), $id ) );
+				}
+			}
+			$where['id'] = $id;
+		}
+
+		$result = $this->model->check_status( $record );
+
+		if ( true === $result ) {
+			if ( $compact ) {
+				\WP_CLI::line('ok');
+			} else {
+				\WP_CLI::success( __('OK', 'wpms-blog-alias-cli' ));
+			}
+		} else if ( is_wp_error( $result ) ) {
+			if ( $compact ) {
+				\WP_CLI::line($result->get_error_code());
+			} else {
+				\WP_CLI::error($result->get_error_message());
+			}
+		}
+	}
 }

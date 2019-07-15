@@ -35,6 +35,10 @@ class WPCLIAliasDomain extends Core\Singleton {
 			'is_deferred'	=> false,
 		) );
 
+		\WP_CLI::add_command( 'alias-domains test', array( $command, 'test' ), array(
+			'shortdesc'		=> 'Test blog alias',
+			'is_deferred'	=> false,
+		) );
 
 	}
 

@@ -369,7 +369,6 @@ class NetworkAdmin extends Core\Singleton {
 								array(
 									'action'	=> $admin->ajax_handler->action,
 									'alias_id'	=> $alias->ID,
-									'blog_id'	=> $this->blog_details->id,
 									'nonce'		=> $admin->ajax_handler->nonce,
 								),
 								get_admin_url( 1, 'admin-ajax.php')
