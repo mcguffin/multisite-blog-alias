@@ -21,6 +21,28 @@ WP Multisite plugin to maintain URL-redirects .
  - Checks domain status
  - [WP-Cli](https://wp-cli.org/) commands
 
+## WP-CLI Examples
+### Listing Domain aliases
+`
+// List alias domains for blog-id 123
+wp alias-domains list --blog_id=123
+
+// output all aliases as minified json
+wp alias-domains list --format=json --compact=2
+
+// output csv including the header row but omitting other messages into file
+wp alias-domains list --format=csv --compact > alias-list.csv
+`
+### Add Domain Alias
+`
+wp alias-domains add --blog_id=123 --domain_alias=quux.foobar.tld
+`
+
+`
+### Remove Domain Alias
+
+`
+
 ## Development
 
 Please head over to the source code [on Github](https://github.com/mcguffin/wpms-blog-alias).

@@ -144,7 +144,7 @@ class AliasDomain extends Core\Singleton {
 	 *
 	 * ## EXAMPLES
 	 *
-	 *     wp alias-domains list --blog_id=123 --domain_alias=quux.foobar.tld
+	 *     wp alias-domains add --blog_id=123 --domain_alias=quux.foobar.tld
 	 *
 	 *	@alias comment-check
 	 */
@@ -164,6 +164,7 @@ class AliasDomain extends Core\Singleton {
 			/* Translators: Blog ID */
 			\WP_CLI::error( sprintf(__( 'Blog ID %d does not exist', 'wpms-blog-alias-cli' ), $blog_id ) );
 		}
+		$blog_id = intval( $blog_id );
 
 		// invalid hostname
 		if ( false === $this->model->validate( 'domain_alias', $domain_alias ) ) {
@@ -173,7 +174,12 @@ class AliasDomain extends Core\Singleton {
 		// url exists as blog
 		if ( $other_blog_id = get_blog_id_from_url( $domain_alias ) ) {
 			/* Translators: AliasDomain, Blog ID */
-			\WP_CLI::warning( sprintf(__( 'Domain %1$s exists for blog %2%d', 'wpms-blog-alias-cli' ), $domain_alias, $other_blog_id ) );
+			$msg = sprintf(__( 'Domain %1$s exists for blog %2$d', 'wpms-blog-alias-cli' ), $domain_alias, $other_blog_id );
+			if ( $other_blog_id !== $blog_id ) {
+				\WP_CLI::error( $msg );
+			} else {
+				\WP_CLI::warning( $msg );
+			}
 		}
 
 		// alias exists
@@ -233,7 +239,11 @@ class AliasDomain extends Core\Singleton {
 	 *
 	 * ## EXAMPLES
 	 *
-	 *     wp alias-domains list --blog_id=123 --domain_alias=quux.foobar.tld
+	 *     // remove all aliases for blog 123
+	 *     wp alias-domains remove --domain=sub.domain.tld
+	 *
+	 *     // remove all aliases for blog 123
+	 *     wp alias-domains remove --blog_id=123
 	 *
 	 *	@alias comment-check
 	 */
