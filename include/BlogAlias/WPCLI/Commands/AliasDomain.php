@@ -142,6 +142,15 @@ class AliasDomain extends Core\Singleton {
      *   - 1
      * ---
 	 *
+	 * [--compact[=<compact>]]
+	 * : Just print the ID
+	 * ---
+	 * default: 1
+	 * options:
+	 *   - 0
+	 *   - 1
+	 * ---
+	 *
 	 * ## EXAMPLES
 	 *
 	 *     wp alias-domains add --blog_id=123 --domain_alias=quux.foobar.tld
@@ -149,6 +158,10 @@ class AliasDomain extends Core\Singleton {
 	 *	@alias comment-check
 	 */
 	public function add( $args, $kwargs ) {
+
+		$kwargs = wp_parse_args($kwargs,array(
+			'compact' => false,
+		));
 
 		extract( $kwargs );
 
@@ -199,7 +212,11 @@ class AliasDomain extends Core\Singleton {
 
 		if ( $id !== false ) {
 			/* Translators: Alias ID */
-			\WP_CLI::success( sprintf( __( "Alias created with ID %d", 'wpms-blog-alias-cli' ), $this->model->insert_id ) );
+			if ( $compact ) {
+				echo $this->model->insert_id;
+			} else {
+				\WP_CLI::success( sprintf( __( "Alias created with ID %d", 'wpms-blog-alias-cli' ), $this->model->insert_id ) );
+			}
 		} else {
 			/* Translators: Error message */
 			\WP_CLI::error( sprintf( __( 'Error creating Domain Alias: %s', 'wpms-blog-alias-cli' ), $this->model->last_error ) );

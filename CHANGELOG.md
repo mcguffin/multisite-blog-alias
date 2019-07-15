@@ -1,6 +1,11 @@
 WPMS Blog Alias Changelog
 =========================
 
+0.3.3
+-----
+ - Fix: wp-cli don't add if domain used by other blog
+ - Feature: wp-cli --compact arg for add
+
 0.3.2
 -----
  - Check for multisite on activation
