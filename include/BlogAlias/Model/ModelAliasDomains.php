@@ -77,6 +77,7 @@ class ModelAliasDomains extends Model {
 		// test redirects
 		$location = "http://{$alias->domain_alias}";
 		$site_url = trailingslashit($site_url);
+
 		while ( true ) {
 			$response = wp_remote_head( $location, array(
 				'redirection'	=> 0,
