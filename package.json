@@ -1,5 +1,5 @@
 {
-  "name": "wpms-blog-alias",
+  "name": "multisite-blog-alias",
   "version": "0.3.3",
   "description": "Domain redirections for a multisite blog.",
   "private": true,
@@ -7,20 +7,20 @@
     "init": "",
     "dev": "gulp dev",
     "build": "gulp build && npm run i18n",
-    "i18n": "wp i18n make-pot . languages/wpms-blog-alias.pot --domain=wpms-blog-alias && wp i18n make-pot . languages/wpms-blog-alias-cli.pot --domain=wpms-blog-alias-cli",
+    "i18n": "wp i18n make-pot . languages/multisite-blog-alias.pot --domain=multisite-blog-alias && wp i18n make-pot . languages/multisite-blog-alias-cli.pot --domain=multisite-blog-alias-cli",
     "rollback": "git reset --hard HEAD~ && git push origin +master",
     "dashicons": "node ./src/run/dashicons.js"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/mcguffin/wpms-blog-alias.git"
+    "url": "git+https://github.com/mcguffin/multisite-blog-alias.git"
   },
   "author": "Jörn Lund",
   "license": "GPL3",
   "bugs": {
-    "url": "https://github.com/mcguffin/wpms-blog-alias/issues"
+    "url": "https://github.com/mcguffin/multisite-blog-alias/issues"
   },
-  "homepage": "https://github.com/mcguffin/wpms-blog-alias#readme",
+  "homepage": "https://github.com/mcguffin/multisite-blog-alias#readme",
   "browserslist": [
     "last 2 versions"
   ],
@@ -59,8 +59,8 @@
     "type": "plugin",
     "build": {
       "prebuild": [
-        "wp i18n make-pot . languages/wpms-blog-alias.pot --domain=wpms-blog-alias",
-        "wp i18n make-pot . languages/wpms-blog-alias-cli.pot --domain=wpms-blog-alias-cli"
+        "wp i18n make-pot . languages/multisite-blog-alias.pot --domain=multisite-blog-alias",
+        "wp i18n make-pot . languages/multisite-blog-alias-cli.pot --domain=multisite-blog-alias-cli"
       ],
       "build": [
         "gulp build"

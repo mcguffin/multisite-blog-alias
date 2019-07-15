@@ -2,18 +2,18 @@
 
 /*
 Plugin Name: Multisite Blog Alias
-Plugin URI: https://github.com/mcguffin/wpms-blog-alias
+Plugin URI: https://github.com/mcguffin/multisite-blog-alias
 Description: Alias Domains for Blogs
 Author: Jörn Lund
 Version: 0.3.3
 Author URI: https://github.com/mcguffin
 License: GPL3
-Github Repository: mcguffin/wpms-blog-alias
-GitHub Plugin URI: mcguffin/wpms-blog-alias
+Github Repository: mcguffin/multisite-blog-alias
+GitHub Plugin URI: mcguffin/multisite-blog-alias
 Requires WP: 4.8
 Requires PHP: 5.5
 Network: true
-Text Domain: wpms-blog-alias
+Text Domain: multisite-blog-alias
 Domain Path: /languages/
 */
 
@@ -54,18 +54,18 @@ if ( ! is_multisite() ) {
 	/**
 	 *	@action admin_notices
 	 */
-	function wpms_blog_alias_multisite_required() {
+	function multisite_blog_alias_multisite_required() {
 		if ( current_user_can('activate_plugins') ) {
 
-			load_plugin_textdomain( 'wpms-blog-alias', false, dirname( plugin_basename( __FILE__ ) ) . '/languages' );
+			load_plugin_textdomain( 'multisite-blog-alias', false, dirname( plugin_basename( __FILE__ ) ) . '/languages' );
 
 			deactivate_plugins( plugin_basename( __FILE__ ), true );
 
 			?>
 			<div class="notice error is-dismissible">
 				<p>
-					<?php _e( 'The Multisite Blog Alias plugin requires a WordPress multisite installation.', 'wpms-blog-alias' ); ?>
-					<strong><?php _e('It has been deactivated.', 'wpms-blog-alias'); ?></strong>
+					<?php _e( 'The Multisite Blog Alias plugin requires a WordPress multisite installation.', 'multisite-blog-alias' ); ?>
+					<strong><?php _e('It has been deactivated.', 'multisite-blog-alias'); ?></strong>
 				</p>
 			</div>
 			<?php
@@ -73,7 +73,7 @@ if ( ! is_multisite() ) {
 		}
 	}
 	// print notice
-	add_action( 'admin_notices', 'BlogAlias\wpms_blog_alias_multisite_required' );
+	add_action( 'admin_notices', 'BlogAlias\multisite_blog_alias_multisite_required' );
 
 	return;
 }

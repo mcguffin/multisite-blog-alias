@@ -3,7 +3,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Multisite Blog Alias 0.3.3\n"
-"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/wpms-blog-alias\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/multisite-blog-alias\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -12,14 +12,14 @@ msgstr ""
 "POT-Creation-Date: 2019-07-15T12:17:43+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.1.0\n"
-"X-Domain: wpms-blog-alias\n"
+"X-Domain: multisite-blog-alias\n"
 
 #. Plugin Name of the plugin
 msgid "Multisite Blog Alias"
 msgstr ""
 
 #. Plugin URI of the plugin
-msgid "https://github.com/mcguffin/wpms-blog-alias"
+msgid "https://github.com/mcguffin/multisite-blog-alias"
 msgstr ""
 
 #. Description of the plugin

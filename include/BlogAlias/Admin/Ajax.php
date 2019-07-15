@@ -64,20 +64,20 @@ class Ajax extends Core\Singleton {
 								echo ' ';
 								printf( '<a href="%s">%s</a>',
 									esc_url( network_admin_url( 'site-info.php?id=' . $data->blog_id ) ),
-									__( 'Edit', 'wpms-blog-alias' )
+									__( 'Edit', 'multisite-blog-alias' )
 								);
 								echo ' ';
 								printf( '<a href="%s">%s</a>',
 									esc_url( get_site_url( $data->blog_id ) ),
-									__( 'View', 'wpms-blog-alias' )
+									__( 'View', 'multisite-blog-alias' )
 								);
 							} else if ( $code === 'redirect-http_error' ) {
-								printf( '<br />%s <code>%s</code>', __('Error message:','wpms-blog-alias'), $data->get_error_message() );
+								printf( '<br />%s <code>%s</code>', __('Error message:','multisite-blog-alias'), $data->get_error_message() );
 
 							} else if ( $code === 'redirect-target_invalid' ) {
 								//
 								printf( '<br />%1$s <a href="%2$s" target="_blank">%2$s</a>',
-									__( 'Last Redirect to:', 'wpms-blog-alias' ),
+									__( 'Last Redirect to:', 'multisite-blog-alias' ),
 									$data
 								);
 							}

@@ -190,7 +190,7 @@ class NetworkAdmin extends Core\Singleton {
 	 */
 	public function edit_site_nav_links( $links ) {
 		$links['alias'] = array(
-			 'label'	=> __( 'Alias Domains', 'wpms-blog-alias' ),
+			 'label'	=> __( 'Alias Domains', 'multisite-blog-alias' ),
 			 'url'		=> 'admin.php?action=alias-domains',
 			 'cap'		=> $this->cap,
 		);
@@ -262,30 +262,30 @@ class NetworkAdmin extends Core\Singleton {
 		);
 
 		if ( isset( $_GET['created'] ) ) {
-			$messages['updated'] = __( 'Alias created', 'wpms-blog-alias');
+			$messages['updated'] = __( 'Alias created', 'multisite-blog-alias');
 		} else if ( isset( $_GET['deleted'] ) ) {
 			/* translators: number of deleted entries */
-			$messages['notice-warning'] = sprintf( _n('%d entry deleted', '%d entries deleted', $_GET['deleted'], 'wpms-blog-alias' ), $_GET['deleted'] );
+			$messages['notice-warning'] = sprintf( _n('%d entry deleted', '%d entries deleted', $_GET['deleted'], 'multisite-blog-alias' ), $_GET['deleted'] );
 		} else if ( isset( $_GET['error'] ) ) {
 			$errors = array(
-				'add-alias-exists'		=> __( 'The Alias already exists.', 'wpms-blog-alias' ),
-				'add-invalid-domain'	=> __( 'Invalid domain name', 'wpms-blog-alias' ),
-				'delete'				=> __( 'Deletion failed', 'wpms-blog-alias'  ),
-				'add-site-exists'		=> __( 'A different Blog is already using this domain.', 'wpms-blog-alias' ),
-				'default'				=> __( 'Something went wrong...', 'wpms-blog-alias' ),
+				'add-alias-exists'		=> __( 'The Alias already exists.', 'multisite-blog-alias' ),
+				'add-invalid-domain'	=> __( 'Invalid domain name', 'multisite-blog-alias' ),
+				'delete'				=> __( 'Deletion failed', 'multisite-blog-alias'  ),
+				'add-site-exists'		=> __( 'A different Blog is already using this domain.', 'multisite-blog-alias' ),
+				'default'				=> __( 'Something went wrong...', 'multisite-blog-alias' ),
 			);
 			$messages['error'] = sprintf( '<strong>%1$s</strong> %2$s' ,
-				__( 'Error:', 'wpms-blog-alias' ),
+				__( 'Error:', 'multisite-blog-alias' ),
 				isset( $errors[ $_GET['error'] ] ) ? $errors[ $_GET['error'] ] : $errors['default']
 			);
 
 			if ( isset( $_GET['other_blog'] ) ) {
 				$messages['error'] .= sprintf( ' <a href="%s">%s</a> | <a href="%s">%s</a>',
 					esc_url( get_site_url( $_GET['other_blog'] ) ),
-					__( 'Visit other Blog', 'wpms-blog-alias' ),
+					__( 'Visit other Blog', 'multisite-blog-alias' ),
 
 					esc_url( network_admin_url( 'site-info.php?id=' . $_GET['other_blog'] ) ),
-					__( 'Edit', 'wpms-blog-alias' )
+					__( 'Edit', 'multisite-blog-alias' )
 				);
 
 			}
@@ -293,8 +293,8 @@ class NetworkAdmin extends Core\Singleton {
 		if ( isset( $_GET['notice'] ) && $_GET['notice'] === 'add-is-self' ) {
 
 			$messages['notice-warning'] = sprintf( '<strong>%1$s</strong> %2$s' ,
-				__('Notice:','wpms-blog-alias'),
-				__('The domain matches the site URL of this blog.','wpms-blog-alias')
+				__('Notice:','multisite-blog-alias'),
+				__('The domain matches the site URL of this blog.','multisite-blog-alias')
 			);
 		}
 		?>
@@ -326,7 +326,7 @@ class NetworkAdmin extends Core\Singleton {
 			// form
 			?>
 			<!-- add -->
-			<h2><?php _e('Add Domain Alias','wpms-blog-alias'); ?></h2>
+			<h2><?php _e('Add Domain Alias','multisite-blog-alias'); ?></h2>
 			<form method="post" action="admin.php?action=alias-domain-add">
 				<?php wp_nonce_field( 'alias-domain-add' ); ?>
 				<input type="hidden" name="blog_id" value="<?php echo esc_attr( $this->blog_details->id ) ?>" />
@@ -337,18 +337,18 @@ class NetworkAdmin extends Core\Singleton {
 								<input id="add-domain-alias" placeholder="subdomain.domain.tld" type="text" name="domain_alias" class="widefat code" />
 							</td>
 							<td class="action-links">
-								<button class="button-primary" type="submit"><?php _e('Add','wpms-blog-alias'); ?></button>
+								<button class="button-primary" type="submit"><?php _e('Add','multisite-blog-alias'); ?></button>
 							</td>
 						</tr>
 					</tbody>
 				</table>
 			</form>
 			<!-- remove -->
-			<h2><?php _e('Domain Aliases','wpms-blog-alias'); ?></h2>
+			<h2><?php _e('Domain Aliases','multisite-blog-alias'); ?></h2>
 			<?php if ( empty( $aliases ) ) {
 
 				?>
-					<p><?php _e('– No Domain Aliases –', 'wpms-blog-alias'); ?></p>
+					<p><?php _e('– No Domain Aliases –', 'multisite-blog-alias'); ?></p>
 				<?php
 
 			} else {
@@ -356,8 +356,8 @@ class NetworkAdmin extends Core\Singleton {
 
 				<table class="widefat striped domain-status-list-table">
 					<thead>
-						<th><?php _e('Alias Domain','wpms-blog-alias'); ?></th>
-						<th class="status"><?php _e( 'Status', 'wpms-blog-alias' ) ?></th>
+						<th><?php _e('Alias Domain','multisite-blog-alias'); ?></th>
+						<th class="status"><?php _e( 'Status', 'multisite-blog-alias' ) ?></th>
 						<th class="action-links"></th>
 					</thead>
 					<tbody>
@@ -385,7 +385,7 @@ class NetworkAdmin extends Core\Singleton {
 										<?php wp_nonce_field( 'alias-domain-remove-' . $alias->ID ); ?>
 										<input type="hidden" name="blog_id" value="<?php echo esc_attr( $this->blog_details->id ) ?>" />
 										<button class="button-secondary" type="submit" name="id" value="<?php echo $alias->ID; ?>">
-											<?php _e('Remove','wpms-blog-alias'); ?>
+											<?php _e('Remove','multisite-blog-alias'); ?>
 										</button>
 									</form>
 								</td>
@@ -402,9 +402,9 @@ class NetworkAdmin extends Core\Singleton {
 							<th class="action-links">
 								<form method="post" action="admin.php?action=alias-domain-remove-all">
 									<?php wp_nonce_field( 'alias-domain-remove-all' ); ?>
-									<a href="#" data-action="check-alias-status" class="button"><?php _e( 'Check Status', 'wpms-blog-alias' ) ?></a>
+									<a href="#" data-action="check-alias-status" class="button"><?php _e( 'Check Status', 'multisite-blog-alias' ) ?></a>
 									<button class="button-secondary" type="submit" name="blog_id" value="<?php echo $this->blog_details->id; ?>">
-										<?php _e('Remove All','wpms-blog-alias'); ?>
+										<?php _e('Remove All','multisite-blog-alias'); ?>
 									</button>
 								</form>
 							</th>

@@ -108,7 +108,7 @@ class AliasDomain extends Core\Singleton {
 		}
 		if ( ! $compact ) {
 			/* Translators: NUmber of deleted items */
-			\WP_CLI::success( sprintf( __( "%d Aliases total", 'wpms-blog-alias-cli' ), $total ) );
+			\WP_CLI::success( sprintf( __( "%d Aliases total", 'multisite-blog-alias-cli' ), $total ) );
 		}
 	}
 
@@ -166,28 +166,28 @@ class AliasDomain extends Core\Singleton {
 		extract( $kwargs );
 
 		if ( empty($blog_domain) && ! $blog_id ) {
-			\WP_CLI::error( __( 'Must specify either blog_id or blog_domain', 'wpms-blog-alias-cli' ) );
+			\WP_CLI::error( __( 'Must specify either blog_id or blog_domain', 'multisite-blog-alias-cli' ) );
 		}
 		// url exists as blog
 		if ( ! $blog_id && ! empty( $blog_domain ) && ! ( $blog_id = get_blog_id_from_url( $blog_domain ) ) ) {
 			/* Translators: Blog Domain */
-			\WP_CLI::error( sprintf(__( 'Blog domain %s does not exist', 'wpms-blog-alias-cli' ), $blog_domain ) );
+			\WP_CLI::error( sprintf(__( 'Blog domain %s does not exist', 'multisite-blog-alias-cli' ), $blog_domain ) );
 		}
 		if ( ! $blog_id ) {
 			/* Translators: Blog ID */
-			\WP_CLI::error( sprintf(__( 'Blog ID %d does not exist', 'wpms-blog-alias-cli' ), $blog_id ) );
+			\WP_CLI::error( sprintf(__( 'Blog ID %d does not exist', 'multisite-blog-alias-cli' ), $blog_id ) );
 		}
 		$blog_id = intval( $blog_id );
 
 		// invalid hostname
 		if ( false === $this->model->validate( 'domain_alias', $domain_alias ) ) {
-			\WP_CLI::error( __( 'Invalid domain_alias', 'wpms-blog-alias-cli' ) );
+			\WP_CLI::error( __( 'Invalid domain_alias', 'multisite-blog-alias-cli' ) );
 		}
 
 		// url exists as blog
 		if ( $other_blog_id = get_blog_id_from_url( $domain_alias ) ) {
 			/* Translators: AliasDomain, Blog ID */
-			$msg = sprintf(__( 'Domain %1$s exists for blog %2$d', 'wpms-blog-alias-cli' ), $domain_alias, $other_blog_id );
+			$msg = sprintf(__( 'Domain %1$s exists for blog %2$d', 'multisite-blog-alias-cli' ), $domain_alias, $other_blog_id );
 			if ( $other_blog_id !== $blog_id ) {
 				\WP_CLI::error( $msg );
 			} else {
@@ -198,7 +198,7 @@ class AliasDomain extends Core\Singleton {
 		// alias exists
 		if ( $record = $this->model->fetch_one_by('domain_alias', $domain_alias ) ) {
 			/* Translators: AliasDomain, Blog ID */
-			\WP_CLI::error( sprintf(__( 'Domain Alias %1$s exists for blog %2$d', 'wpms-blog-alias-cli' ), $domain_alias, $record->blog_id ) );
+			\WP_CLI::error( sprintf(__( 'Domain Alias %1$s exists for blog %2$d', 'multisite-blog-alias-cli' ), $domain_alias, $record->blog_id ) );
 		}
 
 		$data = array(
@@ -215,11 +215,11 @@ class AliasDomain extends Core\Singleton {
 			if ( $compact ) {
 				echo $this->model->insert_id;
 			} else {
-				\WP_CLI::success( sprintf( __( "Alias created with ID %d", 'wpms-blog-alias-cli' ), $this->model->insert_id ) );
+				\WP_CLI::success( sprintf( __( "Alias created with ID %d", 'multisite-blog-alias-cli' ), $this->model->insert_id ) );
 			}
 		} else {
 			/* Translators: Error message */
-			\WP_CLI::error( sprintf( __( 'Error creating Domain Alias: %s', 'wpms-blog-alias-cli' ), $this->model->last_error ) );
+			\WP_CLI::error( sprintf( __( 'Error creating Domain Alias: %s', 'multisite-blog-alias-cli' ), $this->model->last_error ) );
 		}
 	}
 
@@ -268,20 +268,20 @@ class AliasDomain extends Core\Singleton {
 		extract( $kwargs );
 
 		if ( empty( $blog_domain ) && ! $blog_id && ! $id && empty( $domain_alias ) ) {
-			\WP_CLI::error( __( 'Must specify either `id` or `blog_id` or `blog_domain` or `domain_alias` to remove', 'wpms-blog-alias-cli' ) );
+			\WP_CLI::error( __( 'Must specify either `id` or `blog_id` or `blog_domain` or `domain_alias` to remove', 'multisite-blog-alias-cli' ) );
 		}
 		$where = array();
 
 		if ( ! empty( $blog_domain ) ) {
 			if ( ! $blog_id = get_blog_id_from_url( $blog_domain )) {
 				/* Translators: Blog Domain */
-				\WP_CLI::error( sprintf(__( 'Blog domain %s does not exist', 'wpms-blog-alias-cli' ), $blog_domain ) );
+				\WP_CLI::error( sprintf(__( 'Blog domain %s does not exist', 'multisite-blog-alias-cli' ), $blog_domain ) );
 			}
 			$where['blog_id'] = $blog_id;
 		} else if ( ! empty( $domain_alias ) ) {
 			if ( ! $this->model->fetch_one_by( 'domain_alias', $domain_alias ) ) {
 				/* Translators: Alias Domain */
-				\WP_CLI::error( sprintf(__( 'Domain Alias %s does not exist', 'wpms-blog-alias-cli' ), $domain_alias ) );
+				\WP_CLI::error( sprintf(__( 'Domain Alias %s does not exist', 'multisite-blog-alias-cli' ), $domain_alias ) );
 			}
 			$where['domain_alias'] = $domain_alias;
 		} else if ( $blog_id ) {
@@ -289,7 +289,7 @@ class AliasDomain extends Core\Singleton {
 		} else if ( $id ) {
 			if ( ! $this->model->fetch_one_by( 'id', $id ) ) {
 				/* Translators: Domain Alias ID */
-				\WP_CLI::error( sprintf(__( 'Domain Alias with ID %d does not exist', 'wpms-blog-alias-cli' ), $id ) );
+				\WP_CLI::error( sprintf(__( 'Domain Alias with ID %d does not exist', 'multisite-blog-alias-cli' ), $id ) );
 			}
 			$where['id'] = $id;
 		}
@@ -298,10 +298,10 @@ class AliasDomain extends Core\Singleton {
 
 		if ( $total !== false ) {
 			/* Translators: Number of deleted items */
-			\WP_CLI::success( sprintf( __( "%d Aliases deleted", 'wpms-blog-alias-cli' ), $total ) );
+			\WP_CLI::success( sprintf( __( "%d Aliases deleted", 'multisite-blog-alias-cli' ), $total ) );
 		} else {
 			/* Translators: Error message */
-			\WP_CLI::error( sprintf( __( 'Error deleting domain aliases: %s', 'wpms-blog-alias-cli' ), $this->model->last_error ) );
+			\WP_CLI::error( sprintf( __( 'Error deleting domain aliases: %s', 'multisite-blog-alias-cli' ), $this->model->last_error ) );
 		}
 
 	}
@@ -353,7 +353,7 @@ class AliasDomain extends Core\Singleton {
  		));
 		extract( $kwargs );
 		if ( ! $id && empty( $domain_alias ) ) {
-			\WP_CLI::error( __( 'Must specify either `id` or `domain_alias` to test', 'wpms-blog-alias-cli' ) );
+			\WP_CLI::error( __( 'Must specify either `id` or `domain_alias` to test', 'multisite-blog-alias-cli' ) );
 		}
 
 		if ( ! empty( $domain_alias ) ) {
@@ -363,7 +363,7 @@ class AliasDomain extends Core\Singleton {
 					\WP_CLI::line('not-an-alias');
 					return;
 				} else {
-					\WP_CLI::error( sprintf(__( 'Domain Alias %s does not exist', 'wpms-blog-alias-cli' ), $domain_alias ) );
+					\WP_CLI::error( sprintf(__( 'Domain Alias %s does not exist', 'multisite-blog-alias-cli' ), $domain_alias ) );
 				}
 			}
 		} else if ( $id ) {
@@ -373,7 +373,7 @@ class AliasDomain extends Core\Singleton {
 					\WP_CLI::line('not-an-alias');
 					return;
 				} else {
-					\WP_CLI::error( sprintf(__( 'Domain Alias with ID %d does not exist', 'wpms-blog-alias-cli' ), $id ) );
+					\WP_CLI::error( sprintf(__( 'Domain Alias with ID %d does not exist', 'multisite-blog-alias-cli' ), $id ) );
 				}
 			}
 			$where['id'] = $id;
@@ -385,7 +385,7 @@ class AliasDomain extends Core\Singleton {
 			if ( $compact ) {
 				\WP_CLI::line('ok');
 			} else {
-				\WP_CLI::success( __('OK', 'wpms-blog-alias-cli' ));
+				\WP_CLI::success( __('OK', 'multisite-blog-alias-cli' ));
 			}
 		} else if ( is_wp_error( $result ) ) {
 			if ( $compact ) {

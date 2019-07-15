@@ -57,7 +57,7 @@ class ModelAliasDomains extends Model {
 		if ( is_numeric( $alias ) ) {
 			$alias = $this->fetch_one_by( 'ID', $alias );
 			if ( ! $alias ) {
-				return new \WP_Error( 'not-an-alias', __( 'Domain alias not found.', 'wpms-blog-alias' ) );
+				return new \WP_Error( 'not-an-alias', __( 'Domain alias not found.', 'multisite-blog-alias' ) );
 			}
 		}
 
@@ -66,14 +66,14 @@ class ModelAliasDomains extends Model {
 		$site_url = get_site_url( $alias->blog_id );
 
 		if ( ! $site_url ) {
-			return new \WP_Error( 'site-not_found', __( 'WP-Site for this alias could not be found.', 'wpms-blog-alias' ) );
+			return new \WP_Error( 'site-not_found', __( 'WP-Site for this alias could not be found.', 'multisite-blog-alias' ) );
 		}
 		// test if used by other sites
 		if ( $site !== false ) {
 			if ( intval( $site->blog_id ) !== intval( $alias->blog_id ) ) {
-				return new \WP_Error( 'usedby-ms_site', __( 'The domain is already used by another site.', 'wpms-blog-alias' ), $site );
+				return new \WP_Error( 'usedby-ms_site', __( 'The domain is already used by another site.', 'multisite-blog-alias' ), $site );
 			} else {
-				return new \WP_Error( 'usedby-self', __( 'The domain matches the site URL of this blog.', 'wpms-blog-alias' ) );
+				return new \WP_Error( 'usedby-self', __( 'The domain matches the site URL of this blog.', 'multisite-blog-alias' ) );
 			}
 		}
 
@@ -89,14 +89,14 @@ class ModelAliasDomains extends Model {
 			) );
 			if ( is_wp_error( $response ) ) {
 
-				return new \WP_Error( 'redirect-http_error', __( 'The domain is unreachable.', 'wpms-blog-alias' ), $response );
+				return new \WP_Error( 'redirect-http_error', __( 'The domain is unreachable.', 'multisite-blog-alias' ), $response );
 
 			}
 
 			$loc = $response['headers']->offsetGet( 'location' );
 
 			if ( ! $loc ) {
-				return new \WP_Error( 'redirect-target_invalid', __( 'The domain or a redirect does not point to this blog.', 'wpms-blog-alias' ), $location );
+				return new \WP_Error( 'redirect-target_invalid', __( 'The domain or a redirect does not point to this blog.', 'multisite-blog-alias' ), $location );
 			}
 			$location = trailingslashit($loc);
 			if ( $site_url === $location ) {

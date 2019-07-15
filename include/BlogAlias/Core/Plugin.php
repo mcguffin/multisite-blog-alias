@@ -139,7 +139,7 @@ class Plugin extends PluginComponent {
 	 */
 	public function load_textdomain() {
 		$path = pathinfo( $this->get_plugin_file(), PATHINFO_FILENAME );
-		load_plugin_textdomain( 'wpms-blog-alias', false, $path . '/languages' );
+		load_plugin_textdomain( 'multisite-blog-alias', false, $path . '/languages' );
 	}
 
 

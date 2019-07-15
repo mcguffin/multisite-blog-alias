@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: WPMS Blog Alias\n"
-"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/wpms-blog-alias\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/multisite-blog-alias\n"
 "POT-Creation-Date: 2019-07-15T10:51:35+00:00\n"
 "PO-Revision-Date: 2019-07-15 12:52+0200\n"
 "Last-Translator: Jörn Lund <joern@podpirate.org>\n"
@@ -26,8 +26,8 @@ msgid "Multisite Blog Alias"
 msgstr "Multisite Blog Alias"
 
 #. Plugin URI of the plugin
-msgid "https://github.com/mcguffin/wpms-blog-alias"
-msgstr "https://github.com/mcguffin/wpms-blog-alias"
+msgid "https://github.com/mcguffin/multisite-blog-alias"
+msgstr "https://github.com/mcguffin/multisite-blog-alias"
 
 #. Description of the plugin
 msgid "Alias Domains for Blogs"
