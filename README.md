@@ -1,15 +1,12 @@
 WPMS Blog Alias
 ===============
 
-WordPress plugin to maintain alternative Domains for a blog.
+WP Multisite plugin to maintain URL-redirects for Blogs.
 
-Blog Aliases will permanently redirect to the blog they belong to.
-
-Painless installation and activation – makes all necessary changes to `wp-config.php` and `wp-content/sunrise.php`.
+**Currently being reviewed by the WP-Plugins Team**
 
 Features
 --------
-
  - Permanent 301 Redirect to blogs main domain
  - Painless installation and activation – no file access necessary.
  - Checks domain status
