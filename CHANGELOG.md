@@ -1,6 +1,12 @@
 WPMS Blog Alias Changelog
 =========================
 
+0.4.0
+-----
+ - Feature: Uninstall action (removes table from DB)
+ - Uninstall: don't remove Table from DB
+ - Change plugin slug to multisite-blog-alias
+
 0.3.3
 -----
  - Feature: wp-cli - introduce test command

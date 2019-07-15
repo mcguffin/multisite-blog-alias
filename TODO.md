@@ -1,8 +1,8 @@
 WPMS Blog Alias
 ===============
- - [ ] Uninstall
-	 - [ ] don't delete table
-	 - [x] Add Plugin action "Uninstall" (removes table, deactivates)
+ - [x] Uninstall
+	 - [x] don't delete table
+	 - [x] Add Plugin action "Uninstall" (removes table, deactivates plugin)
  - [ ] Feature: Import/Export data
  - [ ] Feature: allow blog admins to edit redirects
- - [ ] Feature: allow subdirectory redirects
+ - [ ] Feature: subdirectory aliases
