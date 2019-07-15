@@ -7,7 +7,7 @@
     "init": "",
     "dev": "gulp dev",
     "build": "gulp build && npm run i18n",
-    "i18n": "wp i18n make-pot . languages/wpms-blog-alias.pot --domain=wpms-blog-alias",
+    "i18n": "wp i18n make-pot . languages/wpms-blog-alias.pot --domain=wpms-blog-alias && wp i18n make-pot . languages/wpms-blog-alias-cli.pot --domain=wpms-blog-alias-cli",
     "rollback": "git reset --hard HEAD~ && git push origin +master",
     "dashicons": "node ./src/run/dashicons.js"
   },
@@ -59,7 +59,8 @@
     "type": "plugin",
     "build": {
       "prebuild": [
-        "wp i18n make-pot . languages/wpms-blog-alias.pot --domain=wpms-blog-alias"
+        "wp i18n make-pot . languages/wpms-blog-alias.pot --domain=wpms-blog-alias",
+        "wp i18n make-pot . languages/wpms-blog-alias-cli.pot --domain=wpms-blog-alias-cli"
       ],
       "build": [
         "gulp build"
