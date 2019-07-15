@@ -1,11 +1,11 @@
 === Multisite Blog Alias ===
 Contributors: podpirate
 Donate link: https://www.msf.org/donate
-Tags: network, redirect, multisite, domain
+Tags: network, multisite, redirect, domain
 Requires at least: 4.8
 Requires PHP: 5.5
 Tested up to: 5.2.2
-Stable tag: 0.3.1
+Stable tag: 0.3.0
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -18,8 +18,8 @@ WP Multisite plugin to maintain URL-redirects .
 ## Features
  - Permanent 301 Redirect to blogs main domain
  - Painless installation and activation – no file access necessary.
- - Checks domain status
- - [WP-Cli](https://wp-cli.org/) commands
+ - Domain status checks
+ - [WP-Cli](https://wp-cli.org/) commands `list`, `add`, `remove`
 
 ## Development
 
