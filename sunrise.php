@@ -16,11 +16,12 @@ function blog_alias_site_not_found( $current_site, $domain, $path ) {
 
 	if ( $result = $model->fetch_one_by( 'domain_alias', $domain ) ) {
 		global $wpdb;
-		$scheme = is_ssl() ? 'https' : 'http';
-		$blog = $wpdb->get_row( $wpdb->prepare("SELECT domain,path FROM $wpdb->blogs WHERE blog_id=%d", $result->blog_id));
+		switch_to_blog( $result->blog_id );
+		$site_url = get_option( 'siteurl' );
+		restore_current_blog();
 
 		http_response_code(301);
-		header( 'Location: ' . "{$scheme}://{$blog->domain}{$blog->path}" );
+		header( 'Location: ' . trailingslashit($site_url) );
 
 		exit();
 	}

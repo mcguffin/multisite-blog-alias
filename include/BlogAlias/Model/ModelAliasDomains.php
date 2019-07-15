@@ -77,6 +77,7 @@ class ModelAliasDomains extends Model {
 		// test redirects
 		$location = "http://{$alias->domain_alias}";
 		$site_url = trailingslashit($site_url);
+
 		while ( true ) {
 			$response = wp_remote_head( $location, array(
 				'redirection'	=> 0,
@@ -86,7 +87,7 @@ class ModelAliasDomains extends Model {
 				return new \WP_Error( 'redirect-http_error', __( 'The domain is unreachable.', 'wpms-blog-alias' ), $response );
 			}
 
-			$loc = $response['headers']->offsetGet( 'location' );
+			$loc = trailingslashit($response['headers']->offsetGet( 'location' ));
 
 			if ( ! $loc ) {
 				return new \WP_Error( 'redirect-target_invalid', __( 'The domain or a redirect does not point to this blog.', 'wpms-blog-alias' ), $location );

@@ -72,11 +72,16 @@ class NetworkAdmin extends Core\Singleton {
 		// alias exists
 		if ( $record = $this->model->fetch_one_by('domain_alias', $domain_alias ) ) {
 			$redirect_args['error']	= 'add-alias-exists';
-		}
-
-		if ( $other_blog_id = get_blog_id_from_url( $domain_alias ) ) {
-			$redirect_args['notice']		= 'add-site-exists';
-			$redirect_args['other_blog']	= $other_blog_id;
+			if ( $record->blog_id != $blog_id ) {
+				$redirect_args['other_blog']	= $record->blog_id;
+			}
+		} else if ( $other_blog_id = get_blog_id_from_url( $domain_alias ) ) {
+			if ( $other_blog_id != $blog_id ) {
+				$redirect_args['error']			= 'add-site-exists';
+				$redirect_args['other_blog']	= $other_blog_id;
+			} else {
+				$redirect_args['notice']		= 'add-is-self';
+			}
 		}
 
 		if ( ! isset( $redirect_args['error'] ) ) {
@@ -263,28 +268,34 @@ class NetworkAdmin extends Core\Singleton {
 			$messages['notice-warning'] = sprintf( _n('%d entry deleted', '%d entries deleted', $_GET['deleted'], 'wpms-blog-alias' ), $_GET['deleted'] );
 		} else if ( isset( $_GET['error'] ) ) {
 			$errors = array(
-				'add-alias-exists'		=> __( 'Error: The Alias already exists.', 'wpms-blog-alias' ),
-				'add-invalid-domain'	=> __( 'Error: Invalid domain name', 'wpms-blog-alias' ),
-				'delete'				=> __( 'Error during delete', 'wpms-blog-alias'  ),
+				'add-alias-exists'		=> __( 'The Alias already exists.', 'wpms-blog-alias' ),
+				'add-invalid-domain'	=> __( 'Invalid domain name', 'wpms-blog-alias' ),
+				'delete'				=> __( 'Deletion failed', 'wpms-blog-alias'  ),
+				'add-site-exists'		=> __( 'A different Blog is already using this domain.', 'wpms-blog-alias' ),
 				'default'				=> __( 'Something went wrong...', 'wpms-blog-alias' ),
 			);
-			$messages['error'] = isset( $errors[ $_GET['error'] ] ) ? $errors[ $_GET['error'] ] : $errors['default'];
-
-		}
-		if ( isset( $_GET['notice'] ) && $_GET['notice'] == 'add-site-exists' ) {
-			$messages['notice-warning'] = __( 'Notice: A different Blog is already using this domain. The redirect will not work until this blog is deleted.', 'wpms-blog-alias' );
+			$messages['error'] = sprintf( '<strong>%1$s</strong> %2$s' ,
+				__( 'Error:', 'wpms-blog-alias' ),
+				isset( $errors[ $_GET['error'] ] ) ? $errors[ $_GET['error'] ] : $errors['default']
+			);
 
 			if ( isset( $_GET['other_blog'] ) ) {
-				$messages['notice-warning'] .= sprintf( '<a href="%s">%s</a> <a href="%s">%s</a>',
+				$messages['error'] .= sprintf( ' <a href="%s">%s</a> | <a href="%s">%s</a>',
 					esc_url( get_site_url( $_GET['other_blog'] ) ),
-					__( 'View', 'wpms-blog-alias' ),
+					__( 'Visit other Blog', 'wpms-blog-alias' ),
 
 					esc_url( network_admin_url( 'site-info.php?id=' . $_GET['other_blog'] ) ),
 					__( 'Edit', 'wpms-blog-alias' )
 				);
 
 			}
+		}
+		if ( isset( $_GET['notice'] ) && $_GET['notice'] === 'add-is-self' ) {
 
+			$messages['notice-warning'] = sprintf( '<strong>%1$s</strong> %2$s' ,
+				__('Notice:','wpms-blog-alias'),
+				__('The domain matches the site URL of this blog.','wpms-blog-alias')
+			);
 		}
 		?>
 
