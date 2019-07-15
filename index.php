@@ -5,7 +5,7 @@ Plugin Name: Multisite Blog Alias
 Plugin URI: https://github.com/mcguffin/wpms-blog-alias
 Description: Alias Domains for Blogs
 Author: Jörn Lund
-Version: 0.3.0
+Version: 0.3.1
 Author URI: https://github.com/mcguffin
 License: GPL3
 Github Repository: mcguffin/wpms-blog-alias
