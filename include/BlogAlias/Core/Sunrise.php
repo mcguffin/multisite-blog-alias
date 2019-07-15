@@ -94,7 +94,7 @@ class Sunrise extends PluginComponent {
 	private static function generate_sunrise_php( $slug = null ) {
 		$core = Plugin::instance();
 		if ( is_null( $slug ) ) {
-			$slug = $core->get_slug();			
+			$slug = $core->get_slug();
 		}
 		$php = "//BEGIN:{$slug}\n";
 		$php .= '$plugin_sunrise_file = WP_CONTENT_DIR . \'/plugins/'. dirname( $core->get_wp_plugin() ).'/sunrise.php\';' . "\n";
@@ -110,7 +110,7 @@ class Sunrise extends PluginComponent {
 	 */
 	private static function reset_sunrise( $slug = null ) {
 		if ( is_null( $slug ) ) {
-			$slug = Plugin::instance()->get_slug();			
+			$slug = Plugin::instance()->get_slug();
 		}
 		if ( file_exists( WP_CONTENT_DIR . '/sunrise.php' ) ) {
 			$sunrise_contents = file_get_contents( WP_CONTENT_DIR . '/sunrise.php' );

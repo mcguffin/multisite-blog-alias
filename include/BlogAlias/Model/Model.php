@@ -61,12 +61,17 @@ abstract class Model extends Core\PluginComponent {
 	/**
 	 *	@inheritdoc
 	 */
-	public static function uninstall() {
+	public function drop() {
 		// drop table
 		global $wpdb;
 		$tbl = $this->table;
 		$wpdb->query("DROP TABLE {$wpdb->$tbl}");
+	}
 
+	/**
+	 *	@inheritdoc
+	 */
+	public static function uninstall() {
 	}
 
 	/**
@@ -125,6 +130,17 @@ abstract class Model extends Core\PluginComponent {
 		global $wpdb;
 		$table = $wpdb->{$this->table};
 		return $wpdb->get_results( "SELECT * FROM $table" );
+	}
+
+	/**
+	 *	Fetch all records
+	 *
+	 *	@return	array
+	 */
+	public function fetch_count() {
+		global $wpdb;
+		$table = $wpdb->{$this->table};
+		return $wpdb->get_var( "SELECT COUNT(ID) FROM $table" );
 	}
 
 

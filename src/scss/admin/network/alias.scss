@@ -1,6 +1,10 @@
 @import '../../mixins/index';
 @import '../../variables/index';
 
+.card-warning {
+	border-left: 4px solid $wp-yellow;
+}
+
 .domain-status-list-table {
 	th,td {
 		&.status {

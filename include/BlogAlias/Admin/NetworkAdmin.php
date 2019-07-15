@@ -22,6 +22,12 @@ class NetworkAdmin extends Core\Singleton {
 
 	private $cap = 'manage_network';
 
+
+
+	/** @var string plugin uninstall action name */
+	private $uninstall_action = 'uninstall-multisite-blog-alias';
+
+
 	/**
 	 *	@inheritdoc
 	 */
@@ -41,7 +47,85 @@ class NetworkAdmin extends Core\Singleton {
 		add_action( 'admin_action_alias-domain-remove', array( $this, 'remove_alias_domain' ) );
 		add_action( 'admin_action_alias-domain-remove-all', array( $this, 'remove_alias_domains' ) );
 
+		add_filter( 'network_admin_plugin_action_links_'. $this->core->get_wp_plugin(), array( $this, 'add_uninstall_action' ), 10, 4 );
+		add_action( 'admin_action_' . $this->uninstall_action, array( $this, 'uninstall_action' ) );
+
 	}
+
+
+
+
+
+	/**
+	 *	@filter plugin_action_links_{$plugin_basename}
+	 */
+	public function add_uninstall_action( $links, $plugin_file, $plugin_data, $context ) {
+
+		if ( current_user_can( 'manage_network_plugins' ) && current_user_can('delete_plugins') ) {
+			$url = network_admin_url('admin.php');
+			$action = 'uninstall-multisite-blog-alias';
+			$url = add_query_arg( array(
+				'action'	=> $this->uninstall_action,
+				'nonce'		=> wp_create_nonce( $this->uninstall_action ),
+			), $url );
+			$links[] = sprintf('<a href="%s">%s</a>', $url, __( 'Uninstall', 'multisite-blog-alias' ) );
+		}
+		return $links;
+	}
+
+	/**
+	 *	@action admin_action_uninstall-multisite-blog-alias
+	 */
+	public function uninstall_action() {
+
+		// check nonce
+		check_admin_referer( $_REQUEST['action'], 'nonce' );
+
+		// check capabilites
+		if ( ! ( current_user_can( 'manage_network_plugins' ) && current_user_can('delete_plugins') ) ) {
+			wp_die( __( 'Sorry, you are not allowed run the uninstall procedere.', '' ) );
+		}
+
+		$model = Model\ModelAliasDomains::instance();
+
+		//
+		if ( isset( $_REQUEST['confirm'] ) ) {
+			// exec
+			if ( $_REQUEST['confirm'] === 'yes' ) {
+				// vaR_dump('drop','deactivate');exit();
+				$model->drop();
+				deactivate_plugins( $this->core->get_wp_plugin(), false, true );
+
+				wp_safe_redirect( add_query_arg( 'deactivate', '1', network_admin_url( 'plugins.php' ) ) );
+			} else {
+				wp_safe_redirect( network_admin_url( 'plugins.php' ) );
+			}
+		} else {
+			// ask for confirmation
+			$this->admin_header( 'plugins.php' );
+			?>
+			<div class="card card-warning">
+				<h2><?php _e( 'Uninstall Plugin?', 'multisite-blog-alias' ); ?></h2>
+				<p><?php _e( 'Uninstalling the plugin will remove the Blog Alias table from the database and deactivate the plugin.','multisite-blog-alias'); ?></p>
+				<p><strong><?php
+					$count = $model->fetch_count();
+					/* Translators: %d number of alias domains */
+					printf( _n('%d Alias Domain will be deleted.', '%d Alias Domains will be deleted.', $count, 'multisite-blog-alias'), $count );
+				?></strong></p>
+				<form method="post">
+					<a href="<?php esc_attr_e( network_admin_url( 'plugins.php' ) ); ?>" class="button"><?php _e('No, back to plugins','multisite-blog-alias'); ?></a>
+					<button class="button button-primary" name="confirm" value="yes"><?php _e('Yes, Uninstall now!','multisite-blog-alias'); ?></button>
+				</form>
+			</div>
+			<?php
+
+			$this->admin_footer();
+		}
+	}
+
+
+
+
 
 
 	/**
@@ -226,15 +310,17 @@ class NetworkAdmin extends Core\Singleton {
 
 		add_filter( 'removable_query_args', '__return_empty_array' );
 
-		$this->admin_alias_header();
+		$title = sprintf( __( 'Edit Site: %s' ), esc_html( $this->blog_details->blogname ) );
+
+		$this->admin_header('sites.php', $title );
 		$this->admin_alias_body();
-		$this->admin_alias_footer();
+		$this->admin_footer();
 	}
 
 	/**
 	 *	Print blog admin page header
 	 */
-	private function admin_alias_header() {
+	private function admin_header( $parent = '', $page_title = false ) {
 
 		// handle actions here!
 
@@ -242,7 +328,8 @@ class NetworkAdmin extends Core\Singleton {
 
 		$parent_file = 'sites.php';
 		$submenu_file = 'sites.php';
-		$title = sprintf( __( 'Edit Site: %s' ), esc_html( $this->blog_details->blogname ) );
+		$title = $page_title;
+
 		wp_enqueue_script('admin-alias-domain', $this->core->get_asset_url('js/admin/network/alias.js'), ['jquery'], $this->core->get_version(), true );
 		wp_enqueue_style('admin-alias-domain', $this->core->get_asset_url('css/admin/network/alias.css'), [], $this->core->get_version() );
 		require( ABSPATH . 'wp-admin/admin-header.php' );
@@ -426,7 +513,7 @@ class NetworkAdmin extends Core\Singleton {
 	/**
 	 *	Print blog admin page footer
 	 */
-	private function admin_alias_footer() {
+	private function admin_footer() {
 		require( ABSPATH . 'wp-admin/admin-footer.php' );
 	}
 

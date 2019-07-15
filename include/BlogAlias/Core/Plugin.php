@@ -12,8 +12,8 @@ if ( ! defined('ABSPATH') ) {
 }
 
 
-use BlogAlias\PostType;
 use BlogAlias\Compat;
+use BlogAlias\Model;
 
 class Plugin extends PluginComponent {
 
@@ -54,6 +54,7 @@ class Plugin extends PluginComponent {
 		register_uninstall_hook( $this->get_plugin_file(), array( __CLASS__, 'uninstall' ) );
 
 	}
+
 
 	/**
 	 *	@filter extra_plugin_headers
@@ -216,7 +217,7 @@ class Plugin extends PluginComponent {
 	}
 
 	/**
-	 *	Fired on plugin deinstallation
+	 *	Fired on plugin delete
 	 */
 	public static function uninstall() {
 		foreach ( self::$components as $component ) {
