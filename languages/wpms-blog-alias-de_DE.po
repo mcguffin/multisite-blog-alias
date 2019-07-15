@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WPMS Blog Alias\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/wpms-blog-alias\n"
-"POT-Creation-Date: 2019-07-14T14:26:09+00:00\n"
-"PO-Revision-Date: 2019-07-14 16:26+0200\n"
+"POT-Creation-Date: 2019-07-15T10:00:43+00:00\n"
+"PO-Revision-Date: 2019-07-15 12:01+0200\n"
 "Last-Translator: Jörn Lund <joern@podpirate.org>\n"
 "Language-Team: \n"
 "Language: de_DE\n"
@@ -40,6 +40,15 @@ msgstr "Jörn Lund"
 #. Author URI of the plugin
 msgid "https://github.com/mcguffin"
 msgstr "https://github.com/mcguffin"
+
+#: index.php:67
+msgid ""
+"The Multisite Blog Alias plugin requires a WordPress multisite installation."
+msgstr "Das Plugin Multisite Blog Alias benötigt eine Multisite-Installation."
+
+#: index.php:68
+msgid "It has been deactivated."
+msgstr "Es wurde deaktiviert."
 
 #: include/BlogAlias/Admin/Ajax.php:67
 #: include/BlogAlias/Admin/NetworkAdmin.php:283

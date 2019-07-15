@@ -47,6 +47,37 @@ if ( ! defined('ABSPATH') ) {
 }
 
 
+/**
+ *	Check mutisite requirement and print notice
+ */
+if ( ! is_multisite() ) {
+	/**
+	 *	@action admin_notices
+	 */
+	function wpms_blog_alias_multisite_required() {
+		if ( current_user_can('activate_plugins') ) {
+
+			load_plugin_textdomain( 'wpms-blog-alias', false, dirname( plugin_basename( __FILE__ ) ) . '/languages' );
+
+			deactivate_plugins( plugin_basename( __FILE__ ), true );
+
+			?>
+			<div class="notice error is-dismissible">
+				<p>
+					<?php _e( 'The Multisite Blog Alias plugin requires a WordPress multisite installation.', 'wpms-blog-alias' ); ?>
+					<strong><?php _e('It has been deactivated.', 'wpms-blog-alias'); ?></strong>
+				</p>
+			</div>
+			<?php
+
+		}
+	}
+	// print notice
+	add_action( 'admin_notices', 'BlogAlias\wpms_blog_alias_multisite_required' );
+
+	return;
+}
+
 require_once __DIR__ . DIRECTORY_SEPARATOR . 'include/autoload.php';
 
 Core\Plugin::instance()->set_plugin_file( __FILE__ );

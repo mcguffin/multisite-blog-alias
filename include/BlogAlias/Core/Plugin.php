@@ -42,6 +42,9 @@ class Plugin extends PluginComponent {
 		parent::__construct();
 	}
 
+	/**
+	 *	@param string $file Main plugin file
+	 */
 	public function set_plugin_file( $file ) {
 
 		$this->plugin_file = $file;
@@ -166,7 +169,6 @@ class Plugin extends PluginComponent {
 	 *	Fired on plugin activation
 	 */
 	public function activate() {
-
 		$this->maybe_upgrade();
 
 		foreach ( self::$components as $component ) {
