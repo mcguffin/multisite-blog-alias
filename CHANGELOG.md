@@ -5,7 +5,8 @@ WPMS Blog Alias Changelog
 -----
  - Check for multisite on activation
  - Fix subdirectory install
- - fix i18n issue
+ - Fix redirect check
+ - Fix i18n issue
 
 0.3.1
 -----
