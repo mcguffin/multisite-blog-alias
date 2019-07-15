@@ -63,7 +63,7 @@ wp alias-domains test --domain_alias=quux.foobar.tld
 
 ## Development
 
-Please head over to the source code [on Github](https://github.com/mcguffin/wpms-blog-alias).
+Please head over to the source code [on Github](https://github.com/mcguffin/multisite-blog-alias).
 
 == Installation ==
 
@@ -73,13 +73,13 @@ Follow the standard [WordPress plugin installation procedere](http://codex.wordp
 
 = I found a bug. Where should I post it? =
 
-Please use the issues section in the [GitHub-Repository](https://github.com/mcguffin/acf-openstreetmap-field/issues).
+Please use the issues section in the [GitHub-Repository](https://github.com/mcguffin/multisite-blog-alias/issues).
 
 I will most likely not maintain the forum support forum on wordpress.org. Anyway, other users might have an answer for you, so it's worth a shot.
 
 = I'd like to suggest a feature. Where should I post it? =
 
-Please post an issue in the [GitHub-Repository](https://github.com/mcguffin/acf-openstreetmap-field/issues)
+Please post an issue in the [GitHub-Repository](https://github.com/mcguffin/multisite-blog-alias/issues)
 
 = Will you anwser support requests by email? =
 
@@ -96,6 +96,20 @@ On the whole upgrading is always a good idea.
 == Changelog ==
 
 = 0.3.0 =
- - Feature: Show Domain status
- - More Failsafe sunrise
- - Fix db error message on activation
+- Feature: wp-cli - introduce test command
+- Feature: wp-cli add - introduce --compact arg
+- Fix: wp-cli - don't add if domain used by another blog
+
+= 0.3.2 =
+- Check for multisite on activation
+- Fix subdirectory install
+- Fix redirect check
+- Fix i18n issue
+
+= 0.3.1 =
+- WP-Cli: args for list output format
+
+= 0.3.0 =
+- Feature: Show Domain status
+- More Failsafe sunrise
+- Fix db error message on activation
