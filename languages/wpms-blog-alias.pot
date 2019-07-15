@@ -2,14 +2,14 @@
 # This file is distributed under the same license as the Multisite Blog Alias plugin.
 msgid ""
 msgstr ""
-"Project-Id-Version: Multisite Blog Alias 0.3.2\n"
+"Project-Id-Version: Multisite Blog Alias 0.3.3\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/wpms-blog-alias\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2019-07-15T11:00:45+00:00\n"
+"POT-Creation-Date: 2019-07-15T12:17:43+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.1.0\n"
 "X-Domain: wpms-blog-alias\n"
@@ -106,7 +106,7 @@ msgid "Notice:"
 msgstr ""
 
 #: include/BlogAlias/Admin/NetworkAdmin.php:297
-#: include/BlogAlias/Model/ModelAliasDomains.php:73
+#: include/BlogAlias/Model/ModelAliasDomains.php:76
 msgid "The domain matches the site URL of this blog."
 msgstr ""
 
@@ -134,30 +134,34 @@ msgstr ""
 msgid "Status"
 msgstr ""
 
-#: include/BlogAlias/Admin/NetworkAdmin.php:389
+#: include/BlogAlias/Admin/NetworkAdmin.php:388
 msgid "Remove"
 msgstr ""
 
-#: include/BlogAlias/Admin/NetworkAdmin.php:406
+#: include/BlogAlias/Admin/NetworkAdmin.php:405
 msgid "Check Status"
 msgstr ""
 
-#: include/BlogAlias/Admin/NetworkAdmin.php:408
+#: include/BlogAlias/Admin/NetworkAdmin.php:407
 msgid "Remove All"
 msgstr ""
 
-#: include/BlogAlias/Model/ModelAliasDomains.php:66
+#: include/BlogAlias/Model/ModelAliasDomains.php:60
+msgid "Domain alias not found."
+msgstr ""
+
+#: include/BlogAlias/Model/ModelAliasDomains.php:69
 msgid "WP-Site for this alias could not be found."
 msgstr ""
 
-#: include/BlogAlias/Model/ModelAliasDomains.php:71
+#: include/BlogAlias/Model/ModelAliasDomains.php:74
 msgid "The domain is already used by another site."
 msgstr ""
 
-#: include/BlogAlias/Model/ModelAliasDomains.php:87
+#: include/BlogAlias/Model/ModelAliasDomains.php:92
 msgid "The domain is unreachable."
 msgstr ""
 
-#: include/BlogAlias/Model/ModelAliasDomains.php:93
+#: include/BlogAlias/Model/ModelAliasDomains.php:99
 msgid "The domain or a redirect does not point to this blog."
 msgstr ""
