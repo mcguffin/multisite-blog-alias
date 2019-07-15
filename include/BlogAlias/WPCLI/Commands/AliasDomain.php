@@ -105,9 +105,9 @@ class AliasDomain extends Core\Singleton {
 					\WP_CLI::line( implode( $sep, $line ) );
 				}
 			}
-			/* Translators: NUmber of deleted items */
 		}
 		if ( ! $compact ) {
+			/* Translators: NUmber of deleted items */
 			\WP_CLI::success( sprintf( __( "%d Aliases total", 'wpms-blog-alias-cli' ), $total ) );
 		}
 	}
