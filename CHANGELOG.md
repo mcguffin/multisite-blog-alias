@@ -3,8 +3,9 @@ WPMS Blog Alias Changelog
 
 0.3.3
 -----
- - Fix: wp-cli don't add if domain used by other blog
- - Feature: wp-cli --compact arg for add
+ - Feature: wp-cli - introduce test command
+ - Feature: wp-cli add - introduce --compact arg
+ - Fix: wp-cli - don't add if domain used by another blog
 
 0.3.2
 -----
