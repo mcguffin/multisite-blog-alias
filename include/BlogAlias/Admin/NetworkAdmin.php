@@ -61,7 +61,7 @@ class NetworkAdmin extends Core\Singleton {
 	 */
 	public function add_uninstall_action( $links, $plugin_file, $plugin_data, $context ) {
 
-		if ( current_user_can( 'manage_network_plugins' ) && current_user_can('delete_plugins') ) {
+		if ( current_user_can( 'manage_network_plugins' ) && current_user_can('activate_plugins') ) {
 			$url = network_admin_url('admin.php');
 			$url = add_query_arg( array(
 				'action'	=> $this->uninstall_action,
@@ -136,8 +136,10 @@ define('SUNRISE', true);</textarea>
 					<p>
 						<?php
 						if ( $has_sunrise ) {
+							/* translators: Sunrise file location */
 							printf( __('Insert the following code into %s:', 'multisite-blog-alias' ), '<code>'.$sunrise->location.'</code>' );
 						} else {
+							/* translators: Sunrise file location */
 							printf( __('Create a file %s with the following code:', 'multisite-blog-alias' ), '<code>'.$sunrise->location.'</code>' );
 						}
 						?>
@@ -168,7 +170,7 @@ echo $sunrise->code; ?></textarea>
 		check_admin_referer( $_REQUEST['action'], 'nonce' );
 
 		// check capabilites
-		if ( ! ( current_user_can( 'manage_network_plugins' ) && current_user_can('delete_plugins') ) ) {
+		if ( ! ( current_user_can( 'manage_network_plugins' ) && current_user_can('activate_plugins') ) ) {
 			wp_die( __( 'Sorry, you are not allowed to run the uninstall procedere.', 'multisite-blog-alias' ) );
 		}
 
@@ -447,7 +449,7 @@ echo $sunrise->code; ?></textarea>
 					sprintf(
 						'<a href="%s">%s</a>',
 						add_query_arg( 'action', $this->instructions_action, network_admin_url( 'admin.php' )),
-						__('The setup page')
+						__( 'the setup page', 'multisite-blog-alias' )
 					),
 
 				)
