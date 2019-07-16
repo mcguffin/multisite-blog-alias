@@ -176,6 +176,7 @@ class Plugin extends PluginComponent {
 			$comp = $component::instance();
 			$comp->activate();
 		}
+		do_action( 'activated_'.$this->get_slug() );
 	}
 
 
@@ -214,6 +215,7 @@ class Plugin extends PluginComponent {
 			$comp = $component::instance();
 			$comp->deactivate();
 		}
+		do_action( 'deactivated_'.$this->get_slug() );
 	}
 
 	/**

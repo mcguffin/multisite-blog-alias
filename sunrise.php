@@ -10,6 +10,10 @@ if ( ! defined('ABSPATH') ) {
 
 function blog_alias_site_not_found( $current_site, $domain, $path ) {
 
+	if ( '' === get_site_option( 'multisite_blog_alias_sunrise_active' ) ) {
+		return;
+	}
+
 	require_once __DIR__ . DIRECTORY_SEPARATOR . 'include/autoload.php';
 
 	$model = BlogAlias\Model\ModelAliasDomains::instance();

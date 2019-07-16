@@ -26,6 +26,7 @@ class NetworkAdmin extends Core\Singleton {
 
 	/** @var string plugin uninstall action name */
 	private $uninstall_action = 'uninstall-multisite-blog-alias';
+	private $instructions_action = 'multisite-blog-alias-instructions';
 
 
 	/**
@@ -50,10 +51,9 @@ class NetworkAdmin extends Core\Singleton {
 		add_filter( 'network_admin_plugin_action_links_'. $this->core->get_wp_plugin(), array( $this, 'add_uninstall_action' ), 10, 4 );
 		add_action( 'admin_action_' . $this->uninstall_action, array( $this, 'uninstall_action' ) );
 
+		add_action( 'admin_action_' . $this->instructions_action, array( $this, 'instructions_action' ) );
+
 	}
-
-
-
 
 
 	/**
@@ -63,7 +63,6 @@ class NetworkAdmin extends Core\Singleton {
 
 		if ( current_user_can( 'manage_network_plugins' ) && current_user_can('delete_plugins') ) {
 			$url = network_admin_url('admin.php');
-			$action = 'uninstall-multisite-blog-alias';
 			$url = add_query_arg( array(
 				'action'	=> $this->uninstall_action,
 				'nonce'		=> wp_create_nonce( $this->uninstall_action ),
@@ -71,6 +70,93 @@ class NetworkAdmin extends Core\Singleton {
 			$links[] = sprintf('<a href="%s">%s</a>', $url, __( 'Uninstall', 'multisite-blog-alias' ) );
 		}
 		return $links;
+	}
+
+
+	public function instructions_action() {
+		// check capabilites
+
+		if ( ! ( current_user_can( 'manage_network_plugins' ) ) ) {
+			wp_die( __( 'Sorry, you are not allowed to install plugins.', 'multisite-blog-alias' ) );
+		}
+
+		// ask for confirmation
+		$this->admin_header( 'plugins.php' );
+
+		$sunrise =  Core\Sunrise::instance();
+		$has_sunrise = file_exists( $sunrise->location );
+		$location_of_wp_config = ABSPATH;
+		if ( ! file_exists( ABSPATH . 'wp-config.php' ) && file_exists( dirname( ABSPATH ) . '/wp-config.php' ) ) {
+			$location_of_wp_config = dirname( $abspath_fix );
+		}
+		$location_of_wp_config = trailingslashit( $location_of_wp_config );
+
+		?>
+		<div class="wrap">
+			<h1><?php _e( 'Multisite Blog Alias Setup', 'multisite-blog-alias' ); ?></h1>
+			<?php
+				if ( $this->is_configured() ) {
+					?>
+					<div class="notice notice-success">
+						<p><?php _e( 'The plugin is well configured. The instructions are kept for documentation purposes.', 'multisite-blog-alias' ); ?></p>
+					</div>
+					<?php
+				}
+			?>
+			<p>
+				<?php
+					_e( 'The plugin could not write to the filesystem.','multisite-blog-alias');
+					_e( 'Please change the following.','multisite-blog-alias');
+				?>
+			</p>
+			<ol>
+				<?php if ( ! defined('SUNRISE') || $this->is_configured() ) { ?>
+					<li>
+						<p><?php
+						// stolen from WP-Core
+						printf(
+							/* translators: 1: wp-config.php, 2: location of wp-config file, 3: translated version of "That's all, stop editing! Happy publishing." */
+							__( 'Add the following to your %1$s file in %2$s <strong>above</strong> the line reading %3$s:' ),
+							'<code>wp-config.php</code>',
+							'<code>' . $location_of_wp_config . '</code>',
+							/*
+							 * translators: This string should only be translated if wp-config-sample.php is localized.
+							 * You can check the localized release package or
+							 * https://i18n.svn.wordpress.org/<locale code>/branches/<wp version>/dist/wp-config-sample.php
+							 */
+							'<code>/* ' . __( 'That&#8217;s all, stop editing! Happy publishing.' ) . ' */</code>'
+						);
+						?></p>
+						<textarea class="code" readonly="readonly" cols="100" rows="2">
+define('SUNRISE', true);</textarea>
+					</li>
+				<?php } ?>
+
+				<li>
+					<p>
+						<?php
+						if ( $has_sunrise ) {
+							printf( __('Insert the following code into %s:', 'multisite-blog-alias' ), '<code>'.$sunrise->location.'</code>' );
+						} else {
+							printf( __('Create a file %s with the following code:', 'multisite-blog-alias' ), '<code>'.$sunrise->location.'</code>' );
+						}
+						?>
+					</p>
+					<textarea class="code" readonly="readonly" cols="100" rows="9">
+<?php
+if ( ! $has_sunrise ) {
+	echo '<?php' ."\n\n";
+}
+echo $sunrise->code; ?></textarea>
+
+				</li>
+			</ol>
+
+		</div>
+		<?php
+
+		$this->admin_footer();
+
 	}
 
 	/**
@@ -83,7 +169,7 @@ class NetworkAdmin extends Core\Singleton {
 
 		// check capabilites
 		if ( ! ( current_user_can( 'manage_network_plugins' ) && current_user_can('delete_plugins') ) ) {
-			wp_die( __( 'Sorry, you are not allowed run the uninstall procedere.', '' ) );
+			wp_die( __( 'Sorry, you are not allowed to run the uninstall procedere.', 'multisite-blog-alias' ) );
 		}
 
 		$model = Model\ModelAliasDomains::instance();
@@ -123,8 +209,12 @@ class NetworkAdmin extends Core\Singleton {
 		}
 	}
 
-
-
+	/**
+	 *	@return boolean
+	 */
+	private function is_configured() {
+		return defined('SUNRISE') && function_exists( 'blog_alias_site_not_found' );
+	}
 
 
 
@@ -326,8 +416,8 @@ class NetworkAdmin extends Core\Singleton {
 
 		global $parent_file, $submenu_file, $title;
 
-		$parent_file = 'sites.php';
-		$submenu_file = 'sites.php';
+		$parent_file = $parent;
+		$submenu_file = $parent;
 		$title = $page_title;
 
 		wp_enqueue_script('admin-alias-domain', $this->core->get_asset_url('js/admin/network/alias.js'), ['jquery'], $this->core->get_version(), true );
@@ -347,6 +437,23 @@ class NetworkAdmin extends Core\Singleton {
 			'error'		=> '',
 			'success'	=> '',
 		);
+
+		if ( ! $this->is_configured() ) {
+			$messages['error'] = sprintf( '<strong>%1$s</strong> %2$s' ,
+				__( 'Not Configured:', 'multisite-blog-alias' ),
+				sprintf(
+					/* Translators: link to setup page */
+					__( 'Multisite Blog Alias is not configured. Please visit %s for instructions.', 'multisite-blog-alias' ),
+					sprintf(
+						'<a href="%s">%s</a>',
+						add_query_arg( 'action', $this->instructions_action, network_admin_url( 'admin.php' )),
+						__('The setup page')
+					),
+
+				)
+			);
+
+		}
 
 		if ( isset( $_GET['created'] ) ) {
 			$messages['updated'] = __( 'Alias created', 'multisite-blog-alias');

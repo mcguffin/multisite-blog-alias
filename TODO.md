@@ -7,3 +7,4 @@ WPMS Blog Alias
  - [ ] Feature: allow blog admins to edit redirects
  - [ ] Feature: subdirectory aliases
  - [ ] Test: IDN-Domains
+ - [x] Robustness: test writable sunrise.php and wp-content.php, show instructions if not.

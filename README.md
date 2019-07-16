@@ -1,9 +1,9 @@
-WPMS Blog Alias
-===============
+Multisite Blog Alias
+====================
 
-WP Multisite plugin to maintain URL-redirects for Blogs.
+This is the official github repository of the [Multisite Blog Alias](https://wordpress.org/plugins/multisite-blog-alias/) plugin.
 
-**Currently being reviewed by the WP-Plugins Team**
+WordPress Multisite plugin to maintain URL-redirects for Blogs.
 
 Features
 --------

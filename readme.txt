@@ -85,6 +85,11 @@ Please head over to the source code [on Github](https://github.com/mcguffin/mult
 
 Follow the standard [WordPress plugin installation procedere](http://codex.wordpress.org/Managing_Plugins).
 
+The installer will:
+1. Create a database table `{$table_prefix}alias_domains`
+2. Create a file `wp-content/sunrise.php` or append its PHP to it, if the file already exists.
+3. Insert `define( 'SUNRISE', true );` in your wp-config.
+
 == Frequently asked questions ==
 
 = I found a bug. Where should I post it? =
