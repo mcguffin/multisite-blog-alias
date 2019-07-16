@@ -74,7 +74,7 @@ msgstr "Deinstallieren"
 
 #: include/BlogAlias/Admin/NetworkAdmin.php:80
 msgid "Sorry, you are not allowed to install plugins."
-msgstr "Es tut uns leid, aber Du darfst keine Plugins installieren."
+msgstr "Es tut uns leid, aber Sie dürfen keine Plugins installieren."
 
 #: include/BlogAlias/Admin/NetworkAdmin.php:96
 msgid "Multisite Blog Alias Setup"
@@ -94,21 +94,21 @@ msgstr "Das Plugin kann keine Dateien schreiben."
 
 #: include/BlogAlias/Admin/NetworkAdmin.php:109
 msgid "Please change the following."
-msgstr "Bitte nimm die folgenden Änderungen vor."
+msgstr "Bitte nehmen Sie die folgenden Änderungen vor."
 
 #. translators: Sunrise file location
 #: include/BlogAlias/Admin/NetworkAdmin.php:140
 msgid "Insert the following code into %s:"
-msgstr "Füge folgenden Code in %s ein:"
+msgstr "Fügen Sie folgenden Code in %s ein:"
 
 #. translators: Sunrise file location
 #: include/BlogAlias/Admin/NetworkAdmin.php:143
 msgid "Create a file %s with the following code:"
-msgstr "Erstelle eine Datei namens %s mit folgendem Code:"
+msgstr "Erstellen Sie eine Datei namens %s mit folgendem Code:"
 
 #: include/BlogAlias/Admin/NetworkAdmin.php:174
 msgid "Sorry, you are not allowed to run the uninstall procedere."
-msgstr "Es tut uns leid, aber Du darfst keine Deinstallation durchführen."
+msgstr "Es tut uns leid, aber Sie dürfen keine Deinstallation durchführen."
 
 #: include/BlogAlias/Admin/NetworkAdmin.php:196
 msgid "Uninstall Plugin?"
@@ -150,8 +150,8 @@ msgstr "Nicht konfiguriert:"
 msgid ""
 "Multisite Blog Alias is not configured. Please visit %s for instructions."
 msgstr ""
-"Multisite Blog Alias ist noch nicht fertig eingerichtet.. Bitte besuche %s "
-"für eine Anleitung."
+"Multisite Blog Alias ist noch nicht fertig eingerichtet.. Bitte besuchen "
+"Sie %s für eine Anleitung."
 
 #: include/BlogAlias/Admin/NetworkAdmin.php:452
 msgid "the setup page"
