@@ -1,6 +1,6 @@
 {
   "name": "multisite-blog-alias",
-  "version": "0.4.0",
+  "version": "1.0.0",
   "description": "Domain redirections for a multisite blog.",
   "private": true,
   "scripts": {
