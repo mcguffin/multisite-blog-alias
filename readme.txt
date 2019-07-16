@@ -13,13 +13,29 @@ Set up redirects for Multisite-Blogs.
 
 == Description ==
 
-WP Multisite plugin to maintain URL-redirects .
+WP Multisite plugin to maintain URL-redirects for Blogs.
 
 ## Features
  - Permanent 301 Redirect to blogs main domain
  - Painless installation and activation – no file access necessary.
  - Checks domain status
  - [WP-Cli](https://wp-cli.org/) commands
+
+## Usage
+1. **Set up your DNS**. Make sure your Domain points to your Wordpress installation. You can achieve this by either setting up an A- or CNAME-Record in your DNS configuration. Your webserver must be configured to handle requests on the given Domain.
+2. Under **Network Admin – Sites** edit the site and select the Alias Domains Tab.
+3. Enter the domain without `http` ao `/` and click "Add".
+4. Click "Check Status" to see if it worked. If something went wrong you will show an error message.
+
+#### Status messages
+
+**Warning: The domain matches the site URL of this blog:** The Blog is using the domain name as Site URL.
+
+**Error: The domain is already used by another site:** A different Blog is already using the domain as Site URL. Eiter Remove the alias from the sblog you are currently workin on, or from the other one.
+
+**The domain is unreachable:** There is likely an error in your DNS or your Webserver configuration. Use `nslookup` from he command line or [whatsmydns.net](https://www.whatsmydns.net/) to check the DNS-Settings.
+
+**The domain or a redirect does not point to this blog:** Following all redirects did not end up on your WordPress-Site, but somewhere else. There is likely an error in your DNS or your Webserver configuration.
 
 ## WP-CLI Examples
 ### Listing Domain aliases
