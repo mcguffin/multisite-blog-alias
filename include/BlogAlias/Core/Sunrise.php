@@ -24,7 +24,7 @@ class Sunrise extends PluginComponent {
 
 		update_site_option( 'multisite_blog_alias_sunrise_active', true );
 
-		if ( defined('DISALLOW_FILE_MODS') && DISALLOW_FILE_MODS || ! is_writable( WP_CONTENT_DIR . '/sunrise.php' )  ) {
+		if ( ! is_writable( WP_CONTENT_DIR . '/sunrise.php' )  ) {
 			return $this->not_writable_error();
 		}
 
@@ -41,17 +41,22 @@ class Sunrise extends PluginComponent {
 				/** The config file resides one level above ABSPATH but is not part of another installation */
 				$wp_config = dirname( ABSPATH ) . '/wp-config.php';
 			}
-			if ( ! is_writable( $wp_config ) ) {
-				return $this->not_writable_error();
+			if ( ! $this->write_wp_config( $wp_config ) ) {
+				$this->not_writable_error();
 			}
 		}
 
 		// write sunrise
 		$sunrise_contents = self::reset_sunrise();
 		$sunrise_contents .= self::generate_sunrise_php();
-		self::write_sunrise( $sunrise_contents );
+		if ( ! self::write_sunrise( $sunrise_contents ) ) {
+			$this->not_writable_error();
+		}
 	}
 
+	/**
+	 * Magic getter
+	 */
 	public function __get( $what ) {
 		switch( $what ) {
 			case 'location':
@@ -60,14 +65,15 @@ class Sunrise extends PluginComponent {
 				return self::generate_sunrise_php();
 		}
 	}
+
 	/**
 	 *
 	 */
 	private function not_writable_error() {
 		$core = Plugin::instance();
 		$slug = $core->get_slug();
-		if ( defined('DISALLOW_FILE_MODS') && DISALLOW_FILE_MODS && ! has_action( "activated_{$slug}" ) ) {
-			add_action( "activated_plugin", array( $this, 'show_instructions' ), 10, 2 );
+		if ( ! has_action( "activated_plugin", array( $this, 'show_instructions' ), 20 ) ) {
+			add_action( "activated_plugin", array( $this, 'show_instructions' ), 20, 2 );
 		}
 	}
 
@@ -91,12 +97,15 @@ class Sunrise extends PluginComponent {
 	 *	@param string $wp_config Path to wp-config
 	 */
 	private function write_wp_config( $wp_config ) {
-		$wp_config_contents = file_get_contents( $wp_config );
-		$code = '/* Added by Multisite Blog Alias Plugin */' . "\n";
-		$code .= 'define( \'SUNRISE\', true );'."\n\n";
-		$wp_config_contents = substr( $wp_config_contents, 5);
-		$wp_config_contents = '<?php' . "\n" . $code . $wp_config_contents;
-		file_put_contents( $wp_config, $wp_config_contents );
+		if ( is_writable( $wp_config ) ) {
+			$wp_config_contents = file_get_contents( $wp_config );
+			$code = '/* Added by Multisite Blog Alias Plugin */' . "\n";
+			$code .= 'define( \'SUNRISE\', true );'."\n\n";
+			$wp_config_contents = substr( $wp_config_contents, 5);
+			$wp_config_contents = '<?php' . "\n" . $code . $wp_config_contents;
+			return file_put_contents( $wp_config, $wp_config_contents );
+		}
+		return false;
 	}
 
 
@@ -116,7 +125,7 @@ class Sunrise extends PluginComponent {
 	 *	@inheritdoc
 	 */
 	public function deactivate() {
-		if ( file_exists( self::instance()->$location ) ) {
+		if ( file_exists( self::instance()->location ) ) {
 			// $sunrise_contents = file_get_contents( WP_CONTENT_DIR . '/sunrise.php' );
 			// $sunrise_contents = preg_replace('@//BEGIN:blog_alias(.*)END:blog_alias//@imsU', '', $sunrise_contents );
 			self::write_sunrise( self::reset_sunrise() );
@@ -138,10 +147,16 @@ class Sunrise extends PluginComponent {
 
 	/**
 	 *	Write sunrise contents
+	 *	static because called from uninstall hook
+	 *
 	 *	@param string $sunrise_contents Must be valid PHP
 	 */
 	private static function write_sunrise( $sunrise_contents ) {
-		file_put_contents( self::instnace()->$location, $sunrise_contents );
+		$file = self::instance()->location;
+		if ( is_writable( $file ) ) {
+			return file_put_contents( $file, $sunrise_contents );
+		}
+		return false;
 	}
 
 	/**
