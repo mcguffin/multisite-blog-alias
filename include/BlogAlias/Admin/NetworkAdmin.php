@@ -450,8 +450,7 @@ echo $sunrise->code; ?></textarea>
 						'<a href="%s">%s</a>',
 						add_query_arg( 'action', $this->instructions_action, network_admin_url( 'admin.php' )),
 						__( 'the setup page', 'multisite-blog-alias' )
-					),
-
+					)
 				)
 			);
 
