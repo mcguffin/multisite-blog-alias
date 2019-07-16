@@ -2,14 +2,14 @@
 # This file is distributed under the same license as the Multisite Blog Alias plugin.
 msgid ""
 msgstr ""
-"Project-Id-Version: Multisite Blog Alias 0.4.0\n"
+"Project-Id-Version: Multisite Blog Alias 1.0.0\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/multisite-blog-alias\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2019-07-16T13:34:38+00:00\n"
+"POT-Creation-Date: 2019-07-16T13:44:36+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.1.0\n"
 "X-Domain: multisite-blog-alias\n"
@@ -35,206 +35,359 @@ msgid "https://github.com/mcguffin"
 msgstr ""
 
 #: index.php:67
+#: tmp/svn/tags/1.0.0/index.php:67
+#: tmp/svn/trunk/index.php:67
+#: tmp/git/index.php:67
 msgid "The Multisite Blog Alias plugin requires a WordPress multisite installation."
 msgstr ""
 
 #: index.php:68
+#: tmp/svn/tags/1.0.0/index.php:68
+#: tmp/svn/trunk/index.php:68
+#: tmp/git/index.php:68
 msgid "It has been deactivated."
 msgstr ""
 
 #: include/BlogAlias/Admin/Ajax.php:67
 #: include/BlogAlias/Admin/NetworkAdmin.php:484
+#: tmp/svn/tags/1.0.0/include/BlogAlias/Admin/Ajax.php:67
+#: tmp/svn/tags/1.0.0/include/BlogAlias/Admin/NetworkAdmin.php:484
+#: tmp/svn/trunk/include/BlogAlias/Admin/Ajax.php:67
+#: tmp/svn/trunk/include/BlogAlias/Admin/NetworkAdmin.php:484
+#: tmp/git/include/BlogAlias/Admin/Ajax.php:67
+#: tmp/git/include/BlogAlias/Admin/NetworkAdmin.php:484
 msgid "Edit"
 msgstr ""
 
 #: include/BlogAlias/Admin/Ajax.php:72
+#: tmp/svn/tags/1.0.0/include/BlogAlias/Admin/Ajax.php:72
+#: tmp/svn/trunk/include/BlogAlias/Admin/Ajax.php:72
+#: tmp/git/include/BlogAlias/Admin/Ajax.php:72
 msgid "View"
 msgstr ""
 
 #: include/BlogAlias/Admin/Ajax.php:75
+#: tmp/svn/tags/1.0.0/include/BlogAlias/Admin/Ajax.php:75
+#: tmp/svn/trunk/include/BlogAlias/Admin/Ajax.php:75
+#: tmp/git/include/BlogAlias/Admin/Ajax.php:75
 msgid "Error message:"
 msgstr ""
 
 #: include/BlogAlias/Admin/Ajax.php:80
+#: tmp/svn/tags/1.0.0/include/BlogAlias/Admin/Ajax.php:80
+#: tmp/svn/trunk/include/BlogAlias/Admin/Ajax.php:80
+#: tmp/git/include/BlogAlias/Admin/Ajax.php:80
 msgid "Last Redirect to:"
 msgstr ""
 
 #: include/BlogAlias/Admin/NetworkAdmin.php:70
+#: tmp/svn/tags/1.0.0/include/BlogAlias/Admin/NetworkAdmin.php:70
+#: tmp/svn/trunk/include/BlogAlias/Admin/NetworkAdmin.php:70
+#: tmp/git/include/BlogAlias/Admin/NetworkAdmin.php:70
 msgid "Uninstall"
 msgstr ""
 
 #: include/BlogAlias/Admin/NetworkAdmin.php:80
+#: tmp/svn/tags/1.0.0/include/BlogAlias/Admin/NetworkAdmin.php:80
+#: tmp/svn/trunk/include/BlogAlias/Admin/NetworkAdmin.php:80
+#: tmp/git/include/BlogAlias/Admin/NetworkAdmin.php:80
 msgid "Sorry, you are not allowed to install plugins."
 msgstr ""
 
 #: include/BlogAlias/Admin/NetworkAdmin.php:96
+#: tmp/svn/tags/1.0.0/include/BlogAlias/Admin/NetworkAdmin.php:96
+#: tmp/svn/trunk/include/BlogAlias/Admin/NetworkAdmin.php:96
+#: tmp/git/include/BlogAlias/Admin/NetworkAdmin.php:96
 msgid "Multisite Blog Alias Setup"
 msgstr ""
 
 #: include/BlogAlias/Admin/NetworkAdmin.php:101
+#: tmp/svn/tags/1.0.0/include/BlogAlias/Admin/NetworkAdmin.php:101
+#: tmp/svn/trunk/include/BlogAlias/Admin/NetworkAdmin.php:101
+#: tmp/git/include/BlogAlias/Admin/NetworkAdmin.php:101
 msgid "The plugin is well configured. The instructions are kept for documentation purposes."
 msgstr ""
 
 #: include/BlogAlias/Admin/NetworkAdmin.php:108
+#: tmp/svn/tags/1.0.0/include/BlogAlias/Admin/NetworkAdmin.php:108
+#: tmp/svn/trunk/include/BlogAlias/Admin/NetworkAdmin.php:108
+#: tmp/git/include/BlogAlias/Admin/NetworkAdmin.php:108
 msgid "The plugin could not write to the filesystem."
 msgstr ""
 
 #: include/BlogAlias/Admin/NetworkAdmin.php:109
+#: tmp/svn/tags/1.0.0/include/BlogAlias/Admin/NetworkAdmin.php:109
+#: tmp/svn/trunk/include/BlogAlias/Admin/NetworkAdmin.php:109
+#: tmp/git/include/BlogAlias/Admin/NetworkAdmin.php:109
 msgid "Please change the following."
 msgstr ""
 
 #. translators: Sunrise file location
 #: include/BlogAlias/Admin/NetworkAdmin.php:140
+#: tmp/svn/tags/1.0.0/include/BlogAlias/Admin/NetworkAdmin.php:140
+#: tmp/svn/trunk/include/BlogAlias/Admin/NetworkAdmin.php:140
+#: tmp/git/include/BlogAlias/Admin/NetworkAdmin.php:140
 msgid "Insert the following code into %s:"
 msgstr ""
 
 #. translators: Sunrise file location
 #: include/BlogAlias/Admin/NetworkAdmin.php:143
+#: tmp/svn/tags/1.0.0/include/BlogAlias/Admin/NetworkAdmin.php:143
+#: tmp/svn/trunk/include/BlogAlias/Admin/NetworkAdmin.php:143
+#: tmp/git/include/BlogAlias/Admin/NetworkAdmin.php:143
 msgid "Create a file %s with the following code:"
 msgstr ""
 
 #: include/BlogAlias/Admin/NetworkAdmin.php:174
+#: tmp/svn/tags/1.0.0/include/BlogAlias/Admin/NetworkAdmin.php:174
+#: tmp/svn/trunk/include/BlogAlias/Admin/NetworkAdmin.php:174
+#: tmp/git/include/BlogAlias/Admin/NetworkAdmin.php:174
 msgid "Sorry, you are not allowed to run the uninstall procedere."
 msgstr ""
 
 #: include/BlogAlias/Admin/NetworkAdmin.php:196
+#: tmp/svn/tags/1.0.0/include/BlogAlias/Admin/NetworkAdmin.php:196
+#: tmp/svn/trunk/include/BlogAlias/Admin/NetworkAdmin.php:196
+#: tmp/git/include/BlogAlias/Admin/NetworkAdmin.php:196
 msgid "Uninstall Plugin?"
 msgstr ""
 
 #: include/BlogAlias/Admin/NetworkAdmin.php:197
+#: tmp/svn/tags/1.0.0/include/BlogAlias/Admin/NetworkAdmin.php:197
+#: tmp/svn/trunk/include/BlogAlias/Admin/NetworkAdmin.php:197
+#: tmp/git/include/BlogAlias/Admin/NetworkAdmin.php:197
 msgid "Uninstalling the plugin will remove the Blog Alias table from the database and deactivate the plugin."
 msgstr ""
 
 #. Translators: %d number of alias domains
 #: include/BlogAlias/Admin/NetworkAdmin.php:201
+#: tmp/svn/tags/1.0.0/include/BlogAlias/Admin/NetworkAdmin.php:201
+#: tmp/svn/trunk/include/BlogAlias/Admin/NetworkAdmin.php:201
+#: tmp/git/include/BlogAlias/Admin/NetworkAdmin.php:201
 msgid "%d Alias Domain will be deleted."
 msgid_plural "%d Alias Domains will be deleted."
 msgstr[0] ""
 
 #: include/BlogAlias/Admin/NetworkAdmin.php:204
+#: tmp/svn/tags/1.0.0/include/BlogAlias/Admin/NetworkAdmin.php:204
+#: tmp/svn/trunk/include/BlogAlias/Admin/NetworkAdmin.php:204
+#: tmp/git/include/BlogAlias/Admin/NetworkAdmin.php:204
 msgid "No, back to plugins"
 msgstr ""
 
 #: include/BlogAlias/Admin/NetworkAdmin.php:205
+#: tmp/svn/tags/1.0.0/include/BlogAlias/Admin/NetworkAdmin.php:205
+#: tmp/svn/trunk/include/BlogAlias/Admin/NetworkAdmin.php:205
+#: tmp/git/include/BlogAlias/Admin/NetworkAdmin.php:205
 msgid "Yes, Uninstall now!"
 msgstr ""
 
 #: include/BlogAlias/Admin/NetworkAdmin.php:369
+#: tmp/svn/tags/1.0.0/include/BlogAlias/Admin/NetworkAdmin.php:369
+#: tmp/svn/trunk/include/BlogAlias/Admin/NetworkAdmin.php:369
+#: tmp/git/include/BlogAlias/Admin/NetworkAdmin.php:369
 msgid "Alias Domains"
 msgstr ""
 
 #: include/BlogAlias/Admin/NetworkAdmin.php:445
+#: tmp/svn/tags/1.0.0/include/BlogAlias/Admin/NetworkAdmin.php:445
+#: tmp/svn/trunk/include/BlogAlias/Admin/NetworkAdmin.php:445
+#: tmp/git/include/BlogAlias/Admin/NetworkAdmin.php:445
 msgid "Not Configured:"
 msgstr ""
 
 #. Translators: link to setup page
 #: include/BlogAlias/Admin/NetworkAdmin.php:448
+#: tmp/svn/tags/1.0.0/include/BlogAlias/Admin/NetworkAdmin.php:448
+#: tmp/svn/trunk/include/BlogAlias/Admin/NetworkAdmin.php:448
+#: tmp/git/include/BlogAlias/Admin/NetworkAdmin.php:448
 msgid "Multisite Blog Alias is not configured. Please visit %s for instructions."
 msgstr ""
 
 #: include/BlogAlias/Admin/NetworkAdmin.php:452
+#: tmp/svn/tags/1.0.0/include/BlogAlias/Admin/NetworkAdmin.php:452
+#: tmp/svn/trunk/include/BlogAlias/Admin/NetworkAdmin.php:452
+#: tmp/git/include/BlogAlias/Admin/NetworkAdmin.php:452
 msgid "the setup page"
 msgstr ""
 
 #: include/BlogAlias/Admin/NetworkAdmin.php:461
+#: tmp/svn/tags/1.0.0/include/BlogAlias/Admin/NetworkAdmin.php:461
+#: tmp/svn/trunk/include/BlogAlias/Admin/NetworkAdmin.php:461
+#: tmp/git/include/BlogAlias/Admin/NetworkAdmin.php:461
 msgid "Alias created"
 msgstr ""
 
 #. translators: number of deleted entries
 #: include/BlogAlias/Admin/NetworkAdmin.php:464
+#: tmp/svn/tags/1.0.0/include/BlogAlias/Admin/NetworkAdmin.php:464
+#: tmp/svn/trunk/include/BlogAlias/Admin/NetworkAdmin.php:464
+#: tmp/git/include/BlogAlias/Admin/NetworkAdmin.php:464
 msgid "%d entry deleted"
 msgid_plural "%d entries deleted"
 msgstr[0] ""
 
 #: include/BlogAlias/Admin/NetworkAdmin.php:467
+#: tmp/svn/tags/1.0.0/include/BlogAlias/Admin/NetworkAdmin.php:467
+#: tmp/svn/trunk/include/BlogAlias/Admin/NetworkAdmin.php:467
+#: tmp/git/include/BlogAlias/Admin/NetworkAdmin.php:467
 msgid "The Alias already exists."
 msgstr ""
 
 #: include/BlogAlias/Admin/NetworkAdmin.php:468
+#: tmp/svn/tags/1.0.0/include/BlogAlias/Admin/NetworkAdmin.php:468
+#: tmp/svn/trunk/include/BlogAlias/Admin/NetworkAdmin.php:468
+#: tmp/git/include/BlogAlias/Admin/NetworkAdmin.php:468
 msgid "Invalid domain name"
 msgstr ""
 
 #: include/BlogAlias/Admin/NetworkAdmin.php:469
+#: tmp/svn/tags/1.0.0/include/BlogAlias/Admin/NetworkAdmin.php:469
+#: tmp/svn/trunk/include/BlogAlias/Admin/NetworkAdmin.php:469
+#: tmp/git/include/BlogAlias/Admin/NetworkAdmin.php:469
 msgid "Deletion failed"
 msgstr ""
 
 #: include/BlogAlias/Admin/NetworkAdmin.php:470
+#: tmp/svn/tags/1.0.0/include/BlogAlias/Admin/NetworkAdmin.php:470
+#: tmp/svn/trunk/include/BlogAlias/Admin/NetworkAdmin.php:470
+#: tmp/git/include/BlogAlias/Admin/NetworkAdmin.php:470
 msgid "A different Blog is already using this domain."
 msgstr ""
 
 #: include/BlogAlias/Admin/NetworkAdmin.php:471
+#: tmp/svn/tags/1.0.0/include/BlogAlias/Admin/NetworkAdmin.php:471
+#: tmp/svn/trunk/include/BlogAlias/Admin/NetworkAdmin.php:471
+#: tmp/git/include/BlogAlias/Admin/NetworkAdmin.php:471
 msgid "Something went wrong..."
 msgstr ""
 
 #: include/BlogAlias/Admin/NetworkAdmin.php:474
+#: tmp/svn/tags/1.0.0/include/BlogAlias/Admin/NetworkAdmin.php:474
+#: tmp/svn/trunk/include/BlogAlias/Admin/NetworkAdmin.php:474
+#: tmp/git/include/BlogAlias/Admin/NetworkAdmin.php:474
 msgid "Error:"
 msgstr ""
 
 #: include/BlogAlias/Admin/NetworkAdmin.php:481
+#: tmp/svn/tags/1.0.0/include/BlogAlias/Admin/NetworkAdmin.php:481
+#: tmp/svn/trunk/include/BlogAlias/Admin/NetworkAdmin.php:481
+#: tmp/git/include/BlogAlias/Admin/NetworkAdmin.php:481
 msgid "Visit other Blog"
 msgstr ""
 
 #: include/BlogAlias/Admin/NetworkAdmin.php:492
+#: tmp/svn/tags/1.0.0/include/BlogAlias/Admin/NetworkAdmin.php:492
+#: tmp/svn/trunk/include/BlogAlias/Admin/NetworkAdmin.php:492
+#: tmp/git/include/BlogAlias/Admin/NetworkAdmin.php:492
 msgid "Notice:"
 msgstr ""
 
 #: include/BlogAlias/Admin/NetworkAdmin.php:493
 #: include/BlogAlias/Model/ModelAliasDomains.php:76
+#: tmp/svn/tags/1.0.0/include/BlogAlias/Admin/NetworkAdmin.php:493
+#: tmp/svn/tags/1.0.0/include/BlogAlias/Model/ModelAliasDomains.php:76
+#: tmp/svn/trunk/include/BlogAlias/Admin/NetworkAdmin.php:493
+#: tmp/svn/trunk/include/BlogAlias/Model/ModelAliasDomains.php:76
+#: tmp/git/include/BlogAlias/Admin/NetworkAdmin.php:493
+#: tmp/git/include/BlogAlias/Model/ModelAliasDomains.php:76
 msgid "The domain matches the site URL of this blog."
 msgstr ""
 
 #: include/BlogAlias/Admin/NetworkAdmin.php:525
+#: tmp/svn/tags/1.0.0/include/BlogAlias/Admin/NetworkAdmin.php:525
+#: tmp/svn/trunk/include/BlogAlias/Admin/NetworkAdmin.php:525
+#: tmp/git/include/BlogAlias/Admin/NetworkAdmin.php:525
 msgid "Add Domain Alias"
 msgstr ""
 
 #: include/BlogAlias/Admin/NetworkAdmin.php:536
+#: tmp/svn/tags/1.0.0/include/BlogAlias/Admin/NetworkAdmin.php:536
+#: tmp/svn/trunk/include/BlogAlias/Admin/NetworkAdmin.php:536
+#: tmp/git/include/BlogAlias/Admin/NetworkAdmin.php:536
 msgid "Add"
 msgstr ""
 
 #: include/BlogAlias/Admin/NetworkAdmin.php:543
+#: tmp/svn/tags/1.0.0/include/BlogAlias/Admin/NetworkAdmin.php:543
+#: tmp/svn/trunk/include/BlogAlias/Admin/NetworkAdmin.php:543
+#: tmp/git/include/BlogAlias/Admin/NetworkAdmin.php:543
 msgid "Domain Aliases"
 msgstr ""
 
 #: include/BlogAlias/Admin/NetworkAdmin.php:547
+#: tmp/svn/tags/1.0.0/include/BlogAlias/Admin/NetworkAdmin.php:547
+#: tmp/svn/trunk/include/BlogAlias/Admin/NetworkAdmin.php:547
+#: tmp/git/include/BlogAlias/Admin/NetworkAdmin.php:547
 msgid "– No Domain Aliases –"
 msgstr ""
 
 #: include/BlogAlias/Admin/NetworkAdmin.php:555
+#: tmp/svn/tags/1.0.0/include/BlogAlias/Admin/NetworkAdmin.php:555
+#: tmp/svn/trunk/include/BlogAlias/Admin/NetworkAdmin.php:555
+#: tmp/git/include/BlogAlias/Admin/NetworkAdmin.php:555
 msgid "Alias Domain"
 msgstr ""
 
 #: include/BlogAlias/Admin/NetworkAdmin.php:556
+#: tmp/svn/tags/1.0.0/include/BlogAlias/Admin/NetworkAdmin.php:556
+#: tmp/svn/trunk/include/BlogAlias/Admin/NetworkAdmin.php:556
+#: tmp/git/include/BlogAlias/Admin/NetworkAdmin.php:556
 msgid "Status"
 msgstr ""
 
 #: include/BlogAlias/Admin/NetworkAdmin.php:584
+#: tmp/svn/tags/1.0.0/include/BlogAlias/Admin/NetworkAdmin.php:584
+#: tmp/svn/trunk/include/BlogAlias/Admin/NetworkAdmin.php:584
+#: tmp/git/include/BlogAlias/Admin/NetworkAdmin.php:584
 msgid "Remove"
 msgstr ""
 
 #: include/BlogAlias/Admin/NetworkAdmin.php:601
+#: tmp/svn/tags/1.0.0/include/BlogAlias/Admin/NetworkAdmin.php:601
+#: tmp/svn/trunk/include/BlogAlias/Admin/NetworkAdmin.php:601
+#: tmp/git/include/BlogAlias/Admin/NetworkAdmin.php:601
 msgid "Check Status"
 msgstr ""
 
 #: include/BlogAlias/Admin/NetworkAdmin.php:603
+#: tmp/svn/tags/1.0.0/include/BlogAlias/Admin/NetworkAdmin.php:603
+#: tmp/svn/trunk/include/BlogAlias/Admin/NetworkAdmin.php:603
+#: tmp/git/include/BlogAlias/Admin/NetworkAdmin.php:603
 msgid "Remove All"
 msgstr ""
 
 #: include/BlogAlias/Model/ModelAliasDomains.php:60
+#: tmp/svn/tags/1.0.0/include/BlogAlias/Model/ModelAliasDomains.php:60
+#: tmp/svn/trunk/include/BlogAlias/Model/ModelAliasDomains.php:60
+#: tmp/git/include/BlogAlias/Model/ModelAliasDomains.php:60
 msgid "Domain alias not found."
 msgstr ""
 
 #: include/BlogAlias/Model/ModelAliasDomains.php:69
+#: tmp/svn/tags/1.0.0/include/BlogAlias/Model/ModelAliasDomains.php:69
+#: tmp/svn/trunk/include/BlogAlias/Model/ModelAliasDomains.php:69
+#: tmp/git/include/BlogAlias/Model/ModelAliasDomains.php:69
 msgid "WP-Site for this alias could not be found."
 msgstr ""
 
 #: include/BlogAlias/Model/ModelAliasDomains.php:74
+#: tmp/svn/tags/1.0.0/include/BlogAlias/Model/ModelAliasDomains.php:74
+#: tmp/svn/trunk/include/BlogAlias/Model/ModelAliasDomains.php:74
+#: tmp/git/include/BlogAlias/Model/ModelAliasDomains.php:74
 msgid "The domain is already used by another site."
 msgstr ""
 
 #: include/BlogAlias/Model/ModelAliasDomains.php:92
+#: tmp/svn/tags/1.0.0/include/BlogAlias/Model/ModelAliasDomains.php:92
+#: tmp/svn/trunk/include/BlogAlias/Model/ModelAliasDomains.php:92
+#: tmp/git/include/BlogAlias/Model/ModelAliasDomains.php:92
 msgid "The domain is unreachable."
 msgstr ""
 
 #: include/BlogAlias/Model/ModelAliasDomains.php:99
+#: tmp/svn/tags/1.0.0/include/BlogAlias/Model/ModelAliasDomains.php:99
+#: tmp/svn/trunk/include/BlogAlias/Model/ModelAliasDomains.php:99
+#: tmp/git/include/BlogAlias/Model/ModelAliasDomains.php:99
 msgid "The domain or a redirect does not point to this blog."
 msgstr ""
