@@ -42,28 +42,28 @@ WP Multisite plugin to maintain URL-redirects for Blogs.
 
 **List alias domains for blog-id 123**
 
-`wp alias-domains list --blog_id=123`
+    wp alias-domains list --blog_id=123
 
 **Output minified json of all aliases**
 
-`wp alias-domains list --format=json --compact=2`
+    wp alias-domains list --format=json --compact=2
 
 **Output csv including the header row but omitting other messages into file**
 
-`wp alias-domains list --format=csv --compact > alias-list.csv`
+    wp alias-domains list --format=csv --compact > alias-list.csv
 
 ### Add Domain Alias
 
-`wp alias-domains add --blog_id=123 --domain_alias=quux.foobar.tld`
+    wp alias-domains add --blog_id=123 --domain_alias=quux.foobar.tld
 
 ### Remove Domain Alias
 **Remove a specific alias**
 
-`wp alias-domains remove --domain_alias=quux.foobar.tld`
+    wp alias-domains remove --domain_alias=quux.foobar.tld
 
 **Remove all aliases for blog 123**
 
-`wp alias-domains remove --blog_id=123`
+    wp alias-domains remove --blog_id=123
 
 ### Testing Domain Aliases
 
