@@ -14,6 +14,7 @@ function blog_alias_site_not_found( $current_site, $domain, $path ) {
 		return;
 	}
 
+	require_once ABSPATH . WPINC . '/formatting.php';
 	require_once __DIR__ . DIRECTORY_SEPARATOR . 'include/autoload.php';
 
 	$model = BlogAlias\Model\ModelAliasDomains::instance();
