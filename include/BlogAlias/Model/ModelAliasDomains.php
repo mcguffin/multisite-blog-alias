@@ -35,7 +35,7 @@ class ModelAliasDomains extends Model {
 	 */
 	protected function __construct() {
 		parent::__construct();
-		if ( defined('FILTER_VALIDATE_DOMAIN') )  {
+		if ( defined('FILTER_VALIDATE_DOMAIN') && defined( 'FILTER_FLAG_HOSTNAME' ) )  {
 			add_filter("validate_{$this->_table}/domain_alias", array( $this, 'validate_domain_alias') );
 		} else {
 			add_filter("validate_{$this->_table}/domain_alias", array( $this, 'legacy_validate_domain_alias') );
@@ -116,7 +116,7 @@ class ModelAliasDomains extends Model {
 	 */
 	public function validate_domain_alias( $alias ) {
 
-		return filter_var( strtolower( trim( $alias ) ), FILTER_VALIDATE_DOMAIN );
+		return filter_var( strtolower( trim( $alias ) ), FILTER_VALIDATE_DOMAIN, array( 'flags' => FILTER_FLAG_HOSTNAME ) );
 
 	}
 	/**
