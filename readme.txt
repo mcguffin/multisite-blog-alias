@@ -109,5 +109,9 @@ On the whole upgrading is always a good idea.
 
 == Changelog ==
 
+= 1.0.1 =
+- Fix: PHP Fatal in sunrise.php if formatting functions are not present
+- Admin: Fix Hostname validation
+
 = 1.0.0 =
 - Initial release

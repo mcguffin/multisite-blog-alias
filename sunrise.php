@@ -26,6 +26,7 @@ function blog_alias_site_not_found( $current_site, $domain, $path ) {
 		restore_current_blog();
 
 		http_response_code(301);
+		header( "X-Redirect-By: WPMS-Blog-Alias" );
 		header( 'Location: ' . trailingslashit($site_url) );
 
 		exit();
