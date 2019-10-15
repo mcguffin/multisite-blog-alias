@@ -566,7 +566,7 @@ echo $sunrise->code; ?></textarea>
 									'alias_id'	=> $alias->ID,
 									'nonce'		=> $admin->ajax_handler->nonce,
 								),
-								get_admin_url( 1, 'admin-ajax.php')
+								network_site_url( 'wp-admin/admin-ajax.php')
 							); // add_query_arg
 							?>
 							<tr>
