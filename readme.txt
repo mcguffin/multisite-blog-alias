@@ -27,6 +27,10 @@ WP Multisite plugin to maintain URL-redirects for Blogs.
 3. Enter the domain without `http` ao `/` and click "Add".
 4. Click "Check Status" to see if it worked. If something went wrong you will show an error message.
 
+If you want to redirect with URL path appended (e.g. from `some-alias.tld/some/path` to `some-real-blog.tld/some/path`), add this to your `wp-config.php`:
+
+    define( 'WPMU_BLOG_ALIAS_REDIRECT_WITH_PATH', true );
+
 #### Status messages
 
 **Warning: The domain matches the site URL of this blog:** The Blog is using the domain name as Site URL.
@@ -110,8 +114,11 @@ On the whole upgrading is always a good idea.
 == Changelog ==
 
 = 1.0.1 =
+- Send `X-Redirect-By` HTTP Header
+- Option to redirect with path using constant `WPMU_BLOG_ALIAS_REDIRECT_WITH_PATH`.
 - Fix: PHP Fatal in sunrise.php if formatting functions are not present
-- Admin: Fix Hostname validation
+- Fix: Make sure Status check ah´jax is loaded from Network-URL
+- Validation: Make sure only hostnames can be entered
 
 = 1.0.0 =
 - Initial release
