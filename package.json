@@ -16,7 +16,7 @@
     "url": "git+https://github.com/mcguffin/multisite-blog-alias.git"
   },
   "author": "Jörn Lund",
-  "license": "GPL3",
+  "license": "GPL-3.0-or-later",
   "bugs": {
     "url": "https://github.com/mcguffin/multisite-blog-alias/issues"
   },
