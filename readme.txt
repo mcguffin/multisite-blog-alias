@@ -19,6 +19,7 @@ WP Multisite plugin to maintain URL-redirects for Blogs.
  - Permanent 301 Redirect to blogs main domain
  - Painless installation and activation – no file access necessary.
  - Checks domain status
+ - Supports UTF-8 Domains
  - [WP-Cli](https://wp-cli.org/) commands
 
 ## Usage
