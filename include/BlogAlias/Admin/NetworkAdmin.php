@@ -242,18 +242,28 @@ echo $sunrise->code; ?></textarea>
 			'id' => $blog_id,
 			'action' => 'alias-domains',
 		);
-		if ( ! $domain_alias = $this->model->validate( 'domain_alias', $_POST['domain_alias'] ) ) {
-			$redirect_args['error']	= 'add-invalid-domain';
+
+		$domain_alias_input = $_POST['domain_alias'];
+
+		if ( function_exists('idn_to_ascii') ) {
+			$domain_alias = idn_to_ascii( $domain_alias_input, IDNA_NONTRANSITIONAL_TO_ASCII, INTL_IDNA_VARIANT_UTS46 );
+			$domain_alias_utf8 = $domain_alias_input;
+		} else {
+			$domain_alias = $domain_alias_utf8 = $domain_alias_input;
 		}
 
 
-		// alias exists
-		if ( $record = $this->model->fetch_one_by('domain_alias', $domain_alias ) ) {
+		if ( ! $domain_alias = $this->model->validate( 'domain_alias', $domain_alias ) ) {
+			// check validity
+			$redirect_args['error']	= 'add-invalid-domain';
+		} else if ( $record = $this->model->fetch_one_by('domain_alias', $domain_alias ) ) {
+			// check existence (alias)
 			$redirect_args['error']	= 'add-alias-exists';
 			if ( $record->blog_id != $blog_id ) {
 				$redirect_args['other_blog']	= $record->blog_id;
 			}
 		} else if ( $other_blog_id = get_blog_id_from_url( $domain_alias ) ) {
+			// check existence (blog)
 			if ( $other_blog_id != $blog_id ) {
 				$redirect_args['error']			= 'add-site-exists';
 				$redirect_args['other_blog']	= $other_blog_id;
@@ -264,10 +274,11 @@ echo $sunrise->code; ?></textarea>
 
 		if ( ! isset( $redirect_args['error'] ) ) {
 			$data = array(
-				'site_id'		=> get_current_site()->id,
-				'blog_id'		=> $blog_id,
-				'domain_alias'	=> $domain_alias,
-				'redirect'		=> 1,
+				'site_id'			=> get_current_site()->id,
+				'blog_id'			=> $blog_id,
+				'domain_alias'		=> $domain_alias,
+				'domain_alias_utf8'	=> $domain_alias_utf8,
+				'redirect'			=> 1,
 			);
 
 			$id = $this->model->insert( $data );
@@ -573,7 +584,7 @@ echo $sunrise->code; ?></textarea>
 							?>
 							<tr>
 								<td>
-									<code><?php echo $alias->domain_alias ?></code>
+									<code><?php echo $alias->domain_alias_utf8 ?></code>
 								</td>
 
 								<td class="status" data-check-status="<?php esc_attr_e( $get_status ); ?>"></td>

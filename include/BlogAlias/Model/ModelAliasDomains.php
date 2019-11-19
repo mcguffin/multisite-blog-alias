@@ -16,12 +16,13 @@ if ( ! defined('ABSPATH') ) {
 class ModelAliasDomains extends Model {
 
 	protected $fields = array(
-		'ID'			=> '%d',
-		'created'		=> '%s',
-		'site_id'		=> '%d',
-		'blog_id'		=> '%d',
-		'domain_alias'	=> '%s',
-		'redirect'		=> '%d',
+		'ID'				=> '%d',
+		'created'			=> '%s',
+		'site_id'			=> '%d',
+		'blog_id'			=> '%d',
+		'domain_alias'		=> '%s',
+		'domain_alias_utf8'	=> '%s',
+		'redirect'			=> '%d',
 	);
 
 
@@ -170,6 +171,7 @@ class ModelAliasDomains extends Model {
 			`site_id` bigint(20) unsigned NOT NULL,
 			`blog_id` bigint(20) unsigned NOT NULL,
 			`domain_alias` varchar(200) NOT NULL,
+			`domain_alias_utf8` varchar(200) NOT NULL,
 			`redirect` tinyint(2) NOT NULL default '1',
 			PRIMARY KEY (`ID`),
 			UNIQUE KEY `domain_alias` (`domain_alias`)
