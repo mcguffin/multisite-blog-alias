@@ -72,7 +72,9 @@ class NetworkAdmin extends Core\Singleton {
 		return $links;
 	}
 
-
+	/**
+	 *	@action admin_action_multisite-blog-alias-instructions
+	 */
 	public function instructions_action() {
 		// check capabilites
 
