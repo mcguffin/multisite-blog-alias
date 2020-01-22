@@ -72,6 +72,7 @@
     },
     "wporg": {
       "assets": ".wporg",
+      "svn_user": "podpirate",
       "svn": "https://plugins.svn.wordpress.org/multisite-blog-alias/"
     }
   }
