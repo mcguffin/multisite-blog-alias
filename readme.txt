@@ -114,6 +114,10 @@ On the whole upgrading is always a good idea.
 
 == Changelog ==
 
+= 1.0.3 =
+ - Add Option "Redirect with Path" to network settings page
+ - Introduce wp-cli --field parameter
+
 = 1.0.2 =
  - Add support for utf8 domain names
  - Fix PHP strict warning

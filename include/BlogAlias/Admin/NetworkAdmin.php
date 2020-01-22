@@ -20,12 +20,15 @@ class NetworkAdmin extends Core\Singleton {
 	private $core;
 	private $blog_details;
 
+	/** @var string plugin uninstall action name */
 	private $cap = 'manage_network';
 
 
 
 	/** @var string plugin uninstall action name */
 	private $uninstall_action = 'uninstall-multisite-blog-alias';
+
+	/** @var string plugin instructions action name */
 	private $instructions_action = 'multisite-blog-alias-instructions';
 
 
@@ -52,6 +55,67 @@ class NetworkAdmin extends Core\Singleton {
 		add_action( 'admin_action_' . $this->uninstall_action, array( $this, 'uninstall_action' ) );
 
 		add_action( 'admin_action_' . $this->instructions_action, array( $this, 'instructions_action' ) );
+
+
+
+		add_action( 'update_wpmu_options', array( $this, 'update_wpmu_options' ) );
+
+		add_action( 'wpmu_options', array( $this, 'wpmu_options' ) );
+
+	}
+
+	/**
+	 *	@action wpmu_options
+	 */
+	public function wpmu_options() {
+
+		?>
+		<h3><?php _e('Multisite Blog Alias','multisite-blog-alias') ?></h3>
+		<table class="form-table">
+			<tr valign="top">
+				<th scope="row">
+					<label for="blog_alias_redirect_with_path_opt"><?php _e('Redirect with path', 'multisite-blog-alias' ); ?></label>
+				</th>
+				<td>
+					<input type="checkbox" name="blog_alias_redirect_with_path" id="blog_alias_redirect_with_path_opt" value="1" <?php checked( get_site_option('blog_alias_redirect_with_path'), 1, true ) ?> />
+					<label for="blog_alias_redirect_with_path_opt"><?php _e('Redirect with path', 'multisite-blog-alias' ); ?></label>
+					<p class="description">
+						<?php _e('If checked the request path will be appended to the redirect URL.', 'multisite-blog-alias' ); ?>
+					</p>
+					<?php
+
+					if ( defined( 'WPMU_BLOG_ALIAS_REDIRECT_WITH_PATH' ) ) {
+						?>
+						<div class="notice notice-warning inline">
+							<p>
+								<?php printf(
+									/* translators: 1: name of constant 2: wp-config.php filename */
+									__('This setting is overridden by the constant %1$s in your %2$s', 'multisite-blog-alias' ),
+									'<code>WPMU_BLOG_ALIAS_REDIRECT_WITH_PATH</code>',
+									'<code>wp-config.php</code>'
+								); ?>
+							</p>
+						</div>
+						<?php
+					}
+
+					?>
+				</td>
+			</tr>
+		</table>
+		<?php
+	}
+
+	/**
+	 *	@action update_wpmu_options
+	 */
+	public function update_wpmu_options() {
+
+		if ( ! isset( $_POST['blog_alias_redirect_with_path'] ) ) {
+			$_POST['blog_alias_redirect_with_path'] = 0;
+		}
+
+		update_site_option( 'blog_alias_redirect_with_path', intval( $_POST['blog_alias_redirect_with_path'] ) );
 
 	}
 

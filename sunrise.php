@@ -14,7 +14,7 @@ function blog_alias_site_not_found( $current_site, $domain, $path ) {
 		return;
 	}
 
-	require_once ABSPATH . WPINC . '/kses.php'; // dep of pluggable
+	require_once ABSPATH . WPINC . '/kses.php'; // dep of pluggable.php
 	require_once ABSPATH . WPINC . '/pluggable.php'; // wp_sanitize_redirect()
 	require_once ABSPATH . WPINC . '/formatting.php'; // untrailingslashit()
 	require_once __DIR__ . DIRECTORY_SEPARATOR . 'include/autoload.php';
@@ -29,7 +29,11 @@ function blog_alias_site_not_found( $current_site, $domain, $path ) {
 		$site_url = get_option( 'siteurl' );
 		restore_current_blog();
 
-		if ( defined('WPMU_BLOG_ALIAS_REDIRECT_WITH_PATH') && WPMU_BLOG_ALIAS_REDIRECT_WITH_PATH ) {
+		$add_path = defined('WPMU_BLOG_ALIAS_REDIRECT_WITH_PATH')
+			? WPMU_BLOG_ALIAS_REDIRECT_WITH_PATH
+			: get_site_option('blog_alias_redirect_with_path');
+
+		if ( $add_path ) {
 			$redirect = untrailingslashit( $site_url ) . $path;
 		} else {
 			$redirect = trailingslashit( $site_url );
