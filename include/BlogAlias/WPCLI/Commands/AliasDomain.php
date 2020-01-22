@@ -15,7 +15,21 @@ use BlogAlias\Core;
 use BlogAlias\Model;
 
 class AliasDomain extends Core\Singleton {
+
+
 	private $model;
+
+	private $fields = array(
+		'ID',
+		'created',
+		'site_id',
+		'blog_id',
+		'domain_alias',
+		'domain_alias_utf8',
+		'redirect'
+	);
+
+
 	/**
 	 *	@inheritdoc
 	 */
@@ -34,6 +48,21 @@ class AliasDomain extends Core\Singleton {
      * default: 0
 	 * ---
 	 *
+	 * --field=<field>
+	 * : Prints the value of a single field for each domain alias.
+	 * ---
+     * default: 0
+	 * options:
+	 *	 - 0
+	 *   - ID
+	 *   - created
+	 *   - site_id
+	 *   - blog_id
+	 *   - domain_alias
+	 *	 - domain_alias_utf8
+	 *   - redirect
+	 * ---
+	 *
 	 * [--format=<format>]
 	 * : The output Format
 	 * ---
@@ -45,7 +74,7 @@ class AliasDomain extends Core\Singleton {
 	 * ---
 	 *
 	 * [--compact[=<compact>]]
-	 * : 1 (default): Skip messages, 2: and skip table headers (with list or csv) or minify json (with json)
+	 * : 1 (default): Skip messages, 2: and skip table headers (with --format=list or csv) or minify json (with --format=json)
 	 * ---
 	 * default: 1
 	 * options:
@@ -74,8 +103,12 @@ class AliasDomain extends Core\Singleton {
 
 		extract( $kwargs );
 
-		/* no type casting in wp-cli...? */
 		$compact = intval( $compact );
+
+		if ( $field && ! in_array( $field, $this->fields ) ) {
+			/* translators: %s invalid field name */
+			\WP_CLI::error( sprintf( __( 'Field %s does not exist.', 'multisite-blog-alias-cli' ), $field ) );
+		}
 
 		if ( $blog_id ){
 			$aliases = $this->model->fetch_by( 'blog_id', $blog_id );
@@ -89,19 +122,21 @@ class AliasDomain extends Core\Singleton {
 		} else {
 			if ( $total ) {
 				$sep = $format === 'csv' ? ',' : "\t";
-				$header = array(
-					'ID',
-					'created',
-					'site_id',
-					'blog_id',
-					'domain_alias',
-					'redirect',
-				);
+				if ( ! $field ) {
+					$header = $this->fields;
+				} else {
+					$header = array( $field );
+				}
+
 				if ( $compact < 2 ) {
 					\WP_CLI::line( implode( $sep, $header ) );
 				}
 				foreach ( $aliases as $alias ) {
-					$line = get_object_vars($alias);
+					if ( ! $field ) {
+						$line = get_object_vars($alias);
+					} else {
+						$line = array( $alias->$field );
+					}
 					\WP_CLI::line( implode( $sep, $line ) );
 				}
 			}
