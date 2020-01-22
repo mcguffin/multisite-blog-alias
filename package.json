@@ -1,6 +1,6 @@
 {
   "name": "multisite-blog-alias",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "Domain redirections for a multisite blog.",
   "private": true,
   "scripts": {
@@ -57,6 +57,7 @@
     ],
     "type": "plugin",
     "build": {
+      "versionedFiles": null,
       "prebuild": [
         "wp i18n make-pot . languages/multisite-blog-alias.pot --domain=multisite-blog-alias",
         "wp i18n make-pot . languages/multisite-blog-alias-cli.pot --domain=multisite-blog-alias-cli"
