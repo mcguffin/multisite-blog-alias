@@ -154,7 +154,13 @@ class ModelAliasDomains extends Model {
 	 *	@inheritdoc
 	 */
 	public function upgrade( $new_version, $old_version ) {
+
 		$this->update_db();
+
+		return [
+			'success' => true,
+			'message' => '',
+		];
 	}
 
 	/**
