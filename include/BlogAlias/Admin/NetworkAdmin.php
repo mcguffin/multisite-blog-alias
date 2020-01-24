@@ -732,11 +732,9 @@ echo esc_textarea( $sunrise->code );
 						$admin = Ajax::instance();
 						foreach ( $aliases as $alias ) {
 							$get_status = add_query_arg(
-								array(
-									'action'    => $admin->ajax_handler->action,
+								$admin->ajax_handler->request + [
 									'alias_id'  => $alias->ID,
-									'nonce'     => $admin->ajax_handler->nonce,
-								),
+								],
 								network_site_url( 'wp-admin/admin-ajax.php' )
 							); // add_query_arg
 							?>

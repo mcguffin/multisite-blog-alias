@@ -14,9 +14,6 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 class Sunrise extends PluginComponent {
 
-
-
-
 	/**
 	 *  @inheritdoc
 	 */
@@ -97,13 +94,19 @@ class Sunrise extends PluginComponent {
 	 *  @param string $wp_config Path to wp-config
 	 */
 	private function write_wp_config( $wp_config ) {
-		if ( is_writable( $wp_config ) ) {
-			$wp_config_contents = file_get_contents( $wp_config );
+		global $wp_filesystem;
+
+		if ( ! WP_Filesystem() ) {
+			return false;
+		}
+
+		if ( $wp_filesystem->is_writable( $wp_config ) ) {
+			$wp_config_contents = $wp_filesystem->get_contents( $wp_config );
 			$code = '/* Added by Multisite Blog Alias Plugin */' . "\n";
 			$code .= 'define( \'SUNRISE\', true );' . "\n\n";
 			$wp_config_contents = substr( $wp_config_contents, 5 );
 			$wp_config_contents = '<?php' . "\n" . $code . $wp_config_contents;
-			return file_put_contents( $wp_config, $wp_config_contents );
+			return $wp_filesystem->put_contents( $wp_config, $wp_config_contents );
 		}
 		return false;
 	}
@@ -137,9 +140,7 @@ class Sunrise extends PluginComponent {
 	 *  @inheritdoc
 	 */
 	public static function uninstall() {
-		if ( file_exists( self::instance()->$location ) ) {
-			// $sunrise_contents = file_get_contents( WP_CONTENT_DIR . '/sunrise.php' );
-			// $sunrise_contents = preg_replace('@//BEGIN:blog_alias(.*)END:blog_alias//@imsU', '', $sunrise_contents );
+		if ( file_exists( self::instance()->location ) ) {
 			self::write_sunrise( self::reset_sunrise() );
 		}
 		delete_site_option( 'multisite_blog_alias_sunrise_active' );
@@ -152,9 +153,16 @@ class Sunrise extends PluginComponent {
 	 *  @param string $sunrise_contents Must be valid PHP
 	 */
 	private static function write_sunrise( $sunrise_contents ) {
+		global $wp_filesystem;
+
+		if ( ! WP_Filesystem() ) {
+			return false;
+		}
+
 		$file = self::instance()->location;
-		if ( is_writable( $file ) ) {
-			return file_put_contents( $file, $sunrise_contents );
+
+		if ( $wp_filesystem->is_writable( $file ) ) {
+			return $wp_filesystem->put_contents( $file, $sunrise_contents );
 		}
 		return false;
 	}
@@ -184,15 +192,26 @@ class Sunrise extends PluginComponent {
 	 *  @return string
 	 */
 	private static function reset_sunrise( $slug = null ) {
+
+		global $wp_filesystem;
+
 		$core = Plugin::instance();
+
+		if ( ! WP_Filesystem() ) {
+			return false;
+		}
+
 		if ( is_null( $slug ) ) {
 			$slug = $core->get_slug();
 		}
+
 		$sunrise = WP_CONTENT_DIR . '/sunrise.php';
-		if ( file_exists( $sunrise ) ) {
-			$sunrise_contents = file_get_contents( $sunrise );
+
+		if ( $wp_filesystem->exists( $sunrise ) ) {
+			$sunrise_contents = $wp_filesystem->get_contents( $sunrise );
 			$sunrise_contents = preg_replace( "@//BEGIN:{$slug}(.*)END:{$slug}//@imsU", '', $sunrise_contents );
 		} else {
+			// return empty sunrise.php
 			$sunrise_contents = '<?php' . "\n\n";
 			$sunrise_contents .= "/* sunrise.php added by Plugin {$slug} */\n";
 		}
