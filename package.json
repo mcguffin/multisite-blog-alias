@@ -4,12 +4,14 @@
   "description": "Domain redirections for a multisite blog.",
   "private": true,
   "scripts": {
-    "init": "",
     "dev": "gulp dev",
     "build": "gulp build && npm run i18n",
     "i18n": "wp i18n make-pot . languages/multisite-blog-alias.pot --domain=multisite-blog-alias --exclude=tmp && wp i18n make-pot . languages/multisite-blog-alias-cli.pot --domain=multisite-blog-alias-cli --exclude=tmp",
     "rollback": "git reset --hard HEAD~ && git push origin +master",
-    "dashicons": "node ./src/run/dashicons.js"
+    "dashicons": "node ./src/run/dashicons.js",
+    "audit": "./vendor/squizlabs/php_codesniffer/bin/phpcs . --report=code --standard=./phpcs.ruleset.xml -n -s > ./phpcs-report.txt || exit 0",
+    "audit-fix": "./vendor/squizlabs/php_codesniffer/bin/phpcbf . --standard=./phpcs.ruleset.xml || exit 0",
+    "postinstall": "composer install"
   },
   "repository": {
     "type": "git",
