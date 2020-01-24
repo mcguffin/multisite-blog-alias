@@ -67,7 +67,7 @@ class Sunrise extends PluginComponent {
 	}
 
 	/**
-	 *
+	 *	Add redirect to instructions page
 	 */
 	private function not_writable_error() {
 		$core = Plugin::instance();

@@ -23,7 +23,8 @@ class NetworkAdmin extends Core\Singleton {
 	/** @var string plugin uninstall action name */
 	private $cap = 'manage_network';
 
-
+	/** @var string current network admin menu parent file */
+	private $current_menu_parent = null;
 
 	/** @var string plugin uninstall action name */
 	private $uninstall_action = 'uninstall-multisite-blog-alias';
@@ -70,17 +71,23 @@ class NetworkAdmin extends Core\Singleton {
 	public function wpmu_options() {
 
 		?>
-		<h3><?php _e( 'Multisite Blog Alias', 'multisite-blog-alias' ); ?></h3>
+		<h3>
+			<?php esc_html_e( 'Multisite Blog Alias', 'multisite-blog-alias' ); ?>
+		</h3>
 		<table class="form-table">
 			<tr valign="top">
 				<th scope="row">
-					<label for="blog_alias_redirect_with_path_opt"><?php _e( 'Redirect with path', 'multisite-blog-alias' ); ?></label>
+					<label for="blog_alias_redirect_with_path_opt">
+						<?php esc_html_e( 'Redirect with path', 'multisite-blog-alias' ); ?>
+					</label>
 				</th>
 				<td>
 					<input type="checkbox" name="blog_alias_redirect_with_path" id="blog_alias_redirect_with_path_opt" value="1" <?php checked( get_site_option( 'blog_alias_redirect_with_path' ), 1, true ); ?> />
-					<label for="blog_alias_redirect_with_path_opt"><?php _e( 'Redirect with path', 'multisite-blog-alias' ); ?></label>
+					<label for="blog_alias_redirect_with_path_opt">
+						<?php esc_html_e( 'Redirect with path', 'multisite-blog-alias' ); ?>
+					</label>
 					<p class="description">
-						<?php _e( 'If checked the request path will be appended to the redirect URL.', 'multisite-blog-alias' ); ?>
+						<?php esc_html_e( 'If checked the request path will be appended to the redirect URL.', 'multisite-blog-alias' ); ?>
 					</p>
 					<?php
 
@@ -91,7 +98,7 @@ class NetworkAdmin extends Core\Singleton {
 								<?php
                                 printf(
 									/* translators: 1: name of constant 2: wp-config.php filename */
-									__( 'This setting is overridden by the constant %1$s in your %2$s', 'multisite-blog-alias' ),
+									esc_html__( 'This setting is overridden by the constant %1$s in your %2$s', 'multisite-blog-alias' ),
 									'<code>WPMU_BLOG_ALIAS_REDIRECT_WITH_PATH</code>',
 									'<code>wp-config.php</code>'
 								);
@@ -100,7 +107,6 @@ class NetworkAdmin extends Core\Singleton {
 						</div>
 						<?php
 					}
-
 					?>
 				</td>
 			</tr>
@@ -113,11 +119,15 @@ class NetworkAdmin extends Core\Singleton {
 	 */
 	public function update_wpmu_options() {
 
-		if ( ! isset( $_POST['blog_alias_redirect_with_path'] ) ) {
-			$_POST['blog_alias_redirect_with_path'] = 0;
+		check_admin_referer( 'siteoptions' );
+
+		$with_path = 0;
+
+		if ( isset( $_POST['blog_alias_redirect_with_path'] ) ) {
+			$with_path = intval( $_POST['blog_alias_redirect_with_path'] );
 		}
 
-		update_site_option( 'blog_alias_redirect_with_path', intval( $_POST['blog_alias_redirect_with_path'] ) );
+		update_site_option( 'blog_alias_redirect_with_path', $with_path );
 
 	}
 
@@ -133,7 +143,11 @@ class NetworkAdmin extends Core\Singleton {
 				'action'    => $this->uninstall_action,
 				'nonce'     => wp_create_nonce( $this->uninstall_action ),
 			), $url );
-			$links[] = sprintf( '<a href="%s">%s</a>', $url, __( 'Uninstall', 'multisite-blog-alias' ) );
+			$links[] = sprintf(
+				'<a href="%s">%s</a>',
+				esc_url( $url ),
+				esc_html__( 'Uninstall', 'multisite-blog-alias' )
+			);
 		}
 		return $links;
 	}
@@ -145,7 +159,7 @@ class NetworkAdmin extends Core\Singleton {
 		// check capabilites
 
 		if ( ! ( current_user_can( 'manage_network_plugins' ) ) ) {
-			wp_die( __( 'Sorry, you are not allowed to install plugins.', 'multisite-blog-alias' ) );
+			wp_die( esc_html__( 'Sorry, you are not allowed to install plugins.', 'multisite-blog-alias' ) );
 		}
 
 		// ask for confirmation
@@ -161,20 +175,24 @@ class NetworkAdmin extends Core\Singleton {
 
 		?>
 		<div class="wrap">
-			<h1><?php _e( 'Multisite Blog Alias Setup', 'multisite-blog-alias' ); ?></h1>
+			<h1>
+				<?php esc_html_e( 'Multisite Blog Alias Setup', 'multisite-blog-alias' ); ?>
+			</h1>
 			<?php
 				if ( $this->is_configured() ) {
 				?>
 					<div class="notice notice-success">
-						<p><?php _e( 'The plugin is well configured. The instructions are kept for documentation purposes.', 'multisite-blog-alias' ); ?></p>
+						<p>
+							<?php esc_html_e( 'The plugin is well configured. The instructions are kept for documentation purposes.', 'multisite-blog-alias' ); ?>
+						</p>
 					</div>
 				<?php
 				}
 			?>
 			<p>
 				<?php
-					_e( 'The plugin could not write to the filesystem.', 'multisite-blog-alias' );
-					_e( 'Please change the following.', 'multisite-blog-alias' );
+					esc_html_e( 'The plugin could not write to the filesystem.', 'multisite-blog-alias' );
+					esc_html_e( 'Please change the following.', 'multisite-blog-alias' );
 				?>
 			</p>
 			<ol>
@@ -183,7 +201,7 @@ class NetworkAdmin extends Core\Singleton {
 						<p>
                         <?php
 						// stolen from WP-Core
-						printf(
+						wp_kses( sprintf(
 							/* translators: 1: wp-config.php, 2: location of wp-config file, 3: translated version of "That's all, stop editing! Happy publishing." */
 							__( 'Add the following to your %1$s file in %2$s <strong>above</strong> the line reading %3$s:' ),
 							'<code>wp-config.php</code>',
@@ -194,7 +212,10 @@ class NetworkAdmin extends Core\Singleton {
 							 * https://i18n.svn.wordpress.org/<locale code>/branches/<wp version>/dist/wp-config-sample.php
 							 */
 							'<code>/* ' . __( 'That&#8217;s all, stop editing! Happy publishing.' ) . ' */</code>'
-						);
+						), [
+							'code' => [],
+							'strong' => [],
+						] );
 						?>
                         </p>
 						<textarea class="code" readonly="readonly" cols="100" rows="2">
@@ -206,11 +227,17 @@ define('SUNRISE', true);</textarea>
 					<p>
 						<?php
 						if ( $has_sunrise ) {
-							/* translators: Sunrise file location */
-							printf( __( 'Insert the following code into %s:', 'multisite-blog-alias' ), '<code>' . $sunrise->location . '</code>' );
+							printf(
+								/* translators: sunrise.php file location */
+								esc_html__( 'Insert the following code into %s:', 'multisite-blog-alias' ),
+								'<code>' . esc_html( $sunrise->location ) . '</code>'
+							);
 						} else {
-							/* translators: Sunrise file location */
-							printf( __( 'Create a file %s with the following code:', 'multisite-blog-alias' ), '<code>' . $sunrise->location . '</code>' );
+							printf(
+								/* translators: sunrise.php file location */
+								esc_html__( 'Create a file %s with the following code:', 'multisite-blog-alias' ),
+								'<code>' . esc_html( $sunrise->location ) . '</code>'
+							);
 						}
 						?>
 					</p>
@@ -219,7 +246,7 @@ define('SUNRISE', true);</textarea>
 if ( ! $has_sunrise ) {
 			echo '<?php' . "\n\n";
 }
-echo $sunrise->code;
+echo esc_textarea( $sunrise->code );
 ?>
 </textarea>
 
@@ -237,13 +264,13 @@ echo $sunrise->code;
 	 *  @action admin_action_uninstall-multisite-blog-alias
 	 */
 	public function uninstall_action() {
+		global $action;
 
-		// check nonce
-		check_admin_referer( $_REQUEST['action'], 'nonce' );
+		check_admin_referer( $action, 'nonce' );
 
 		// check capabilites
 		if ( ! ( current_user_can( 'manage_network_plugins' ) && current_user_can( 'activate_plugins' ) ) ) {
-			wp_die( __( 'Sorry, you are not allowed to run the uninstall procedere.', 'multisite-blog-alias' ) );
+			wp_die( esc_html__( 'Sorry, you are not allowed to run the uninstall procedere.', 'multisite-blog-alias' ) );
 		}
 
 		$model = Model\ModelAliasDomains::instance();
@@ -265,18 +292,32 @@ echo $sunrise->code;
 			$this->admin_header( 'plugins.php' );
 			?>
 			<div class="card card-warning">
-				<h2><?php _e( 'Uninstall Plugin?', 'multisite-blog-alias' ); ?></h2>
-				<p><?php _e( 'Uninstalling the plugin will remove the Blog Alias table from the database and deactivate the plugin.', 'multisite-blog-alias' ); ?></p>
+				<h2>
+					<?php esc_html_e( 'Uninstall Plugin?', 'multisite-blog-alias' ); ?>
+				</h2>
+				<p>
+					<?php esc_html_e( 'Uninstalling the plugin will remove the Blog Alias table from the database and deactivate the plugin.', 'multisite-blog-alias' ); ?>
+				</p>
 				<p><strong>
                 <?php
 					$count = $model->fetch_count();
 					/* Translators: %d number of alias domains */
-					printf( _n( '%d Alias Domain will be deleted.', '%d Alias Domains will be deleted.', $count, 'multisite-blog-alias' ), $count );
+					esc_html_e(
+						sprintf(
+							/* translators: number of domains being deleted on plugin uninstall */
+							_n( '%d Alias Domain will be deleted.', '%d Alias Domains will be deleted.', $count, 'multisite-blog-alias' ),
+							$count
+						)
+					);
 				?>
                 </strong></p>
 				<form method="post">
-					<a href="<?php esc_attr_e( network_admin_url( 'plugins.php' ) ); ?>" class="button"><?php _e( 'No, back to plugins', 'multisite-blog-alias' ); ?></a>
-					<button class="button button-primary" name="confirm" value="yes"><?php _e( 'Yes, Uninstall now!', 'multisite-blog-alias' ); ?></button>
+					<a href="<?php esc_attr_e( network_admin_url( 'plugins.php' ) ); ?>" class="button">
+						<?php esc_html_e( 'No, back to plugins', 'multisite-blog-alias' ); ?>
+					</a>
+					<button class="button button-primary" name="confirm" value="yes">
+						<?php esc_html_e( 'Yes, Uninstall now!', 'multisite-blog-alias' ); ?>
+					</button>
 				</form>
 			</div>
 			<?php
@@ -301,13 +342,13 @@ echo $sunrise->code;
 
 		check_admin_referer( 'alias-domain-add' );
 
-		current_user_can( $this->cap ) || wp_die( __( 'Insufficient permission' ) );
+		current_user_can( $this->cap ) || wp_die( esc_html__( 'Insufficient permission' ) );
 
 		if ( isset( $_POST['blog_id'] ) ) {
 			$blog_id = absint( $_POST['blog_id'] );
 		}
 		if ( ! $blog_id ) {
-			wp_die( __( 'Invalid request' ) );
+			wp_die( esc_html__( 'Invalid request' ) );
 		}
 
 		$redirect_args = array(
@@ -315,7 +356,11 @@ echo $sunrise->code;
 			'action' => 'alias-domains',
 		);
 
-		$domain_alias_input = $_POST['domain_alias'];
+		$domain_alias_input = '';
+
+		if ( isset( $_POST['domain_alias'] ) ) {
+			$domain_alias_input = wp_unslash( $_POST['domain_alias'] );
+		}
 
 		if ( function_exists( 'idn_to_ascii' ) ) {
 			$domain_alias = idn_to_ascii( $domain_alias_input, IDNA_NONTRANSITIONAL_TO_ASCII, INTL_IDNA_VARIANT_UTS46 );
@@ -373,7 +418,7 @@ echo $sunrise->code;
 	 */
 	public function remove_alias_domain() {
 
-		current_user_can( $this->cap ) || wp_die( __( 'Insufficient permission' ) );
+		current_user_can( $this->cap ) || wp_die( esc_html__( 'Insufficient permission' ) );
 
 		$id = false;
 
@@ -381,7 +426,7 @@ echo $sunrise->code;
 			$id = absint( $_POST['id'] );
 		}
 		if ( ! $id ) {
-			wp_die( __( 'Invalid request' ) );
+			wp_die( esc_html__( 'Invalid request' ) );
 		}
 
 		check_admin_referer( 'alias-domain-remove-' . $id );
@@ -390,7 +435,7 @@ echo $sunrise->code;
 			$blog_id = absint( $_POST['blog_id'] );
 		}
 		if ( ! $blog_id ) {
-			wp_die( __( 'Invalid request' ) );
+			wp_die( esc_html__( 'Invalid request' ) );
 		}
 
 		$redirect_args = array(
@@ -417,14 +462,14 @@ echo $sunrise->code;
 
 		check_admin_referer( 'alias-domain-remove-all' );
 
-		current_user_can( $this->cap ) || wp_die( __( 'Insufficient permission' ) );
+		current_user_can( $this->cap ) || wp_die( esc_html__( 'Insufficient permission' ) );
 
 		$blog_id = false;
 		if ( isset( $_POST['blog_id'] ) ) {
 			$blog_id = absint( $_POST['blog_id'] );
 		}
 		if ( ! $blog_id ) {
-			wp_die( __( 'Invalid request' ) );
+			wp_die( esc_html__( 'Invalid request' ) );
 		}
 
 		$redirect_args = array(
@@ -464,30 +509,30 @@ echo $sunrise->code;
 	public function admin_alias_domains() {
 
 		if ( ! current_user_can( 'manage_network' ) ) {
-			wp_die( __( 'Sorry, you are not allowed to edit this site.' ) );
+			wp_die( esc_html__( 'Sorry, you are not allowed to edit this site.' ) );
 		}
 
 		$id = isset( $_REQUEST['id'] ) ? intval( $_REQUEST['id'] ) : 0;
 
 		if ( ! $id ) {
-			wp_die( __( 'Invalid site ID.' ) );
+			wp_die( esc_html__( 'Invalid site ID.' ) );
 		}
 
 
 		$details = get_site( $id );
 		if ( ! $details ) {
-			wp_die( __( 'The requested site does not exist.' ) );
+			wp_die( esc_html__( 'The requested site does not exist.' ) );
 		}
 
 		if ( ! can_edit_network( $details->site_id ) ) {
-			wp_die( __( 'Sorry, you are not allowed to access this page.' ), 403 );
+			wp_die( esc_html__( 'Sorry, you are not allowed to access this page.' ), 403 );
 		}
 
 		$this->blog_details = $details;
 
 		add_filter( 'removable_query_args', '__return_empty_array' );
-
-		$title = sprintf( __( 'Edit Site: %s' ), esc_html( $this->blog_details->blogname ) );
+		/* translators: blogname */
+		$title = sprintf( esc_html__( 'Edit Site: %s' ), esc_html( $this->blog_details->blogname ) );
 
 		$this->admin_header( 'sites.php', $title );
 		$this->admin_alias_body();
@@ -500,17 +545,30 @@ echo $sunrise->code;
 	private function admin_header( $parent = '', $page_title = false ) {
 
 		// handle actions here!
-
+		$this->current_menu_parent = $parent;
+		add_filter( 'parent_file', [ $this, 'get_current_menu_parent' ] );
+		add_filter( 'submenu_file', [ $this, 'get_current_menu_parent' ] );
 		global $parent_file, $submenu_file, $title;
 
-		$parent_file = $parent;
-		$submenu_file = $parent;
-		$title = $page_title;
+		// $parent_file = $parent;
+		// $submenu_file = $parent;
+		// $title = $page_title;
 
 		wp_enqueue_script( 'admin-alias-domain', $this->core->get_asset_url( 'js/admin/network/alias.js' ), [ 'jquery' ], $this->core->get_version(), true );
 		wp_enqueue_style( 'admin-alias-domain', $this->core->get_asset_url( 'css/admin/network/alias.css' ), [], $this->core->get_version() );
 		require ABSPATH . 'wp-admin/admin-header.php';
 
+	}
+
+	/**
+	 *	@filter parent_file
+	 *	@filter submenu_file
+	 */
+	public function get_current_menu_parent( $parent ) {
+		if ( ! is_null( $this->current_menu_parent ) ) {
+			return $this->current_menu_parent;
+		}
+		return $parent;
 	}
 
 	/**
@@ -527,14 +585,14 @@ echo $sunrise->code;
 
 		if ( ! $this->is_configured() ) {
 			$messages['error'] = sprintf( '<strong>%1$s</strong> %2$s',
-				__( 'Not Configured:', 'multisite-blog-alias' ),
+				esc_html__( 'Not Configured:', 'multisite-blog-alias' ),
 				sprintf(
 					/* Translators: link to setup page */
-					__( 'Multisite Blog Alias is not configured. Please visit %s for instructions.', 'multisite-blog-alias' ),
+					esc_html__( 'Multisite Blog Alias is not configured. Please visit %s for instructions.', 'multisite-blog-alias' ),
 					sprintf(
 						'<a href="%s">%s</a>',
-						add_query_arg( 'action', $this->instructions_action, network_admin_url( 'admin.php' ) ),
-						__( 'the setup page', 'multisite-blog-alias' )
+						esc_url( add_query_arg( 'action', $this->instructions_action, network_admin_url( 'admin.php' ) ) ),
+						esc_html__( 'the setup page', 'multisite-blog-alias' )
 					)
 				)
 			);
@@ -542,10 +600,11 @@ echo $sunrise->code;
 		}
 
 		if ( isset( $_GET['created'] ) ) {
-			$messages['updated'] = __( 'Alias created', 'multisite-blog-alias' );
+			$messages['updated'] = esc_html__( 'Alias created', 'multisite-blog-alias' );
 		} elseif ( isset( $_GET['deleted'] ) ) {
+			$deleted = intval( $_GET['deleted'] );
 			/* translators: number of deleted entries */
-			$messages['notice-warning'] = sprintf( _n( '%d entry deleted', '%d entries deleted', $_GET['deleted'], 'multisite-blog-alias' ), $_GET['deleted'] );
+			$messages['notice-warning'] = esc_html( sprintf( _n( '%d entry deleted', '%d entries deleted', $deleted, 'multisite-blog-alias' ), $deleted ) );
 		} elseif ( isset( $_GET['error'] ) ) {
 			$errors = array(
 				'add-alias-exists'      => __( 'The Alias already exists.', 'multisite-blog-alias' ),
@@ -554,16 +613,27 @@ echo $sunrise->code;
 				'add-site-exists'       => __( 'A different Blog is already using this domain.', 'multisite-blog-alias' ),
 				'default'               => __( 'Something went wrong...', 'multisite-blog-alias' ),
 			);
+
+			$error_key = '';
+
+			if ( isset( $_GET['error'] ) ) {
+				$error_key = wp_unslash( $_GET['error'] );
+			}
+			if ( ! isset( $errors[ $error_key ] ) ) {
+				$error_key = 'default';
+			}
+
 			$messages['error'] = sprintf( '<strong>%1$s</strong> %2$s',
 				__( 'Error:', 'multisite-blog-alias' ),
-				isset( $errors[ $_GET['error'] ] ) ? $errors[ $_GET['error'] ] : $errors['default']
+				$errors[ $error_key ]
 			);
 
 			if ( isset( $_GET['other_blog'] ) ) {
+				$other_blog = intval( $_GET['other_blog'] );
 				$messages['error'] .= sprintf( ' <a href="%s">%s</a> | <a href="%s">%s</a>',
-					esc_url( get_site_url( $_GET['other_blog'] ) ),
+					esc_url( get_site_url( $other_blog ) ),
 					__( 'Visit other Blog', 'multisite-blog-alias' ),
-					esc_url( network_admin_url( 'site-info.php?id=' . $_GET['other_blog'] ) ),
+					esc_url( network_admin_url( 'site-info.php?id=' . $other_blog ) ),
 					__( 'Edit', 'multisite-blog-alias' )
 				);
 
@@ -579,9 +649,18 @@ echo $sunrise->code;
 		?>
 
 		<div class="wrap admin-domain-alias">
-		<h1 id="edit-site"><?php echo $title; ?></h1>
+		<h1 id="edit-site">
+			<?php esc_html_e( $title ); ?>
+		</h1>
 
-		<p class="edit-site-actions"><a href="<?php echo esc_url( get_home_url( $this->blog_details->id, '/' ) ); ?>"><?php _e( 'Visit' ); ?></a> | <a href="<?php echo esc_url( get_admin_url( $this->blog_details->id ) ); ?>"><?php _e( 'Dashboard' ); ?></a></p>
+		<p class="edit-site-actions">
+			<a href="<?php echo esc_url( get_home_url( $this->blog_details->id, '/' ) ); ?>">
+				<?php esc_html_e( 'Visit' ); ?>
+			</a> |
+			<a href="<?php echo esc_url( get_admin_url( $this->blog_details->id ) ); ?>">
+				<?php esc_html_e( 'Dashboard' ); ?>
+			</a>
+		</p>
 		<?php
 
 			network_edit_site_nav( array(
@@ -590,26 +669,30 @@ echo $sunrise->code;
 			) );
 
 			foreach ( $messages as $type => $msg ) {
-			if ( ! empty( $msg ) ) {
-				printf( '<div id="message-%s" class="%s notice is-dismissible"><p>%s</p></div>', $type, $type, $msg );
+				if ( ! empty( $msg ) ) {
+					printf(
+						'<div id="message-%1$s" class="%1$s notice is-dismissible"><p>%2$s</p></div>',
+						sanitize_key( $type ),
+						wp_kses( $msg, [
+							'strong' => [],
+							'code' => [],
+							'a' => [ 'href' => [], 'rel' => [], 'target' => [] ],
+						] )
+					);
 				}
 			}
 
 			$aliases = $this->model->fetch_by( 'blog_id', $this->blog_details->id );
 
-			/*
-			 actions:
-				-remove-all(blog_id)
-				-remove(ID)
-				-add(blog_id,alias)
-			*/
 			// form
 			?>
 			<!-- add -->
-			<h2><?php _e( 'Add Domain Alias', 'multisite-blog-alias' ); ?></h2>
+			<h2>
+				<?php esc_html_e( 'Add Domain Alias', 'multisite-blog-alias' ); ?>
+			</h2>
 			<form method="post" action="admin.php?action=alias-domain-add">
 				<?php wp_nonce_field( 'alias-domain-add' ); ?>
-				<input type="hidden" name="blog_id" value="<?php echo esc_attr( $this->blog_details->id ); ?>" />
+				<input type="hidden" name="blog_id" value="<?php esc_attr_e( $this->blog_details->id ); ?>" />
 				<table class="widefat striped">
 					<tbody>
 						<tr>
@@ -617,19 +700,21 @@ echo $sunrise->code;
 								<input id="add-domain-alias" placeholder="subdomain.domain.tld" type="text" name="domain_alias" class="widefat code" />
 							</td>
 							<td class="action-links">
-								<button class="button-primary" type="submit"><?php _e( 'Add', 'multisite-blog-alias' ); ?></button>
+								<button class="button-primary" type="submit">
+									<?php esc_html_e( 'Add', 'multisite-blog-alias' ); ?>
+								</button>
 							</td>
 						</tr>
 					</tbody>
 				</table>
 			</form>
 			<!-- remove -->
-			<h2><?php _e( 'Domain Aliases', 'multisite-blog-alias' ); ?></h2>
+			<h2><?php esc_html_e( 'Domain Aliases', 'multisite-blog-alias' ); ?></h2>
 			<?php
             if ( empty( $aliases ) ) {
 
 				?>
-					<p><?php _e( '– No Domain Aliases –', 'multisite-blog-alias' ); ?></p>
+					<p><?php esc_html_e( '– No Domain Aliases –', 'multisite-blog-alias' ); ?></p>
 				<?php
 
 			} else {
@@ -637,8 +722,8 @@ echo $sunrise->code;
 
 				<table class="widefat striped domain-status-list-table">
 					<thead>
-						<th><?php _e( 'Alias Domain', 'multisite-blog-alias' ); ?></th>
-						<th class="status"><?php _e( 'Status', 'multisite-blog-alias' ); ?></th>
+						<th><?php esc_html_e( 'Alias Domain', 'multisite-blog-alias' ); ?></th>
+						<th class="status"><?php esc_html_e( 'Status', 'multisite-blog-alias' ); ?></th>
 						<th class="action-links"></th>
 					</thead>
 					<tbody>
@@ -657,16 +742,18 @@ echo $sunrise->code;
 							?>
 							<tr>
 								<td>
-									<code><?php echo $alias->domain_alias_utf8; ?></code>
+									<code>
+										<?php esc_html_e( $alias->domain_alias_utf8 ); ?>
+									</code>
 								</td>
 
 								<td class="status" data-check-status="<?php esc_attr_e( $get_status ); ?>"></td>
 								<td class="action-links">
 									<form method="post" action="admin.php?action=alias-domain-remove">
 										<?php wp_nonce_field( 'alias-domain-remove-' . $alias->ID ); ?>
-										<input type="hidden" name="blog_id" value="<?php echo esc_attr( $this->blog_details->id ); ?>" />
-										<button class="button-secondary" type="submit" name="id" value="<?php echo $alias->ID; ?>">
-											<?php _e( 'Remove', 'multisite-blog-alias' ); ?>
+										<input type="hidden" name="blog_id" value="<?php esc_attr_e( $this->blog_details->id ); ?>" />
+										<button class="button-secondary" type="submit" name="id" value="<?php esc_attr_e( $alias->ID ); ?>">
+											<?php esc_html_e( 'Remove', 'multisite-blog-alias' ); ?>
 										</button>
 									</form>
 								</td>
@@ -683,9 +770,11 @@ echo $sunrise->code;
 							<th class="action-links">
 								<form method="post" action="admin.php?action=alias-domain-remove-all">
 									<?php wp_nonce_field( 'alias-domain-remove-all' ); ?>
-									<a href="#" data-action="check-alias-status" class="button"><?php _e( 'Check Status', 'multisite-blog-alias' ); ?></a>
-									<button class="button-secondary" type="submit" name="blog_id" value="<?php echo $this->blog_details->id; ?>">
-										<?php _e( 'Remove All', 'multisite-blog-alias' ); ?>
+									<a href="#" data-action="check-alias-status" class="button">
+										<?php esc_html_e( 'Check Status', 'multisite-blog-alias' ); ?>
+									</a>
+									<button class="button-secondary" type="submit" name="blog_id" value="<?php esc_attr_e( $this->blog_details->id ); ?>">
+										<?php esc_html_e( 'Remove All', 'multisite-blog-alias' ); ?>
 									</button>
 								</form>
 							</th>

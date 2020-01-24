@@ -65,8 +65,8 @@ if ( ! is_multisite() ) {
 			?>
 			<div class="notice error is-dismissible">
 				<p>
-					<?php _e( 'The Multisite Blog Alias plugin requires a WordPress multisite installation.', 'multisite-blog-alias' ); ?>
-					<strong><?php _e( 'It has been deactivated.', 'multisite-blog-alias' ); ?></strong>
+					<?php esc_html_e( 'The Multisite Blog Alias plugin requires a WordPress multisite installation.', 'multisite-blog-alias' ); ?>
+					<strong><?php esc_html_e( 'It has been deactivated.', 'multisite-blog-alias' ); ?></strong>
 				</p>
 			</div>
 			<?php

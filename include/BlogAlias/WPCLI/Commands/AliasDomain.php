@@ -97,9 +97,9 @@ class AliasDomain extends Core\Singleton {
 	 */
 	public function get_list( $args, $kwargs ) {
 
-		$kwargs = wp_parse_args($kwargs,array(
+		$kwargs = wp_parse_args( $kwargs, [
 			'compact' => false,
-		));
+		]);
 
 		extract( $kwargs );
 

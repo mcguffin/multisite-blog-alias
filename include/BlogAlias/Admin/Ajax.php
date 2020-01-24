@@ -48,38 +48,46 @@ class Ajax extends Core\Singleton {
 			if ( $code === 'usedby-self' ) {
 				?>
 				<div class="notice notice-warning inline">
-					<p><strong><?php echo $status->get_error_message(); ?></strong></p>
+					<p><strong>
+						<?php esc_html_e( $status->get_error_message() ); ?>
+					</strong></p>
 				</div>
 				<?php
 			} else {
 				?>
 				<div class="notice error inline">
 					<p>
-						<strong><?php echo $status->get_error_message(); ?></strong>
+						<strong>
+							<?php esc_html_e( $status->get_error_message() ); ?>
+						</strong>
 						<?php
 
 							$data = $status->get_error_data( $code );
 
 							if ( $code === 'usedby-ms_site' ) {
-							echo ' ';
-							printf( '<a href="%s">%s</a>',
-							esc_url( network_admin_url( 'site-info.php?id=' . $data->blog_id ) ),
-							__( 'Edit', 'multisite-blog-alias' )
-						);
-						echo ' ';
-						printf( '<a href="%s">%s</a>',
-						esc_url( get_site_url( $data->blog_id ) ),
-						__( 'View', 'multisite-blog-alias' )
-						);
+								echo ' ';
+								printf( '<a href="%s">%s</a>',
+									esc_url( network_admin_url( 'site-info.php?id=' . $data->blog_id ) ),
+									esc_html__( 'Edit', 'multisite-blog-alias' )
+								);
+								echo ' ';
+								printf( '<a href="%s">%s</a>',
+									esc_url( get_site_url( $data->blog_id ) ),
+									esc_html__( 'View', 'multisite-blog-alias' )
+								);
 							} elseif ( $code === 'redirect-http_error' ) {
-							printf( '<br />%s <code>%s</code>', __( 'Error message:', 'multisite-blog-alias' ), $data->get_error_message() );
+								printf(
+									'<br />%s <code>%s</code>',
+									esc_html__( 'Error message:', 'multisite-blog-alias' ),
+									esc_html( $data->get_error_message() )
+								);
 
 							} elseif ( $code === 'redirect-target_invalid' ) {
-							//
-							printf( '<br />%1$s <a href="%2$s" target="_blank">%2$s</a>',
-							__( 'Last Redirect to:', 'multisite-blog-alias' ),
-							$data
-							);
+								//
+								printf( '<br />%1$s <a href="%2$s" rel="noopener noreferrer" target="_blank">%2$s</a>',
+									esc_html__( 'Last Redirect to:', 'multisite-blog-alias' ),
+									esc_url( $data )
+								);
 							}
 
 						?>

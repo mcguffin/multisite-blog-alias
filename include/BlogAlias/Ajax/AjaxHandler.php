@@ -73,7 +73,7 @@ class AjaxHandler {
 		));
 
 		// check nonce
-		if ( $this->use_nonce && ( ! $params['nonce'] || ! $this->verify_nonce( $_REQUEST['nonce'] ) ) ) {
+		if ( $this->use_nonce && ( ! $params['nonce'] || ! $this->verify_nonce( $params['nonce'] ) ) ) {
 			return false;
 		}
 		// check capability

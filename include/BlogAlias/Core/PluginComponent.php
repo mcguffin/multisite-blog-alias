@@ -22,7 +22,7 @@ abstract class PluginComponent extends Singleton {
 	 *      'messages'  => array,
 	 *  )
 	 */
-	abstract function activate();
+	abstract public function activate();
 
 	/**
 	 *  Called on plugin upgrade
@@ -33,7 +33,7 @@ abstract class PluginComponent extends Singleton {
 	 *      'messages'  => array,
 	 *  )
 	 */
-	abstract function upgrade( $new_version, $old_version );
+	abstract public function upgrade( $new_version, $old_version );
 
 	/**
 	 *  Called on plugin deactivation
@@ -42,7 +42,7 @@ abstract class PluginComponent extends Singleton {
 	 *      'messages'  => array,
 	 *  )
 	 */
-	abstract function deactivate();
+	abstract public function deactivate();
 
 	/**
 	 *  Called on plugin uninstall
@@ -53,6 +53,6 @@ abstract class PluginComponent extends Singleton {
 	 *      'messages'  => array,
 	 *  )
 	 */
-	static function uninstall(){}
+	public static function uninstall(){}
 
 }
