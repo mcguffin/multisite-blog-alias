@@ -1,45 +1,45 @@
 <?php
 /**
- *	@package BlogAlias\Ajax
- *	@version 1.0.0
- *	2018-09-22
+ *  @package BlogAlias\Ajax
+ *  @version 1.0.0
+ *  2018-09-22
  */
 
 namespace BlogAlias\Ajax;
 
-if ( ! defined('ABSPATH') ) {
-	die('FU!');
+if ( ! defined( 'ABSPATH' ) ) {
+	die( 'FU!' );
 }
 
 use BlogAlias\Core;
 
 class AjaxHandler {
 
-	private $_action	= null;
+	private $_action    = null;
 
-	private $options	= null;
+	private $options    = null;
 
-	private $_nonce		= null;
+	private $_nonce     = null;
 
 	/**
-	 *	@param	string	$action
-	 *	@param	array	$args
+	 *  @param  string  $action
+	 *  @param  array   $args
 	 */
 	public function __construct( $action, $args ) {
 
-		$this->_action	= $action;
+		$this->_action  = $action;
 
 		$defaults = array(
-			'public'		=> false,
-			'use_nonce'		=> true,
-			'capability'	=> 'manage_options',
-			'callback'		=> null,
+			'public'        => false,
+			'use_nonce'     => true,
+			'capability'    => 'manage_options',
+			'callback'      => null,
 		);
 
 		$this->options = (object) wp_parse_args( $args, $defaults );
 
 		if ( $this->public ) {
-			$this->options->capability	= false;
+			$this->options->capability  = false;
 			add_action( "wp_ajax_nopriv_{$this->action}", array( $this, 'ajax_callback' ) );
 		}
 
@@ -49,9 +49,9 @@ class AjaxHandler {
 	public function __get( $prop ) {
 		if ( $prop === 'nonce' ) {
 			return $this->get_nonce();
-		} else if ( $prop === 'action' ) {
+		} elseif ( $prop === 'action' ) {
 			return $this->_action;
-		} else if ( isset( $this->options->$prop ) ) {
+		} elseif ( isset( $this->options->$prop ) ) {
 			return $this->options->$prop;
 		}
 	}
@@ -69,11 +69,11 @@ class AjaxHandler {
 
 	public function ajax_callback() {
 		$params = wp_parse_args( $_REQUEST, array(
-			'nonce'	=> false,
+			'nonce' => false,
 		));
 
 		// check nonce
-		if ( $this->use_nonce && ( ! $params['nonce'] || ! $this->verify_nonce($_REQUEST['nonce']) ) ) {
+		if ( $this->use_nonce && ( ! $params['nonce'] || ! $this->verify_nonce( $_REQUEST['nonce'] ) ) ) {
 			return false;
 		}
 		// check capability
@@ -94,7 +94,7 @@ class AjaxHandler {
 		exit();
 	}
 
-	public function __destruct( ) {
+	public function __destruct() {
 		if ( $this->public ) {
 			remove_action( "wp_ajax_nopriv_{$this->action}", array( $this, 'ajax_callback' ) );
 		}

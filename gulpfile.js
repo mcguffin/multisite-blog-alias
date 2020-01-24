@@ -9,7 +9,7 @@ const sourcemaps	= require( 'gulp-sourcemaps' );
 const sass			= require( 'gulp-sass' );
 const source		= require( 'vinyl-source-stream' );
 const uglify		= require( 'gulp-uglify' );
-const es			= require( 'event-stream');
+const es			= require( 'event-stream' );
 
 const package = require( './package.json' );
 
@@ -22,7 +22,7 @@ const config = {
 			functions: {
 				'base64Encode($string)': $string => {
 					var buffer = new Buffer( $string.getValue() );
-					return sass.types.String( buffer.toString('base64') );
+					return sass.types.String( buffer.toString( 'base64' ) );
 				}
 			}
 		},
@@ -33,7 +33,7 @@ const config = {
 			functions: {
 				'base64Encode($string)': $string => {
 					var buffer = new Buffer( $string.getValue() );
-					return sass.types.String( buffer.toString('base64') );
+					return sass.types.String( buffer.toString( 'base64' ) );
 				}
 			}
 		}
@@ -41,24 +41,23 @@ const config = {
 }
 
 gulp.task('build:js',cb => {
-	let tasks = glob.sync("./src/js/**/index.js")
+	let tasks = glob.sync( "./src/js/**/index.js" )
 		.map( entry => {
-			let target = entry.replace(/(\.\/src\/js\/|\/index)/g,'');
+			let target = entry.replace( /(\.\/src\/js\/|\/index)/g,'' );
 			return browserify({
 			        entries: [entry],
 					debug: false,
 					paths:['./src/js/lib']
 			    })
-				.transform( babelify.configure({}) )
+				.transform( babelify.configure( {} ) )
 				.transform( 'browserify-shim' )
 				.bundle()
-				.pipe(source(target))
-				.pipe(buffer())
-			    .pipe(uglify())
-				.pipe(gulp.dest("./js"));
+				.pipe( source( target ) )
+				.pipe( buffer() )
+			    .pipe( uglify() )
+				.pipe( gulp.dest( "./js" ) );
 		} );
-
-	return es.merge(tasks).on('end',cb)
+	return es.merge( tasks ).on( 'end',cb )
 
 });
 
@@ -68,31 +67,30 @@ gulp.task('build:scss', cb => {
 			sass( config.sass.build )
 		)
 		.pipe( autoprefixer( { browsers: package.browserlist } ) )
-		.pipe( gulp.dest('./css'));
+		.pipe( gulp.dest( './css' ) );
 });
 
 
 gulp.task('dev:js', cb => {
-	let tasks = glob.sync("./src/js/**/index.js")
+	let tasks = glob.sync( "./src/js/**/index.js" )
 		.map( entry => {
-			let target = entry.replace(/(\.\/src\/js\/|\/index)/g,'');
+			let target = entry.replace( /(\.\/src\/js\/|\/index)/g,'' );
 			return browserify({
 			        entries: [entry],
 					debug: true,
 					paths:['./src/js/lib']
 			    })
-				.transform( babelify.configure({}) )
+				.transform( babelify.configure( {} ) )
 				.transform( 'browserify-shim' )
 				.bundle()
-				.pipe(source(target))
-				.pipe(buffer())
-			    .pipe(sourcemaps.init({loadMaps:true}))
-			    .pipe(uglify())
-			    .pipe(sourcemaps.write())
-				.pipe(gulp.dest("./js"));
+				.pipe( source( target ) )
+				.pipe( buffer() )
+			    .pipe( sourcemaps.init( {loadMaps:true} ) )
+			    .pipe( uglify() )
+			    .pipe( sourcemaps.write() )
+				.pipe( gulp.dest( "./js" ) );
 		} );
-
-	return es.merge(tasks).on('end',cb)
+	return es.merge( tasks ).on( 'end',cb )
 });
 
 
@@ -100,24 +98,24 @@ gulp.task('dev:scss', cb => {
 	return gulp.src( './src/scss/**/*.scss' )
 		.pipe( sourcemaps.init() )
 		.pipe(
-			sass(config.sass.dev)
+			sass( config.sass.dev )
 		)
 		.pipe( autoprefixer( { browsers: package.browserlist } ) )
-		.pipe( sourcemaps.write( ) )
-		.pipe( gulp.dest('./css'));
+		.pipe( sourcemaps.write() )
+		.pipe( gulp.dest( './css' ) );
 });
 
 
 gulp.task('watch', cb => {
-	gulp.watch('./src/scss/**/*.scss',gulp.parallel('dev:scss'));
-	gulp.watch('./src/js/**/*.js',gulp.parallel('dev:js'));
+	gulp.watch( './src/scss/**/*.scss',gulp.parallel( 'dev:scss' ) );
+	gulp.watch( './src/js/**/*.js',gulp.parallel( 'dev:js' ) );
 });
 
-gulp.task('dev',gulp.series('dev:scss','dev:js','watch'));
+gulp.task( 'dev',gulp.series( 'dev:scss','dev:js','watch' ) );
 
-gulp.task('build', gulp.parallel('build:js','build:scss'));
+gulp.task( 'build', gulp.parallel( 'build:js','build:scss' ) );
 
 gulp.task('default',cb => {
-	console.log('run either `gulp build` or `gulp dev`');
+	console.log( 'run either `gulp build` or `gulp dev`' );
 	cb();
 });

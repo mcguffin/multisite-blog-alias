@@ -1,14 +1,14 @@
 <?php
 /**
- *	@package BlogAlias\Core
- *	@version 1.0.0
- *	2018-09-22
+ *  @package BlogAlias\Core
+ *  @version 1.0.0
+ *  2018-09-22
  */
 
 namespace BlogAlias\Core;
 
-if ( ! defined('ABSPATH') ) {
-	die('FU!');
+if ( ! defined( 'ABSPATH' ) ) {
+	die( 'FU!' );
 }
 
 
@@ -18,20 +18,20 @@ class Sunrise extends PluginComponent {
 
 
 	/**
-	 *	@inheritdoc
+	 *  @inheritdoc
 	 */
 	public function activate() {
 
 		update_site_option( 'multisite_blog_alias_sunrise_active', true );
 
-		if ( ! is_writable( WP_CONTENT_DIR . '/sunrise.php' )  ) {
+		if ( ! is_writable( WP_CONTENT_DIR . '/sunrise.php' ) ) {
 			return $this->not_writable_error();
 		}
 
 		// update wp-config.php
 		if ( ! defined( 'SUNRISE' ) ) {
 			$wp_config = '';
-			if ( file_exists( ABSPATH . 'wp-config.php') ) {
+			if ( file_exists( ABSPATH . 'wp-config.php' ) ) {
 
 				/** The config file resides in ABSPATH */
 				$wp_config = ABSPATH . 'wp-config.php';
@@ -58,7 +58,7 @@ class Sunrise extends PluginComponent {
 	 * Magic getter
 	 */
 	public function __get( $what ) {
-		switch( $what ) {
+		switch ( $what ) {
 			case 'location':
 				return WP_CONTENT_DIR . '/sunrise.php';
 			case 'code':
@@ -78,15 +78,15 @@ class Sunrise extends PluginComponent {
 	}
 
 	/**
-	 *	@action activated_{$slug}
+	 *  @action activated_{$slug}
 	 */
 	public function show_instructions( $plugin, $network_wide ) {
 		$core = Plugin::instance();
 		if ( $core->get_wp_plugin() === $plugin ) {
 
-			$url = network_admin_url('admin.php');
+			$url = network_admin_url( 'admin.php' );
 			$action = 'multisite-blog-alias-instructions';
-			wp_safe_redirect( add_query_arg( 'action', $action, network_admin_url('admin.php') ));
+			wp_safe_redirect( add_query_arg( 'action', $action, network_admin_url( 'admin.php' ) ) );
 			exit();
 
 		}
@@ -94,14 +94,14 @@ class Sunrise extends PluginComponent {
 
 
 	/**
-	 *	@param string $wp_config Path to wp-config
+	 *  @param string $wp_config Path to wp-config
 	 */
 	private function write_wp_config( $wp_config ) {
 		if ( is_writable( $wp_config ) ) {
 			$wp_config_contents = file_get_contents( $wp_config );
 			$code = '/* Added by Multisite Blog Alias Plugin */' . "\n";
-			$code .= 'define( \'SUNRISE\', true );'."\n\n";
-			$wp_config_contents = substr( $wp_config_contents, 5);
+			$code .= 'define( \'SUNRISE\', true );' . "\n\n";
+			$wp_config_contents = substr( $wp_config_contents, 5 );
 			$wp_config_contents = '<?php' . "\n" . $code . $wp_config_contents;
 			return file_put_contents( $wp_config, $wp_config_contents );
 		}
@@ -110,19 +110,19 @@ class Sunrise extends PluginComponent {
 
 
 	/**
-	 *	@inheritdoc
+	 *  @inheritdoc
 	 */
 	public function upgrade( $new_version, $old_version ) {
 		if ( version_compare( '0.3.0', $old_version, '>' ) ) {
 			// code has changed in 0.3.0 (more generic)
-			$sunrise_contents = self::reset_sunrise('blog_alias');
+			$sunrise_contents = self::reset_sunrise( 'blog_alias' );
 			$sunrise_contents .= self::generate_sunrise_php();
 			self::write_sunrise( $sunrise_contents );
 		}
 	}
 
 	/**
-	 *	@inheritdoc
+	 *  @inheritdoc
 	 */
 	public function deactivate() {
 		if ( file_exists( self::instance()->location ) ) {
@@ -134,7 +134,7 @@ class Sunrise extends PluginComponent {
 	}
 
 	/**
-	 *	@inheritdoc
+	 *  @inheritdoc
 	 */
 	public static function uninstall() {
 		if ( file_exists( self::instance()->$location ) ) {
@@ -146,10 +146,10 @@ class Sunrise extends PluginComponent {
 	}
 
 	/**
-	 *	Write sunrise contents
-	 *	static because called from uninstall hook
+	 *  Write sunrise contents
+	 *  static because called from uninstall hook
 	 *
-	 *	@param string $sunrise_contents Must be valid PHP
+	 *  @param string $sunrise_contents Must be valid PHP
 	 */
 	private static function write_sunrise( $sunrise_contents ) {
 		$file = self::instance()->location;
@@ -160,9 +160,9 @@ class Sunrise extends PluginComponent {
 	}
 
 	/**
-	 *	Get sunrise content to write
-	 *	@param string $slug Plugin slug
-	 *	@return string
+	 *  Get sunrise content to write
+	 *  @param string $slug Plugin slug
+	 *  @return string
 	 */
 	private static function generate_sunrise_php( $slug = null ) {
 		$core = Plugin::instance();
@@ -170,18 +170,18 @@ class Sunrise extends PluginComponent {
 			$slug = $core->get_slug();
 		}
 		$php = "//BEGIN:{$slug}\n";
-		$php .= '$plugin_sunrise_file = WP_CONTENT_DIR . \'/plugins/'. dirname( $core->get_wp_plugin() ).'/sunrise.php\';' . "\n";
-		$php .= 'if ( file_exists( $plugin_sunrise_file ) ) {'."\n";
- 		$php .= "\t".'include_once $plugin_sunrise_file;' . "\n";
+		$php .= '$plugin_sunrise_file = WP_CONTENT_DIR . \'/plugins/' . dirname( $core->get_wp_plugin() ) . '/sunrise.php\';' . "\n";
+		$php .= 'if ( file_exists( $plugin_sunrise_file ) ) {' . "\n";
+ 		$php .= "\t" . 'include_once $plugin_sunrise_file;' . "\n";
 		$php .= '}' . "\n";
  		$php .= "//END:{$slug}//";
 		return $php;
 	}
 
 	/**
-	 *	Remove plugin part from sunrise.php
-	 *	@param string $slug Plugin slug
-	 *	@return string
+	 *  Remove plugin part from sunrise.php
+	 *  @param string $slug Plugin slug
+	 *  @return string
 	 */
 	private static function reset_sunrise( $slug = null ) {
 		$core = Plugin::instance();
@@ -191,10 +191,10 @@ class Sunrise extends PluginComponent {
 		$sunrise = WP_CONTENT_DIR . '/sunrise.php';
 		if ( file_exists( $sunrise ) ) {
 			$sunrise_contents = file_get_contents( $sunrise );
-			$sunrise_contents = preg_replace("@//BEGIN:{$slug}(.*)END:{$slug}//@imsU", '', $sunrise_contents );
+			$sunrise_contents = preg_replace( "@//BEGIN:{$slug}(.*)END:{$slug}//@imsU", '', $sunrise_contents );
 		} else {
 			$sunrise_contents = '<?php' . "\n\n";
-			$sunrise_contents .=  "/* sunrise.php added by Plugin {$slug} */\n";
+			$sunrise_contents .= "/* sunrise.php added by Plugin {$slug} */\n";
 		}
 		return $sunrise_contents;
 	}

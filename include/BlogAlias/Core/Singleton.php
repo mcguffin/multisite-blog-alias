@@ -1,14 +1,14 @@
 <?php
 /**
- *	@package BlogAlias\Core
- *	@version 1.0.0
- *	2018-09-22
+ *  @package BlogAlias\Core
+ *  @version 1.0.0
+ *  2018-09-22
  */
 
 namespace BlogAlias\Core;
 
-if ( ! defined('ABSPATH') ) {
-	die('FU!');
+if ( ! defined( 'ABSPATH' ) ) {
+	die( 'FU!' );
 }
 
 
@@ -30,20 +30,20 @@ abstract class Singleton {
 
 		if ( ! isset( self::$instances[ $class ] ) ) {
 			$args = func_get_args();
-			self::$instances[ $class ] = new $class( );
+			self::$instances[ $class ] = new $class();
 		}
 
 		return self::$instances[ $class ];
 	}
 
 	/**
-	 *	Prevent Instantinating
+	 *  Prevent Instantinating
 	 */
 	private function __clone() { }
 	private function __wakeup() { }
 
 	/**
-	 *	Protected constructor
+	 *  Protected constructor
 	 */
 	protected function __construct() {
 	}

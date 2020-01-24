@@ -1,58 +1,58 @@
 <?php
 /**
- *	@package BlogAlias\Model
- *	@version 1.0.0
- *	2018-09-22
+ *  @package BlogAlias\Model
+ *  @version 1.0.0
+ *  2018-09-22
  */
 
 
 namespace BlogAlias\Model;
 
-if ( ! defined('ABSPATH') ) {
-	die('FU!');
+if ( ! defined( 'ABSPATH' ) ) {
+	die( 'FU!' );
 }
 
 
 class ModelAliasDomains extends Model {
 
 	protected $fields = array(
-		'ID'				=> '%d',
-		'created'			=> '%s',
-		'site_id'			=> '%d',
-		'blog_id'			=> '%d',
-		'domain_alias'		=> '%s',
-		'domain_alias_utf8'	=> '%s',
-		'redirect'			=> '%d',
+		'ID'                => '%d',
+		'created'           => '%s',
+		'site_id'           => '%d',
+		'blog_id'           => '%d',
+		'domain_alias'      => '%s',
+		'domain_alias_utf8' => '%s',
+		'redirect'          => '%d',
 	);
 
 
 	/**
-	 *	@inheritdoc
+	 *  @inheritdoc
 	 */
 	protected $_table = 'alias_domains';
 
 	/**
-	 *	@inheritdoc
+	 *  @inheritdoc
 	 */
 	protected function __construct() {
 		parent::__construct();
-		if ( defined('FILTER_VALIDATE_DOMAIN') && defined( 'FILTER_FLAG_HOSTNAME' ) )  {
-			add_filter("validate_{$this->_table}/domain_alias", array( $this, 'validate_domain_alias') );
+		if ( defined( 'FILTER_VALIDATE_DOMAIN' ) && defined( 'FILTER_FLAG_HOSTNAME' ) ) {
+			add_filter( "validate_{$this->_table}/domain_alias", array( $this, 'validate_domain_alias' ) );
 		} else {
-			add_filter("validate_{$this->_table}/domain_alias", array( $this, 'legacy_validate_domain_alias') );
+			add_filter( "validate_{$this->_table}/domain_alias", array( $this, 'legacy_validate_domain_alias' ) );
 		}
 
 	}
 
 	/**
-	 *	Check alias status
-	 *	Checks:
-	 *	1. Is domain is used by another wp-site?
-	 *	2. Is domain reachable and redirects to actual domain?
+	 *  Check alias status
+	 *  Checks:
+	 *  1. Is domain is used by another wp-site?
+	 *  2. Is domain reachable and redirects to actual domain?
 	 *
-	 *	@param int|stdClass $alias Alias domain
-	 *	@param int|null $site_id Check validity for current site
-	 *	@return boolean|WP_Error
+	 *  @param int|stdClass $alias Alias domain
+	 *  @param int|null $site_id Check validity for current site
+	 *  @return boolean|WP_Error
 	 */
 	public function check_status( $alias ) {
 		if ( is_numeric( $alias ) ) {
@@ -79,14 +79,14 @@ class ModelAliasDomains extends Model {
 		}
 
 		// test redirects
-		$location = trailingslashit("http://{$alias->domain_alias}");
-		$site_url = trailingslashit($site_url);
+		$location = trailingslashit( "http://{$alias->domain_alias}" );
+		$site_url = trailingslashit( $site_url );
 
 		while ( true ) {
 
 			$response = wp_remote_head( $location, array(
-				'redirection'	=> 0,
-				'sslverify'		=> false,
+				'redirection'   => 0,
+				'sslverify'     => false,
 			) );
 			if ( is_wp_error( $response ) ) {
 
@@ -99,7 +99,7 @@ class ModelAliasDomains extends Model {
 			if ( ! $loc ) {
 				return new \WP_Error( 'redirect-target_invalid', __( 'The domain or a redirect does not point to this blog.', 'multisite-blog-alias' ), $location );
 			}
-			$location = trailingslashit($loc);
+			$location = trailingslashit( $loc );
 			if ( $site_url === $location ) {
 				// test passed!
 				break;
@@ -110,10 +110,10 @@ class ModelAliasDomains extends Model {
 	}
 
 	/**
-	 *	validate callback for domain alias
+	 *  validate callback for domain alias
 	 *
-	 *	@param string $alias Domain alias (valid hostname)
-	 *	@return bool|string false if invalid, sanitized value otherwise
+	 *  @param string $alias Domain alias (valid hostname)
+	 *  @return bool|string false if invalid, sanitized value otherwise
 	 */
 	public function validate_domain_alias( $alias ) {
 
@@ -121,10 +121,10 @@ class ModelAliasDomains extends Model {
 
 	}
 	/**
-	 *	PHP 5.5 Legacy Domain name validation by regEx.
+	 *  PHP 5.5 Legacy Domain name validation by regEx.
 	 *
-	 *	@param string $alias Domain alias (valid hostname)
-	 *	@return bool|string false if invalid, sanitized value otherwise
+	 *  @param string $alias Domain alias (valid hostname)
+	 *  @return bool|string false if invalid, sanitized value otherwise
 	 */
 	public function legacy_validate_domain_alias( $alias ) {
 		$alias = strtolower( trim( $alias ) );
@@ -135,15 +135,15 @@ class ModelAliasDomains extends Model {
 	}
 
 	/**
-	 *	@inheritdoc
+	 *  @inheritdoc
 	 */
 	public function insert( $data, $format = null ) {
-		$data['created'] = strftime('%Y-%m-%d %H:%M:%S');
+		$data['created'] = strftime( '%Y-%m-%d %H:%M:%S' );
 		return parent::insert( $data, $format );
 	}
 
 	/**
-	 *	@inheritdoc
+	 *  @inheritdoc
 	 */
 	public function activate() {
 		// create table
@@ -151,7 +151,7 @@ class ModelAliasDomains extends Model {
 	}
 
 	/**
-	 *	@inheritdoc
+	 *  @inheritdoc
 	 */
 	public function upgrade( $new_version, $old_version ) {
 
@@ -164,12 +164,12 @@ class ModelAliasDomains extends Model {
 	}
 
 	/**
-	 *	@inheritdoc
+	 *  @inheritdoc
 	 */
 	private function update_db(){
 		global $wpdb, $charset_collate;
 
-		require_once( ABSPATH . 'wp-admin/includes/upgrade.php' );
+		require_once ABSPATH . 'wp-admin/includes/upgrade.php';
 
 		$sql = "CREATE TABLE $wpdb->alias_domains (
 			`ID` bigint(20) unsigned NOT NULL AUTO_INCREMENT,

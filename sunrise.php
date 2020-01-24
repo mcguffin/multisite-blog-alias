@@ -1,10 +1,10 @@
 <?php
 
 
-//namespace BlogAlias;
+// namespace BlogAlias;
 
-if ( ! defined('ABSPATH') ) {
-	die('FU!');
+if ( ! defined( 'ABSPATH' ) ) {
+	die( 'FU!' );
 }
 
 
@@ -29,9 +29,9 @@ function blog_alias_site_not_found( $current_site, $domain, $path ) {
 		$site_url = get_option( 'siteurl' );
 		restore_current_blog();
 
-		$add_path = defined('WPMU_BLOG_ALIAS_REDIRECT_WITH_PATH')
+		$add_path = defined( 'WPMU_BLOG_ALIAS_REDIRECT_WITH_PATH' )
 			? WPMU_BLOG_ALIAS_REDIRECT_WITH_PATH
-			: get_site_option('blog_alias_redirect_with_path');
+			: get_site_option( 'blog_alias_redirect_with_path' );
 
 		if ( $add_path ) {
 			$redirect = untrailingslashit( $site_url ) . $path;
@@ -39,7 +39,7 @@ function blog_alias_site_not_found( $current_site, $domain, $path ) {
 			$redirect = trailingslashit( $site_url );
 		}
 
-		http_response_code(301);
+		http_response_code( 301 );
 		header( "X-Redirect-By: WPMS-Blog-Alias" );
 		header( 'Location: ' . wp_sanitize_redirect( $redirect ) );
 

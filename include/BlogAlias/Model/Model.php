@@ -1,15 +1,15 @@
 <?php
 /**
- *	@package BlogAlias\Model
- *	@version 1.0.0
- *	2018-09-22
+ *  @package BlogAlias\Model
+ *  @version 1.0.0
+ *  2018-09-22
  */
 
 
 namespace BlogAlias\Model;
 
-if ( ! defined('ABSPATH') ) {
-	die('FU!');
+if ( ! defined( 'ABSPATH' ) ) {
+	die( 'FU!' );
 }
 
 
@@ -18,17 +18,17 @@ use BlogAlias\Core;
 abstract class Model extends Core\PluginComponent {
 
 	/**
-	 *	@var assoc
+	 *  @var assoc
 	 */
 	protected $fields = array();
 
 	/**
-	 *	@var string table name for model
+	 *  @var string table name for model
 	 */
 	protected $_table = null;
 
 	/**
-	 *	@inheritdoc
+	 *  @inheritdoc
 	 */
 	protected function __construct() {
 		// setup wpdb
@@ -40,7 +40,7 @@ abstract class Model extends Core\PluginComponent {
 	}
 
 	/**
-	 *	magic getter
+	 *  magic getter
 	 */
 	public function __get( $what ) {
 		if ( $what === 'table' ) {
@@ -53,33 +53,33 @@ abstract class Model extends Core\PluginComponent {
 	}
 
 	/**
-	 *	@inheritdoc
+	 *  @inheritdoc
 	 */
 	public function deactivate() {
 	}
 
 	/**
-	 *	@inheritdoc
+	 *  @inheritdoc
 	 */
 	public function drop() {
 		// drop table
 		global $wpdb;
 		$tbl = $this->table;
-		$wpdb->query("DROP TABLE {$wpdb->$tbl}");
+		$wpdb->query( "DROP TABLE {$wpdb->$tbl}" );
 	}
 
 	/**
-	 *	@inheritdoc
+	 *  @inheritdoc
 	 */
 	public static function uninstall() {
 	}
 
 	/**
-	 *	Fetch one result
+	 *  Fetch one result
 	 *
-	 *	@param	string 		$field
-	 *	@param	string|int	$value
-	 *	@return	null|object
+	 *  @param  string      $field
+	 *  @param  string|int  $value
+	 *  @return null|object
 	 */
 	public function fetch_one_by( $field, $value ) {
 		global $wpdb;
@@ -88,23 +88,23 @@ abstract class Model extends Core\PluginComponent {
 		if ( $field == 'id' ) {
 			$field = 'ID';
 		}
-		if ( ! isset( $this->fields[$field] ) ) {
+		if ( ! isset( $this->fields[ $field ] ) ) {
 			return null;
 		}
-		$format = $this->fields[$field];
+		$format = $this->fields[ $field ];
 
-		foreach ( $wpdb->get_results( $wpdb->prepare("SELECT * FROM $table WHERE $field = $format LIMIT 1", $value ) ) as $result ) {
+		foreach ( $wpdb->get_results( $wpdb->prepare( "SELECT * FROM $table WHERE $field = $format LIMIT 1", $value ) ) as $result ) {
 			return $result;
 		};
 		return null;
 	}
 
 	/**
-	 *	Fetch results
+	 *  Fetch results
 	 *
-	 *	@param	string 	$field
-	 *	@param	mixed	$value
-	 *	@return	null|array
+	 *  @param  string  $field
+	 *  @param  mixed   $value
+	 *  @return null|array
 	 */
 	public function fetch_by( $field, $value ) {
 		global $wpdb;
@@ -113,18 +113,18 @@ abstract class Model extends Core\PluginComponent {
 		if ( $field == 'id' ) {
 			$field = 'ID';
 		}
-		if ( ! isset( $this->fields[$field] ) ) {
+		if ( ! isset( $this->fields[ $field ] ) ) {
 			return null;
 		}
 
-		$format = $this->fields[$field];
-		return $wpdb->get_results( $wpdb->prepare("SELECT * FROM $table WHERE $field = $format", $value ) );
+		$format = $this->fields[ $field ];
+		return $wpdb->get_results( $wpdb->prepare( "SELECT * FROM $table WHERE $field = $format", $value ) );
 	}
 
 	/**
-	 *	Fetch all records
+	 *  Fetch all records
 	 *
-	 *	@return	array
+	 *  @return array
 	 */
 	public function fetch_all() {
 		global $wpdb;
@@ -133,9 +133,9 @@ abstract class Model extends Core\PluginComponent {
 	}
 
 	/**
-	 *	Fetch all records
+	 *  Fetch all records
 	 *
-	 *	@return	array
+	 *  @return array
 	 */
 	public function fetch_count() {
 		global $wpdb;
@@ -145,11 +145,11 @@ abstract class Model extends Core\PluginComponent {
 
 
 	/**
-	 *	WPDB Wrapper
+	 *  WPDB Wrapper
 	 *
-	 *	@param	array 		$data
-	 *	@param	null|array	$format
-	 *	@return	int|false
+	 *  @param  array       $data
+	 *  @param  null|array  $format
+	 *  @return int|false
 	 */
 	public function insert( $data, $format = null ) {
 		global $wpdb;
@@ -164,13 +164,13 @@ abstract class Model extends Core\PluginComponent {
 	}
 
 	/**
-	 *	WPDB Wrapper
+	 *  WPDB Wrapper
 	 *
-	 *	@param	array 		$data
-	 *	@param	array 		$where
-	 *	@param	null|array	$format
-	 *	@param	null|array	$where_format
-	 *	@return	int|false
+	 *  @param  array       $data
+	 *  @param  array       $where
+	 *  @param  null|array  $format
+	 *  @param  null|array  $where_format
+	 *  @return int|false
 	 */
 	public function update( $data, $where, $format = null, $where_format = null ) {
 		global $wpdb;
@@ -186,11 +186,11 @@ abstract class Model extends Core\PluginComponent {
 	}
 
 	/**
-	 *	WPDB Wrapper
+	 *  WPDB Wrapper
 	 *
-	 *	@param	array 		$data
-	 *	@param	null|array	$format
-	 *	@return	int|false
+	 *  @param  array       $data
+	 *  @param  null|array  $format
+	 *  @return int|false
 	 */
 	public function replace( $data, $format = null ) {
 		global $wpdb;
@@ -203,11 +203,11 @@ abstract class Model extends Core\PluginComponent {
 	}
 
 	/**
-	 *	WPDB Wrapper
+	 *  WPDB Wrapper
 	 *
-	 *	@param	array 		$where
-	 *	@param	null|array	$where_format
-	 *	@return	int|false
+	 *  @param  array       $where
+	 *  @param  null|array  $where_format
+	 *  @return int|false
 	 */
 	public function delete( $where, $where_format = null ) {
 		global $wpdb;
@@ -220,9 +220,9 @@ abstract class Model extends Core\PluginComponent {
 	}
 
 	/**
-	 *	sanitize values
+	 *  sanitize values
 	 *
-	 *	@return assoc
+	 *  @return assoc
 	 */
 	private function sanitize_data( $data ) {
 		$sane = array();
@@ -231,14 +231,14 @@ abstract class Model extends Core\PluginComponent {
 				$key = 'ID';
 			}
 			if ( false !== $this->validate( $key, $value ) ) {
-				$sane[$key] = $value;
+				$sane[ $key ] = $value;
 			}
 		}
 		return $sane;
 	}
 
 	/**
-	 *	@return assoc
+	 *  @return assoc
 	 */
 	private function get_format_for_data( $data ) {
 		$format = array();
@@ -246,15 +246,15 @@ abstract class Model extends Core\PluginComponent {
 			if ( $key === 'id' ) {
 				$key = 'ID';
 			}
-			$format[$key] = $this->fields[ $key ];
+			$format[ $key ] = $this->fields[ $key ];
 		}
 		return $format;
 	}
 
 	/**
-	 *	validate value
+	 *  validate value
 	 *
-	 *	@return mixed
+	 *  @return mixed
 	 */
 	public function validate( $key, $value ) {
 		return apply_filters( "validate_{$this->_table}/{$key}", $value );

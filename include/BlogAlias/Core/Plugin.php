@@ -1,14 +1,14 @@
 <?php
 /**
- *	@package BlogAlias\Core
- *	@version 1.0.0
- *	2018-09-22
+ *  @package BlogAlias\Core
+ *  @version 1.0.0
+ *  2018-09-22
  */
 
 namespace BlogAlias\Core;
 
-if ( ! defined('ABSPATH') ) {
-	die('FU!');
+if ( ! defined( 'ABSPATH' ) ) {
+	die( 'FU!' );
 }
 
 
@@ -30,34 +30,34 @@ class Plugin extends PluginComponent {
 	);
 
 	/**
-	 *	@inheritdoc
+	 *  @inheritdoc
 	 */
-	protected function __construct( ) {
+	protected function __construct() {
 
 		add_action( 'admin_init', array( $this, 'maybe_upgrade' ) );
 		add_filter( 'extra_plugin_headers', array( $this, 'add_plugin_header' ) );
 
-		add_action( 'plugins_loaded' , array( $this , 'load_textdomain' ) );
+		add_action( 'plugins_loaded', array( $this, 'load_textdomain' ) );
 
 		parent::__construct();
 	}
 
 	/**
-	 *	@param string $file Main plugin file
+	 *  @param string $file Main plugin file
 	 */
 	public function set_plugin_file( $file ) {
 
 		$this->plugin_file = $file;
 
-		register_activation_hook( $this->get_plugin_file(), array( $this , 'activate' ) );
-		register_deactivation_hook( $this->get_plugin_file(), array( $this , 'deactivate' ) );
+		register_activation_hook( $this->get_plugin_file(), array( $this, 'activate' ) );
+		register_deactivation_hook( $this->get_plugin_file(), array( $this, 'deactivate' ) );
 		register_uninstall_hook( $this->get_plugin_file(), array( __CLASS__, 'uninstall' ) );
 
 	}
 
 
 	/**
-	 *	@filter extra_plugin_headers
+	 *  @filter extra_plugin_headers
 	 */
 	public function add_plugin_header( $headers ) {
 		$headers['GithubRepo'] = 'Github Repository';
@@ -65,35 +65,35 @@ class Plugin extends PluginComponent {
 	}
 
 	/**
-	 *	@return string full plugin file path
+	 *  @return string full plugin file path
 	 */
 	public function get_plugin_file() {
 		return $this->plugin_file;
 	}
 
 	/**
-	 *	@return string full plugin file path
+	 *  @return string full plugin file path
 	 */
 	public function get_plugin_dir() {
 		return plugin_dir_path( $this->get_plugin_file() );
 	}
 
 	/**
-	 *	@return string plugin slug
+	 *  @return string plugin slug
 	 */
 	public function get_slug() {
 		return basename( $this->get_plugin_dir() );
 	}
 
 	/**
-	 *	@return string Path to the main plugin file from plugins directory
+	 *  @return string Path to the main plugin file from plugins directory
 	 */
 	public function get_wp_plugin() {
 		return plugin_basename( $this->get_plugin_file() );
 	}
 
 	/**
-	 *	@return string current plugin version
+	 *  @return string current plugin version
 	 */
 	public function get_version() {
 
@@ -101,8 +101,8 @@ class Plugin extends PluginComponent {
 	}
 
 	/**
-	 *	@param string $which Which plugin meta to get. NUll
-	 *	@return string|array plugin meta
+	 *  @param string $which Which plugin meta to get. NUll
+	 *  @return string|array plugin meta
 	 */
 	public function get_plugin_meta( $which = null ) {
 		if ( ! isset( $this->plugin_meta ) ) {
@@ -115,7 +115,7 @@ class Plugin extends PluginComponent {
 	}
 
 	/**
-	 *	@action plugins_loaded
+	 *  @action plugins_loaded
 	 */
 	public function maybe_upgrade() {
 		// trigger upgrade
@@ -123,7 +123,7 @@ class Plugin extends PluginComponent {
 		$old_version = get_site_option( 'blog_alias_version' );
 
 		// call upgrade
-		if ( version_compare($new_version, $old_version, '>' ) ) {
+		if ( version_compare( $new_version, $old_version, '>' ) ) {
 
 			$this->upgrade( $new_version, $old_version );
 
@@ -134,7 +134,7 @@ class Plugin extends PluginComponent {
 	}
 
 	/**
-	 *	Load text domain
+	 *  Load text domain
 	 *
 	 *  @action plugins_loaded
 	 */
@@ -145,10 +145,10 @@ class Plugin extends PluginComponent {
 
 
 	/**
-	 *	Get asset url for this plugin
+	 *  Get asset url for this plugin
 	 *
-	 *	@param	string	$asset	URL part relative to plugin class
-	 *	@return string URL
+	 *  @param  string  $asset  URL part relative to plugin class
+	 *  @return string URL
 	 */
 	public function get_asset_url( $asset ) {
 		return plugins_url( $asset, $this->get_plugin_file() );
@@ -156,10 +156,10 @@ class Plugin extends PluginComponent {
 
 
 	/**
-	 *	Get asset url for this plugin
+	 *  Get asset url for this plugin
 	 *
-	 *	@param	string	$asset	URL part relative to plugin class
-	 *	@return string URL
+	 *  @param  string  $asset  URL part relative to plugin class
+	 *  @return string URL
 	 */
 	public function get_asset_path( $asset ) {
 		return $this->get_plugin_dir() . '/' . preg_replace( '/^(\/+)/', '', $asset );
@@ -167,7 +167,7 @@ class Plugin extends PluginComponent {
 
 
 	/**
-	 *	Fired on plugin activation
+	 *  Fired on plugin activation
 	 */
 	public function activate() {
 		$this->maybe_upgrade();
@@ -176,50 +176,50 @@ class Plugin extends PluginComponent {
 			$comp = $component::instance();
 			$comp->activate();
 		}
-		do_action( 'activated_'.$this->get_slug() );
+		do_action( 'activated_' . $this->get_slug() );
 	}
 
 
 	/**
-	 *	Fired on plugin updgrade
+	 *  Fired on plugin updgrade
 	 *
-	 *	@param string $nev_version
-	 *	@param string $old_version
-	 *	@return array(
-	 *		'success' => bool,
-	 *		'messages' => array,
+	 *  @param string $nev_version
+	 *  @param string $old_version
+	 *  @return array(
+	 *      'success' => bool,
+	 *      'messages' => array,
 	 * )
 	 */
 	public function upgrade( $new_version, $old_version ) {
 
 		$result = array(
-			'success'	=> true,
-			'messages'	=> array(),
+			'success'   => true,
+			'messages'  => array(),
 		);
 
 		foreach ( self::$components as $component ) {
 			$comp = $component::instance();
 			$upgrade_result = $comp->upgrade( $new_version, $old_version );
-			$result['success'] 		&= $upgrade_result['success'];
-			$result['messages'][]	=  $upgrade_result['message'];
+			$result['success']      &= $upgrade_result['success'];
+			$result['messages'][]   = $upgrade_result['message'];
 		}
 
 		return $result;
 	}
 
 	/**
-	 *	Fired on plugin deactivation
+	 *  Fired on plugin deactivation
 	 */
 	public function deactivate() {
 		foreach ( self::$components as $component ) {
 			$comp = $component::instance();
 			$comp->deactivate();
 		}
-		do_action( 'deactivated_'.$this->get_slug() );
+		do_action( 'deactivated_' . $this->get_slug() );
 	}
 
 	/**
-	 *	Fired on plugin delete
+	 *  Fired on plugin delete
 	 */
 	public static function uninstall() {
 		foreach ( self::$components as $component ) {

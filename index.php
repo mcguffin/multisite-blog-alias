@@ -17,7 +17,8 @@ Text Domain: multisite-blog-alias
 Domain Path: /languages/
 */
 
-/*  Copyright 2018 Jörn Lund
+/*
+  Copyright 2018 Jörn Lund
 
     This program is free software; you can redistribute it and/or modify
     it under the terms of the GNU General Public License, version 3, as
@@ -42,20 +43,20 @@ Command line args were: ``
 
 namespace BlogAlias;
 
-if ( ! defined('ABSPATH') ) {
-	die('FU!');
+if ( ! defined( 'ABSPATH' ) ) {
+	die( 'FU!' );
 }
 
 
 /**
- *	Check mutisite requirement and print notice
+ *  Check mutisite requirement and print notice
  */
 if ( ! is_multisite() ) {
 	/**
-	 *	@action admin_notices
+	 *  @action admin_notices
 	 */
 	function multisite_blog_alias_multisite_required() {
-		if ( current_user_can('activate_plugins') ) {
+		if ( current_user_can( 'activate_plugins' ) ) {
 
 			load_plugin_textdomain( 'multisite-blog-alias', false, dirname( plugin_basename( __FILE__ ) ) . '/languages' );
 
@@ -65,7 +66,7 @@ if ( ! is_multisite() ) {
 			<div class="notice error is-dismissible">
 				<p>
 					<?php _e( 'The Multisite Blog Alias plugin requires a WordPress multisite installation.', 'multisite-blog-alias' ); ?>
-					<strong><?php _e('It has been deactivated.', 'multisite-blog-alias'); ?></strong>
+					<strong><?php _e( 'It has been deactivated.', 'multisite-blog-alias' ); ?></strong>
 				</p>
 			</div>
 			<?php

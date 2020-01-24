@@ -1,14 +1,14 @@
 <?php
 /**
- *	@package BlogAlias
- *	@version 1.0.0
- *	2018-09-22
+ *  @package BlogAlias
+ *  @version 1.0.0
+ *  2018-09-22
  */
 
 namespace BlogAlias;
 
-if ( ! defined('ABSPATH') ) {
-	die('FU!');
+if ( ! defined( 'ABSPATH' ) ) {
+	die( 'FU!' );
 }
 
 
@@ -21,7 +21,7 @@ function __autoload( $class ) {
 	$ds = DIRECTORY_SEPARATOR;
 	$top = substr( $class, 0, $pos );
 
-	if ( false === is_dir( __DIR__ .$ds . $top ) ) {
+	if ( false === is_dir( __DIR__ . $ds . $top ) ) {
 		// not our plugin.
 		return;
 	}
