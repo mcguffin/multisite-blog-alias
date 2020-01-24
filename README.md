@@ -32,6 +32,12 @@ Output csv including the header row but omitting other messages into file
 wp alias-domains list --format=csv --compact > alias-list.csv
 ```
 
+Get all Domains handled by the plugin
+```
+wp alias-domains list --field=domain_alias --compact
+```
+
+
 ### Add Domain Alias
 ```
 wp alias-domains add --blog_id=123 --domain_alias=quux.foobar.tld
