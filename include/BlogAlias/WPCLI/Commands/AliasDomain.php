@@ -14,6 +14,8 @@ if ( ! defined('ABSPATH') ) {
 use BlogAlias\Core;
 use BlogAlias\Model;
 
+use WP_CLI\Formatter;
+
 class AliasDomain extends Core\Singleton {
 
 
@@ -34,7 +36,7 @@ class AliasDomain extends Core\Singleton {
 	 *	@inheritdoc
 	 */
 	protected function __construct() {
-		$this->model = Model\ModelAliasDomains::instance();
+		$this->model = Model\AliasDomains::instance();
 	}
 
 	/**
@@ -48,8 +50,11 @@ class AliasDomain extends Core\Singleton {
      * default: 0
 	 * ---
 	 *
+	 * [--fields=<fields>]
+	 * : Limit the output to specific object fields.
+	 *
 	 * --field=<field>
-	 * : Prints the value of a single field for each domain alias.
+	 * : Prints the value of a single field
 	 * ---
      * default: 0
 	 * options:
@@ -64,23 +69,15 @@ class AliasDomain extends Core\Singleton {
 	 * ---
 	 *
 	 * [--format=<format>]
-	 * : The output Format
+	 * : Render output in a particular format.
 	 * ---
-     * default: list
+     * default: table
 	 * options:
-	 *   - list
+	 *   - table
 	 *   - csv
 	 *   - json
-	 * ---
-	 *
-	 * [--compact[=<compact>]]
-	 * : 1 (default): Skip messages, 2: and skip table headers (with --format=list or csv) or minify json (with --format=json)
-	 * ---
-	 * default: 1
-	 * options:
-	 *   - 0
-	 *   - 1
-	 *   - 2
+	 *   - count
+	 *   - yaml
 	 * ---
 	 *
 	 * ## EXAMPLES
@@ -109,42 +106,15 @@ class AliasDomain extends Core\Singleton {
 			/* translators: %s invalid field name */
 			\WP_CLI::error( sprintf( __( 'Field %s does not exist.', 'multisite-blog-alias-cli' ), $field ) );
 		}
-
 		if ( $blog_id ){
 			$aliases = $this->model->fetch_by( 'blog_id', $blog_id );
 		} else {
 			$aliases = $this->model->fetch_all();
 		}
-		$total = count($aliases);
-		if ( 'json' === $format ) {
-			$json_flag = $compact < 2 ? JSON_PRETTY_PRINT : 0;
-			\WP_CLI::line( json_encode( array_values( $aliases ), $json_flag ) );
-		} else {
-			if ( $total ) {
-				$sep = $format === 'csv' ? ',' : "\t";
-				if ( ! $field ) {
-					$header = $this->fields;
-				} else {
-					$header = array( $field );
-				}
 
-				if ( $compact < 2 ) {
-					\WP_CLI::line( implode( $sep, $header ) );
-				}
-				foreach ( $aliases as $alias ) {
-					if ( ! $field ) {
-						$line = get_object_vars($alias);
-					} else {
-						$line = array( $alias->$field );
-					}
-					\WP_CLI::line( implode( $sep, $line ) );
-				}
-			}
-		}
-		if ( ! $compact ) {
-			/* Translators: NUmber of deleted items */
-			\WP_CLI::success( sprintf( __( "%d Aliases total", 'multisite-blog-alias-cli' ), $total ) );
-		}
+		$formatter = new Formatter( $kwargs, $this->fields );
+		$formatter->display_items( $aliases );
+
 	}
 
 	/**
@@ -190,7 +160,7 @@ class AliasDomain extends Core\Singleton {
 	 *
 	 *     wp alias-domains add --blog_id=123 --domain_alias=quux.foobar.tld
 	 *
-	 *	@alias comment-check
+	 *	@alias create
 	 */
 	public function add( $args, $kwargs ) {
 
@@ -214,6 +184,16 @@ class AliasDomain extends Core\Singleton {
 		}
 		$blog_id = intval( $blog_id );
 
+		$domain_alias_input = $domain_alias;
+
+		if ( function_exists( 'idn_to_ascii' ) ) {
+			$domain_alias = idn_to_ascii( $domain_alias_input, IDNA_NONTRANSITIONAL_TO_ASCII, INTL_IDNA_VARIANT_UTS46 );
+			$domain_alias_utf8 = sanitize_text_field( $domain_alias_input );
+		} else {
+			$domain_alias = $domain_alias_utf8 = sanitize_text_field( $domain_alias_input );
+		}
+
+
 		// invalid hostname
 		if ( false === $this->model->validate( 'domain_alias', $domain_alias ) ) {
 			\WP_CLI::error( __( 'Invalid domain_alias', 'multisite-blog-alias-cli' ) );
@@ -236,11 +216,14 @@ class AliasDomain extends Core\Singleton {
 			\WP_CLI::error( sprintf(__( 'Domain Alias %1$s exists for blog %2$d', 'multisite-blog-alias-cli' ), $domain_alias, $record->blog_id ) );
 		}
 
+
 		$data = array(
-			'site_id'		=> get_current_site()->id,
-			'blog_id'		=> $blog_id,
-			'domain_alias'	=> $domain_alias,
-			'redirect'		=> intval( $redirect ),
+			'created'			=> strftime('%Y-%m-%d %H:%M:%S'),
+			'site_id'			=> get_current_site()->id,
+			'blog_id'			=> $blog_id,
+			'domain_alias'		=> $domain_alias,
+			'domain_alias_utf8'	=> $domain_alias_utf8,
+			'redirect'			=> intval( $redirect ),
 		);
 
 		$id = $this->model->insert( $data );
@@ -297,7 +280,7 @@ class AliasDomain extends Core\Singleton {
 	 *     // remove all aliases for blog 123
 	 *     wp alias-domains remove --blog_id=123
 	 *
-	 *	@alias comment-check
+	 *	@alias delete
 	 */
 	public function remove( $args, $kwargs ) {
 		extract( $kwargs );
@@ -363,7 +346,7 @@ class AliasDomain extends Core\Singleton {
 	 * [--compact[=<compact>]]
 	 * : Just print the ID
 	 * ---
-	 * default: 1
+	 * default: 0
 	 * options:
 	 *   - 0
 	 *   - 1

@@ -6,12 +6,15 @@
   "scripts": {
     "dev": "gulp dev",
     "build": "gulp build && npm run i18n",
-    "i18n": "wp i18n make-pot . languages/multisite-blog-alias.pot --domain=multisite-blog-alias --exclude=tmp && wp i18n make-pot . languages/multisite-blog-alias-cli.pot --domain=multisite-blog-alias-cli --exclude=tmp",
+    "i18n": "node src/run/json-i18n.js multisite-blog-alias",
     "rollback": "git reset --hard HEAD~ && git push origin +master",
     "dashicons": "node ./src/run/dashicons.js",
-    "audit": "./vendor/squizlabs/php_codesniffer/bin/phpcs . --report=code --standard=./phpcs.ruleset.xml -n -s > ./phpcs-report.txt || exit 0",
+    "audit": "./vendor/squizlabs/php_codesniffer/bin/phpcs . --report=code --standard=./phpcs-security.ruleset.xml -n -s > ./phpcs-report.txt || exit 0",
     "audit-fix": "./vendor/squizlabs/php_codesniffer/bin/phpcbf . --standard=./phpcs.ruleset.xml || exit 0",
-    "postinstall": "composer install"
+    "postinstall": "composer install",
+    "init": "mkdir -p json/acf && mkdir -p json/post-type && mkdir -p json/taxonomy && mkdir -p src/php",
+    "test": "node ./src/run/test.js",
+    "dev-test": "./src/run/dev-test.sh"
   },
   "repository": {
     "type": "git",
@@ -24,10 +27,29 @@
   },
   "homepage": "https://github.com/mcguffin/multisite-blog-alias#readme",
   "browserslist": [
-    "last 2 versions"
+    "last 3 versions",
+    "> 0.125%",
+    "IE 10"
   ],
   "browserify-shim": {
-    "jquery": "global:jQuery"
+    "jquery": "global:jQuery",
+    "backbone": "global:Backbone",
+    "classnames": "global:classnames",
+    "lodash": "global:lodash",
+    "@wordpress/blob": "global:wp.blob",
+    "@wordpress/blocks": "global:wp.blocks",
+    "@wordpress/block-editor": "global:wp.blockEditor",
+    "@wordpress/block-library": "global:wp.blockLibrary",
+    "@wordpress/components": "global:wp.components",
+    "@wordpress/compose": "global:wp.compose",
+    "@wordpress/data": "global:wp.data",
+    "@wordpress/dom": "global:wp.dom",
+    "@wordpress/editor": "global:wp.editor",
+    "@wordpress/element": "global:wp.element",
+    "@wordpress/format-library": "global:wp.formatLibrary",
+    "@wordpress/i18n": "global:wp.i18n",
+    "@wordpress/keycodes": "global:wp.keycodes",
+    "@wordpress/rich-text": "global:wp.richText"
   },
   "devDependencies": {
     "@babel/core": "^7.5.4",
@@ -45,11 +67,59 @@
     "gulp-sourcemaps": "^2.6.5",
     "gulp-uglify": "^3.0.2",
     "vinyl-buffer": "^1.0.1",
-    "vinyl-source-stream": "^2.0.0"
+    "vinyl-source-stream": "^2.0.0",
+    "uglifyify": "^5.0.2",
+    "tinyify": "^2.5.1"
   },
   "engines": {
     "node": "12.4.0",
     "npm": "^6.9.0"
+  },
+  "wpSkeleton": {
+    "components": {
+      "core": {
+        "components": [],
+        "flags": []
+      },
+      "admin": {
+        "components": {},
+        "flags": [
+          "css",
+          "js"
+        ]
+      },
+      "test": {
+        "components": {},
+        "flags": []
+      },
+      "git": {
+        "user": "mcguffin",
+        "remote": "git@github.com:mcguffin/multisite-blog-alias.git"
+      },
+      "ajax": {
+        "components": {},
+        "flags": []
+      },
+      "model": {
+        "components": {
+          "alias_domains": {
+            "flags": [
+              "network"
+            ]
+          }
+        },
+        "flags": []
+      }
+    },
+    "name": "Multisite Blog Alias",
+    "slug": "multisite-blog-alias",
+    "prefix": "blog_alias",
+    "textdomain": "multisite-blog-alias",
+    "namespace": "BlogAlias",
+    "author": "Jörn Lund",
+    "author_uri": "https://github.com/mcguffin",
+    "year": 2019,
+    "type": "plugin"
   },
   "wporg": {
     "steps": [
@@ -77,5 +147,23 @@
       "svn_user": "podpirate",
       "svn": "https://plugins.svn.wordpress.org/multisite-blog-alias/"
     }
+  },
+  "dependencies": {
+    "@wordpress/blob": "^2.5.1",
+    "@wordpress/block-editor": "^3.2.2",
+    "@wordpress/block-library": "^2.9.2",
+    "@wordpress/blocks": "^6.7.2",
+    "@wordpress/components": "^8.3.2",
+    "@wordpress/compose": "^3.7.2",
+    "@wordpress/data": "^4.9.2",
+    "@wordpress/dom": "^2.5.2",
+    "@wordpress/editor": "^9.7.2",
+    "@wordpress/element": "^2.8.2",
+    "@wordpress/format-library": "^1.9.2",
+    "@wordpress/i18n": "^3.6.1",
+    "@wordpress/keycodes": "^2.6.2",
+    "@wordpress/media-utils": "^1.2.2",
+    "@wordpress/rich-text": "^3.7.2",
+    "jquery": "^1.12.4"
   }
 }

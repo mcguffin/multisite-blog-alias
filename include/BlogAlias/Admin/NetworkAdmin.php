@@ -11,6 +11,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	die( 'FU!' );
 }
 
+use BlogAlias\Asset;
 use BlogAlias\Core;
 use BlogAlias\Model;
 
@@ -38,8 +39,8 @@ class NetworkAdmin extends Core\Singleton {
 	 */
 	protected function __construct() {
 
-		$this->core = Core\Plugin::instance();
-		$this->model = Model\ModelAliasDomains::instance();
+		$this->core = Core\Core::instance();
+		$this->model = Model\AliasDomains::instance();
 
 		// render tab navigation
 		add_filter( 'network_edit_site_nav_links', array( $this, 'edit_site_nav_links' ) );
@@ -273,14 +274,12 @@ echo esc_textarea( $sunrise->code );
 			wp_die( esc_html__( 'Sorry, you are not allowed to run the uninstall procedere.', 'multisite-blog-alias' ) );
 		}
 
-		$model = Model\ModelAliasDomains::instance();
-
 		//
 		if ( isset( $_REQUEST['confirm'] ) ) {
 			// exec
 			if ( $_REQUEST['confirm'] === 'yes' ) {
 				// vaR_dump('drop','deactivate');exit();
-				$model->drop();
+				$this->model->drop();
 				deactivate_plugins( $this->core->get_wp_plugin(), false, true );
 
 				wp_safe_redirect( add_query_arg( 'deactivate', '1', network_admin_url( 'plugins.php' ) ) );
@@ -300,7 +299,7 @@ echo esc_textarea( $sunrise->code );
 				</p>
 				<p><strong>
                 <?php
-					$count = $model->fetch_count();
+					$count = $this->model->fetch_count();
 					/* Translators: %d number of alias domains */
 					esc_html_e(
 						sprintf(
@@ -364,13 +363,14 @@ echo esc_textarea( $sunrise->code );
 
 		if ( function_exists( 'idn_to_ascii' ) ) {
 			$domain_alias = idn_to_ascii( $domain_alias_input, IDNA_NONTRANSITIONAL_TO_ASCII, INTL_IDNA_VARIANT_UTS46 );
-			$domain_alias_utf8 = $domain_alias_input;
+			$domain_alias_utf8 = sanitize_text_field( $domain_alias_input );
 		} else {
-			$domain_alias = $domain_alias_utf8 = $domain_alias_input;
+			$domain_alias = $domain_alias_utf8 = sanitize_text_field( $domain_alias_input );
 		}
 
-
-		if ( ! $domain_alias = $this->model->validate( 'domain_alias', $domain_alias ) ) {
+		if ( empty( $domain_alias ) ) {
+			$redirect_args['error'] = 'add-empty-domain';
+		} else if ( false === $this->model->validate( 'domain_alias', $domain_alias ) ) {
 			// check validity
 			$redirect_args['error'] = 'add-invalid-domain';
 		} elseif ( $record = $this->model->fetch_one_by( 'domain_alias', $domain_alias ) ) {
@@ -504,6 +504,8 @@ echo esc_textarea( $sunrise->code );
 	}
 
 	/**
+	 *	Output Admin alias site
+	 *
 	 *  @action admin_action_alias-domains
 	 */
 	public function admin_alias_domains() {
@@ -546,16 +548,16 @@ echo esc_textarea( $sunrise->code );
 
 		// handle actions here!
 		$this->current_menu_parent = $parent;
+
 		add_filter( 'parent_file', [ $this, 'get_current_menu_parent' ] );
 		add_filter( 'submenu_file', [ $this, 'get_current_menu_parent' ] );
-		global $parent_file, $submenu_file, $title;
 
-		// $parent_file = $parent;
-		// $submenu_file = $parent;
-		// $title = $page_title;
+		Asset\Asset::get('css/admin/network/alias.css')->enqueue();
 
-		wp_enqueue_script( 'admin-alias-domain', $this->core->get_asset_url( 'js/admin/network/alias.js' ), [ 'jquery' ], $this->core->get_version(), true );
-		wp_enqueue_style( 'admin-alias-domain', $this->core->get_asset_url( 'css/admin/network/alias.css' ), [], $this->core->get_version() );
+		Asset\Asset::get('js/admin/network/alias.js')
+			->deps( [ 'jquery' ] )
+			->enqueue();
+
 		require ABSPATH . 'wp-admin/admin-header.php';
 
 	}
@@ -608,6 +610,7 @@ echo esc_textarea( $sunrise->code );
 		} elseif ( isset( $_GET['error'] ) ) {
 			$errors = array(
 				'add-alias-exists'      => __( 'The Alias already exists.', 'multisite-blog-alias' ),
+				'add-empty-domain'    	=> __( 'Empty domain name', 'multisite-blog-alias' ),
 				'add-invalid-domain'    => __( 'Invalid domain name', 'multisite-blog-alias' ),
 				'delete'                => __( 'Deletion failed', 'multisite-blog-alias' ),
 				'add-site-exists'       => __( 'A different Blog is already using this domain.', 'multisite-blog-alias' ),
@@ -697,7 +700,7 @@ echo esc_textarea( $sunrise->code );
 					<tbody>
 						<tr>
 							<td>
-								<input id="add-domain-alias" placeholder="subdomain.domain.tld" type="text" name="domain_alias" class="widefat code" />
+								<input id="add-domain-alias" placeholder="subdomain.domain.tld" type="text" name="domain_alias" class="widefat code" required />
 							</td>
 							<td class="action-links">
 								<button class="button-primary" type="submit">
@@ -741,7 +744,13 @@ echo esc_textarea( $sunrise->code );
 							<tr>
 								<td>
 									<code>
-										<?php esc_html_e( $alias->domain_alias_utf8 ); ?>
+										<?php
+										if ( $alias->domain_alias_utf8 ) {
+											esc_html_e( $alias->domain_alias_utf8 );
+										} else {
+											esc_html_e( $alias->domain_alias );
+										}
+										?>
 									</code>
 								</td>
 

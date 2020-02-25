@@ -81,9 +81,9 @@ if ( ! is_multisite() ) {
 
 require_once __DIR__ . DIRECTORY_SEPARATOR . 'include/autoload.php';
 
-Core\Plugin::instance()->set_plugin_file( __FILE__ );
+Core\Core::instance( __FILE__ );//->set_plugin_file( __FILE__ );
 
-Model\ModelAliasDomains::instance();
+Model\AliasDomains::instance();
 
 if ( is_network_admin() || defined( 'DOING_AJAX' ) ) {
 	Admin\NetworkAdmin::instance();

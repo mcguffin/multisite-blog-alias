@@ -37,7 +37,7 @@ class Ajax extends Core\Singleton {
 	public function ajax_status( $args ) {
 		header( 'Content-Type: text/html; charset=utf8' );
 
-		$model = Model\ModelAliasDomains::instance();
+		$model = Model\AliasDomains::instance();
 
 		// occupied by another domain...
 		$status = $model->check_status( $args['alias_id'] );

@@ -3,7 +3,7 @@ Contributors: podpirate
 Donate link: https://www.msf.org/donate
 Tags: network, redirect, multisite, domain
 Requires at least: 4.8
-Requires PHP: 5.5
+Requires PHP: 5.6
 Tested up to: 5.3
 Stable tag: 1.0.4
 License: GPLv3 or later
@@ -114,7 +114,11 @@ On the whole upgrading is always a good idea.
 
 == Changelog ==
 
-= 1.0.3 =
+= 1.1.0 =
+ - More input validation
+ - Drop support for PHP 5.5
+
+= 1.0.4 =
  - Security hardening
 
 = 1.0.3 =

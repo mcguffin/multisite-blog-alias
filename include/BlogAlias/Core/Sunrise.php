@@ -116,12 +116,22 @@ class Sunrise extends PluginComponent {
 	 *  @inheritdoc
 	 */
 	public function upgrade( $new_version, $old_version ) {
+		$result = [
+			'success'	=> true,
+			'message'	=> '',
+		];
 		if ( version_compare( '0.3.0', $old_version, '>' ) ) {
 			// code has changed in 0.3.0 (more generic)
 			$sunrise_contents = self::reset_sunrise( 'blog_alias' );
 			$sunrise_contents .= self::generate_sunrise_php();
-			self::write_sunrise( $sunrise_contents );
+			if ( ! self::write_sunrise( $sunrise_contents ) ) {
+				$result = [
+					'success' 	=> false,
+					'message'	=> __('Error writing sunrise.php','multisite-blog-alias' ),
+				];
+			}
 		}
+		return $result;
 	}
 
 	/**
@@ -151,6 +161,7 @@ class Sunrise extends PluginComponent {
 	 *  static because called from uninstall hook
 	 *
 	 *  @param string $sunrise_contents Must be valid PHP
+	 *	@return bool
 	 */
 	private static function write_sunrise( $sunrise_contents ) {
 		global $wp_filesystem;

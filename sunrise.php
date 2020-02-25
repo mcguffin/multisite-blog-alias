@@ -19,7 +19,7 @@ function blog_alias_site_not_found( $current_site, $domain, $path ) {
 	require_once ABSPATH . WPINC . '/formatting.php'; // untrailingslashit()
 	require_once __DIR__ . DIRECTORY_SEPARATOR . 'include/autoload.php';
 
-	$model = BlogAlias\Model\ModelAliasDomains::instance();
+	$model = BlogAlias\Model\AliasDomains::instance();
 
 	if ( $result = $model->fetch_one_by( 'domain_alias', $domain ) ) {
 		global $wpdb;

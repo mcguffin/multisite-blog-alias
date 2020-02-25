@@ -1,8 +1,7 @@
 <?php
 /**
  *  @package BlogAlias\Ajax
- *  @version 1.0.0
- *  2018-09-22
+ *	2020-01-25
  */
 
 namespace BlogAlias\Ajax;
@@ -137,7 +136,7 @@ class AjaxHandler {
 	 *	@return bool
 	 */
 	private function verify_nonce() {
-		return check_ajax_referer( '_nonce_' . $this->action, null, false );
+		return check_ajax_referer( '_nonce_' . $this->action, $this->_nonce_param, false );
 	}
 
 	/**
@@ -149,28 +148,42 @@ class AjaxHandler {
 
 		$response = array( 'success' => false );
 
-		if ( $this->use_nonce && ! $this->verify_nonce() ) {
+
+		if ( $this->use_nonce && ! check_ajax_referer( '_nonce_' . $this->action, $this->_nonce_param, false ) ) {
 
 			// check nonce
-			$response['message'] = __( 'Nonce invalid', 'bi-booking-tool' );
+			$response['message'] = __( 'Nonce invalid', 'multisite-blog-alias' );
 
-		} else if ( $this->capability !== false && ! current_user_can( $this->capability ) ) {
+			return $this->respond( $response );
+		}
+
+		if ( $this->capability !== false && ! current_user_can( $this->capability ) ) {
 
 			// check capability
-			$response['message'] = __( 'Insufficient Permission', 'bi-booking-tool' );
+			$response['message'] = __( 'Insufficient Permission', 'multisite-blog-alias' );
+
+			return $this->respond( $response );
 
 		} else if ( is_callable( $this->callback ) ) {
 
 			$params = wp_unslash( $_REQUEST );
 
 			if ( $result = call_user_func( $this->callback, $params ) ) {
-				$response = $result;
+				return $this->respond( $result );
 			};
 		}
 
+		$this->respond( $response );
+
+		exit();
+	}
+
+	/**
+	 *	@param mixed $response
+	 */
+	private function respond( $response ) {
 		header( 'Content-Type: application/json' );
 		echo wp_json_encode( $response );
-
 		exit();
 	}
 
