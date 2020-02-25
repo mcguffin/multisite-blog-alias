@@ -117,6 +117,8 @@ On the whole upgrading is always a good idea.
 = 1.1.0 =
  - More input validation
  - Drop support for PHP 5.5
+ - Code Refactoring
+ - Fix: Domain name not visible when alias was created with wp-cli
 
 = 1.0.4 =
  - Security hardening
