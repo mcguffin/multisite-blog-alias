@@ -2,14 +2,14 @@
 # This file is distributed under the same license as the Multisite Blog Alias plugin.
 msgid ""
 msgstr ""
-"Project-Id-Version: Multisite Blog Alias 1.0.4\n"
+"Project-Id-Version: Multisite Blog Alias 1.1.0\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/multisite-blog-alias\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2020-01-24T16:07:49+00:00\n"
+"POT-Creation-Date: 2020-02-25T14:07:07+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.4.0\n"
 "X-Domain: multisite-blog-alias-cli\n"
@@ -35,84 +35,79 @@ msgid "https://github.com/mcguffin"
 msgstr ""
 
 #. translators: %s invalid field name
-#: include/BlogAlias/WPCLI/Commands/AliasDomain.php:110
+#: include/BlogAlias/WPCLI/Commands/AliasDomain.php:107
 msgid "Field %s does not exist."
 msgstr ""
 
-#. Translators: NUmber of deleted items
-#: include/BlogAlias/WPCLI/Commands/AliasDomain.php:146
-msgid "%d Aliases total"
-msgstr ""
-
-#: include/BlogAlias/WPCLI/Commands/AliasDomain.php:204
+#: include/BlogAlias/WPCLI/Commands/AliasDomain.php:174
 msgid "Must specify either blog_id or blog_domain"
 msgstr ""
 
 #. Translators: Blog Domain
-#: include/BlogAlias/WPCLI/Commands/AliasDomain.php:209
-#: include/BlogAlias/WPCLI/Commands/AliasDomain.php:313
+#: include/BlogAlias/WPCLI/Commands/AliasDomain.php:179
+#: include/BlogAlias/WPCLI/Commands/AliasDomain.php:296
 msgid "Blog domain %s does not exist"
 msgstr ""
 
 #. Translators: Blog ID
-#: include/BlogAlias/WPCLI/Commands/AliasDomain.php:213
+#: include/BlogAlias/WPCLI/Commands/AliasDomain.php:183
 msgid "Blog ID %d does not exist"
 msgstr ""
 
-#: include/BlogAlias/WPCLI/Commands/AliasDomain.php:219
+#: include/BlogAlias/WPCLI/Commands/AliasDomain.php:199
 msgid "Invalid domain_alias"
 msgstr ""
 
 #. Translators: AliasDomain, Blog ID
-#: include/BlogAlias/WPCLI/Commands/AliasDomain.php:225
+#: include/BlogAlias/WPCLI/Commands/AliasDomain.php:205
 msgid "Domain %1$s exists for blog %2$d"
 msgstr ""
 
 #. Translators: AliasDomain, Blog ID
-#: include/BlogAlias/WPCLI/Commands/AliasDomain.php:236
+#: include/BlogAlias/WPCLI/Commands/AliasDomain.php:216
 msgid "Domain Alias %1$s exists for blog %2$d"
 msgstr ""
 
 #. Translators: Alias ID
-#: include/BlogAlias/WPCLI/Commands/AliasDomain.php:253
+#: include/BlogAlias/WPCLI/Commands/AliasDomain.php:236
 msgid "Alias created with ID %d"
 msgstr ""
 
 #. Translators: Error message
-#: include/BlogAlias/WPCLI/Commands/AliasDomain.php:257
+#: include/BlogAlias/WPCLI/Commands/AliasDomain.php:240
 msgid "Error creating Domain Alias: %s"
 msgstr ""
 
-#: include/BlogAlias/WPCLI/Commands/AliasDomain.php:306
+#: include/BlogAlias/WPCLI/Commands/AliasDomain.php:289
 msgid "Must specify either `id` or `blog_id` or `blog_domain` or `domain_alias` to remove"
 msgstr ""
 
 #. Translators: Alias Domain
-#: include/BlogAlias/WPCLI/Commands/AliasDomain.php:319
-#: include/BlogAlias/WPCLI/Commands/AliasDomain.php:401
+#: include/BlogAlias/WPCLI/Commands/AliasDomain.php:302
+#: include/BlogAlias/WPCLI/Commands/AliasDomain.php:384
 msgid "Domain Alias %s does not exist"
 msgstr ""
 
 #. Translators: Domain Alias ID
-#: include/BlogAlias/WPCLI/Commands/AliasDomain.php:327
-#: include/BlogAlias/WPCLI/Commands/AliasDomain.php:411
+#: include/BlogAlias/WPCLI/Commands/AliasDomain.php:310
+#: include/BlogAlias/WPCLI/Commands/AliasDomain.php:394
 msgid "Domain Alias with ID %d does not exist"
 msgstr ""
 
 #. Translators: Number of deleted items
-#: include/BlogAlias/WPCLI/Commands/AliasDomain.php:336
+#: include/BlogAlias/WPCLI/Commands/AliasDomain.php:319
 msgid "%d Aliases deleted"
 msgstr ""
 
 #. Translators: Error message
-#: include/BlogAlias/WPCLI/Commands/AliasDomain.php:339
+#: include/BlogAlias/WPCLI/Commands/AliasDomain.php:322
 msgid "Error deleting domain aliases: %s"
 msgstr ""
 
-#: include/BlogAlias/WPCLI/Commands/AliasDomain.php:391
+#: include/BlogAlias/WPCLI/Commands/AliasDomain.php:374
 msgid "Must specify either `id` or `domain_alias` to test"
 msgstr ""
 
-#: include/BlogAlias/WPCLI/Commands/AliasDomain.php:423
+#: include/BlogAlias/WPCLI/Commands/AliasDomain.php:406
 msgid "OK"
 msgstr ""
