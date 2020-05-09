@@ -114,6 +114,9 @@ On the whole upgrading is always a good idea.
 
 == Changelog ==
 
+= 1.1.1 =
+ - Fix: Fatal error on entwork activation
+
 = 1.1.0 =
  - More input validation
  - Drop support for PHP 5.5
