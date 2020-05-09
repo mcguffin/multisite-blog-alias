@@ -67,7 +67,7 @@ class Sunrise extends PluginComponent {
 	 *	Add redirect to instructions page
 	 */
 	private function not_writable_error() {
-		$core = Plugin::instance();
+		$core = Core::instance();
 		$slug = $core->get_slug();
 		if ( ! has_action( "activated_plugin", array( $this, 'show_instructions' ), 20 ) ) {
 			add_action( "activated_plugin", array( $this, 'show_instructions' ), 20, 2 );
@@ -78,7 +78,7 @@ class Sunrise extends PluginComponent {
 	 *  @action activated_{$slug}
 	 */
 	public function show_instructions( $plugin, $network_wide ) {
-		$core = Plugin::instance();
+		$core = Core::instance();
 		if ( $core->get_wp_plugin() === $plugin ) {
 
 			$url = network_admin_url( 'admin.php' );
@@ -184,7 +184,7 @@ class Sunrise extends PluginComponent {
 	 *  @return string
 	 */
 	private static function generate_sunrise_php( $slug = null ) {
-		$core = Plugin::instance();
+		$core = Core::instance();
 		if ( is_null( $slug ) ) {
 			$slug = $core->get_slug();
 		}
@@ -206,7 +206,7 @@ class Sunrise extends PluginComponent {
 
 		global $wp_filesystem;
 
-		$core = Plugin::instance();
+		$core = Core::instance();
 
 		if ( ! WP_Filesystem() ) {
 			return false;
