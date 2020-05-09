@@ -5,7 +5,7 @@ Plugin Name: Multisite Blog Alias
 Plugin URI: https://github.com/mcguffin/multisite-blog-alias
 Description: Alias Domains for Blogs
 Author: Jörn Lund
-Version: 1.1.0
+Version: 1.1.1
 Author URI: https://github.com/mcguffin
 License: GPL3
 Github Repository: mcguffin/multisite-blog-alias

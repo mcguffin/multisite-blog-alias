@@ -2,20 +2,24 @@
 # This file is distributed under the same license as the Multisite Blog Alias plugin.
 msgid ""
 msgstr ""
-"Project-Id-Version: Multisite Blog Alias 1.1.0\n"
+"Project-Id-Version: Multisite Blog Alias 1.1.1\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/multisite-blog-alias\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2020-02-25T14:07:07+00:00\n"
+"POT-Creation-Date: 2020-05-09T09:35:56+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.4.0\n"
 "X-Domain: multisite-blog-alias\n"
 
 #. Plugin Name of the plugin
 #: include/BlogAlias/Admin/NetworkAdmin.php:76
+#: tmp/multisite-blog-alias/tags/1.0.3/include/BlogAlias/Admin/NetworkAdmin.php:73
+#: tmp/multisite-blog-alias/tags/1.0.4/include/BlogAlias/Admin/NetworkAdmin.php:75
+#: tmp/multisite-blog-alias/tags/1.1.0/include/BlogAlias/Admin/NetworkAdmin.php:76
+#: tmp/multisite-blog-alias/trunk/include/BlogAlias/Admin/NetworkAdmin.php:76
 msgid "Multisite Blog Alias"
 msgstr ""
 
@@ -37,237 +41,621 @@ msgstr ""
 
 #: include/BlogAlias/Admin/Ajax.php:71
 #: include/BlogAlias/Admin/NetworkAdmin.php:640
+#: tmp/multisite-blog-alias/tags/1.0.0/include/BlogAlias/Admin/Ajax.php:67
+#: tmp/multisite-blog-alias/tags/1.0.0/include/BlogAlias/Admin/NetworkAdmin.php:483
+#: tmp/multisite-blog-alias/tags/1.0.1/include/BlogAlias/Admin/Ajax.php:67
+#: tmp/multisite-blog-alias/tags/1.0.1/include/BlogAlias/Admin/NetworkAdmin.php:483
+#: tmp/multisite-blog-alias/tags/1.0.2/include/BlogAlias/Admin/Ajax.php:67
+#: tmp/multisite-blog-alias/tags/1.0.2/include/BlogAlias/Admin/NetworkAdmin.php:496
+#: tmp/multisite-blog-alias/tags/1.0.3/include/BlogAlias/Admin/Ajax.php:67
+#: tmp/multisite-blog-alias/tags/1.0.3/include/BlogAlias/Admin/NetworkAdmin.php:560
+#: tmp/multisite-blog-alias/tags/1.0.4/include/BlogAlias/Admin/Ajax.php:71
+#: tmp/multisite-blog-alias/tags/1.0.4/include/BlogAlias/Admin/NetworkAdmin.php:637
+#: tmp/multisite-blog-alias/tags/1.1.0/include/BlogAlias/Admin/Ajax.php:71
+#: tmp/multisite-blog-alias/tags/1.1.0/include/BlogAlias/Admin/NetworkAdmin.php:640
+#: tmp/multisite-blog-alias/trunk/include/BlogAlias/Admin/Ajax.php:71
+#: tmp/multisite-blog-alias/trunk/include/BlogAlias/Admin/NetworkAdmin.php:640
 msgid "Edit"
 msgstr ""
 
 #: include/BlogAlias/Admin/Ajax.php:76
+#: tmp/multisite-blog-alias/tags/1.0.0/include/BlogAlias/Admin/Ajax.php:72
+#: tmp/multisite-blog-alias/tags/1.0.1/include/BlogAlias/Admin/Ajax.php:72
+#: tmp/multisite-blog-alias/tags/1.0.2/include/BlogAlias/Admin/Ajax.php:72
+#: tmp/multisite-blog-alias/tags/1.0.3/include/BlogAlias/Admin/Ajax.php:72
+#: tmp/multisite-blog-alias/tags/1.0.4/include/BlogAlias/Admin/Ajax.php:76
+#: tmp/multisite-blog-alias/tags/1.1.0/include/BlogAlias/Admin/Ajax.php:76
+#: tmp/multisite-blog-alias/trunk/include/BlogAlias/Admin/Ajax.php:76
 msgid "View"
 msgstr ""
 
 #: include/BlogAlias/Admin/Ajax.php:81
+#: tmp/multisite-blog-alias/tags/1.0.0/include/BlogAlias/Admin/Ajax.php:75
+#: tmp/multisite-blog-alias/tags/1.0.1/include/BlogAlias/Admin/Ajax.php:75
+#: tmp/multisite-blog-alias/tags/1.0.2/include/BlogAlias/Admin/Ajax.php:75
+#: tmp/multisite-blog-alias/tags/1.0.3/include/BlogAlias/Admin/Ajax.php:75
+#: tmp/multisite-blog-alias/tags/1.0.4/include/BlogAlias/Admin/Ajax.php:81
+#: tmp/multisite-blog-alias/tags/1.1.0/include/BlogAlias/Admin/Ajax.php:81
+#: tmp/multisite-blog-alias/trunk/include/BlogAlias/Admin/Ajax.php:81
 msgid "Error message:"
 msgstr ""
 
 #: include/BlogAlias/Admin/Ajax.php:88
+#: tmp/multisite-blog-alias/tags/1.0.0/include/BlogAlias/Admin/Ajax.php:80
+#: tmp/multisite-blog-alias/tags/1.0.1/include/BlogAlias/Admin/Ajax.php:80
+#: tmp/multisite-blog-alias/tags/1.0.2/include/BlogAlias/Admin/Ajax.php:80
+#: tmp/multisite-blog-alias/tags/1.0.3/include/BlogAlias/Admin/Ajax.php:80
+#: tmp/multisite-blog-alias/tags/1.0.4/include/BlogAlias/Admin/Ajax.php:88
+#: tmp/multisite-blog-alias/tags/1.1.0/include/BlogAlias/Admin/Ajax.php:88
+#: tmp/multisite-blog-alias/trunk/include/BlogAlias/Admin/Ajax.php:88
 msgid "Last Redirect to:"
 msgstr ""
 
 #: include/BlogAlias/Admin/NetworkAdmin.php:82
 #: include/BlogAlias/Admin/NetworkAdmin.php:88
+#: tmp/multisite-blog-alias/tags/1.0.3/include/BlogAlias/Admin/NetworkAdmin.php:77
+#: tmp/multisite-blog-alias/tags/1.0.3/include/BlogAlias/Admin/NetworkAdmin.php:81
+#: tmp/multisite-blog-alias/tags/1.0.4/include/BlogAlias/Admin/NetworkAdmin.php:81
+#: tmp/multisite-blog-alias/tags/1.0.4/include/BlogAlias/Admin/NetworkAdmin.php:87
+#: tmp/multisite-blog-alias/tags/1.1.0/include/BlogAlias/Admin/NetworkAdmin.php:82
+#: tmp/multisite-blog-alias/tags/1.1.0/include/BlogAlias/Admin/NetworkAdmin.php:88
+#: tmp/multisite-blog-alias/trunk/include/BlogAlias/Admin/NetworkAdmin.php:82
+#: tmp/multisite-blog-alias/trunk/include/BlogAlias/Admin/NetworkAdmin.php:88
 msgid "Redirect with path"
 msgstr ""
 
 #: include/BlogAlias/Admin/NetworkAdmin.php:91
+#: tmp/multisite-blog-alias/tags/1.0.3/include/BlogAlias/Admin/NetworkAdmin.php:83
+#: tmp/multisite-blog-alias/tags/1.0.4/include/BlogAlias/Admin/NetworkAdmin.php:90
+#: tmp/multisite-blog-alias/tags/1.1.0/include/BlogAlias/Admin/NetworkAdmin.php:91
+#: tmp/multisite-blog-alias/trunk/include/BlogAlias/Admin/NetworkAdmin.php:91
 msgid "If checked the request path will be appended to the redirect URL."
 msgstr ""
 
 #. translators: 1: name of constant 2: wp-config.php filename
 #: include/BlogAlias/Admin/NetworkAdmin.php:102
+#: tmp/multisite-blog-alias/tags/1.0.3/include/BlogAlias/Admin/NetworkAdmin.php:93
+#: tmp/multisite-blog-alias/tags/1.0.4/include/BlogAlias/Admin/NetworkAdmin.php:101
+#: tmp/multisite-blog-alias/tags/1.1.0/include/BlogAlias/Admin/NetworkAdmin.php:102
+#: tmp/multisite-blog-alias/trunk/include/BlogAlias/Admin/NetworkAdmin.php:102
 msgid "This setting is overridden by the constant %1$s in your %2$s"
 msgstr ""
 
 #: include/BlogAlias/Admin/NetworkAdmin.php:150
+#: tmp/multisite-blog-alias/tags/1.0.0/include/BlogAlias/Admin/NetworkAdmin.php:70
+#: tmp/multisite-blog-alias/tags/1.0.1/include/BlogAlias/Admin/NetworkAdmin.php:70
+#: tmp/multisite-blog-alias/tags/1.0.2/include/BlogAlias/Admin/NetworkAdmin.php:70
+#: tmp/multisite-blog-alias/tags/1.0.3/include/BlogAlias/Admin/NetworkAdmin.php:134
+#: tmp/multisite-blog-alias/tags/1.0.4/include/BlogAlias/Admin/NetworkAdmin.php:149
+#: tmp/multisite-blog-alias/tags/1.1.0/include/BlogAlias/Admin/NetworkAdmin.php:150
+#: tmp/multisite-blog-alias/trunk/include/BlogAlias/Admin/NetworkAdmin.php:150
 msgid "Uninstall"
 msgstr ""
 
 #: include/BlogAlias/Admin/NetworkAdmin.php:163
+#: tmp/multisite-blog-alias/tags/1.0.0/include/BlogAlias/Admin/NetworkAdmin.php:80
+#: tmp/multisite-blog-alias/tags/1.0.1/include/BlogAlias/Admin/NetworkAdmin.php:80
+#: tmp/multisite-blog-alias/tags/1.0.2/include/BlogAlias/Admin/NetworkAdmin.php:82
+#: tmp/multisite-blog-alias/tags/1.0.3/include/BlogAlias/Admin/NetworkAdmin.php:146
+#: tmp/multisite-blog-alias/tags/1.0.4/include/BlogAlias/Admin/NetworkAdmin.php:162
+#: tmp/multisite-blog-alias/tags/1.1.0/include/BlogAlias/Admin/NetworkAdmin.php:163
+#: tmp/multisite-blog-alias/trunk/include/BlogAlias/Admin/NetworkAdmin.php:163
 msgid "Sorry, you are not allowed to install plugins."
 msgstr ""
 
 #: include/BlogAlias/Admin/NetworkAdmin.php:180
+#: tmp/multisite-blog-alias/tags/1.0.0/include/BlogAlias/Admin/NetworkAdmin.php:96
+#: tmp/multisite-blog-alias/tags/1.0.1/include/BlogAlias/Admin/NetworkAdmin.php:96
+#: tmp/multisite-blog-alias/tags/1.0.2/include/BlogAlias/Admin/NetworkAdmin.php:98
+#: tmp/multisite-blog-alias/tags/1.0.3/include/BlogAlias/Admin/NetworkAdmin.php:162
+#: tmp/multisite-blog-alias/tags/1.0.4/include/BlogAlias/Admin/NetworkAdmin.php:179
+#: tmp/multisite-blog-alias/tags/1.1.0/include/BlogAlias/Admin/NetworkAdmin.php:180
+#: tmp/multisite-blog-alias/trunk/include/BlogAlias/Admin/NetworkAdmin.php:180
 msgid "Multisite Blog Alias Setup"
 msgstr ""
 
 #: include/BlogAlias/Admin/NetworkAdmin.php:187
+#: tmp/multisite-blog-alias/tags/1.0.0/include/BlogAlias/Admin/NetworkAdmin.php:101
+#: tmp/multisite-blog-alias/tags/1.0.1/include/BlogAlias/Admin/NetworkAdmin.php:101
+#: tmp/multisite-blog-alias/tags/1.0.2/include/BlogAlias/Admin/NetworkAdmin.php:103
+#: tmp/multisite-blog-alias/tags/1.0.3/include/BlogAlias/Admin/NetworkAdmin.php:167
+#: tmp/multisite-blog-alias/tags/1.0.4/include/BlogAlias/Admin/NetworkAdmin.php:186
+#: tmp/multisite-blog-alias/tags/1.1.0/include/BlogAlias/Admin/NetworkAdmin.php:187
+#: tmp/multisite-blog-alias/trunk/include/BlogAlias/Admin/NetworkAdmin.php:187
 msgid "The plugin is well configured. The instructions are kept for documentation purposes."
 msgstr ""
 
 #: include/BlogAlias/Admin/NetworkAdmin.php:195
+#: tmp/multisite-blog-alias/tags/1.0.0/include/BlogAlias/Admin/NetworkAdmin.php:108
+#: tmp/multisite-blog-alias/tags/1.0.1/include/BlogAlias/Admin/NetworkAdmin.php:108
+#: tmp/multisite-blog-alias/tags/1.0.2/include/BlogAlias/Admin/NetworkAdmin.php:110
+#: tmp/multisite-blog-alias/tags/1.0.3/include/BlogAlias/Admin/NetworkAdmin.php:174
+#: tmp/multisite-blog-alias/tags/1.0.4/include/BlogAlias/Admin/NetworkAdmin.php:194
+#: tmp/multisite-blog-alias/tags/1.1.0/include/BlogAlias/Admin/NetworkAdmin.php:195
+#: tmp/multisite-blog-alias/trunk/include/BlogAlias/Admin/NetworkAdmin.php:195
 msgid "The plugin could not write to the filesystem."
 msgstr ""
 
 #: include/BlogAlias/Admin/NetworkAdmin.php:196
+#: tmp/multisite-blog-alias/tags/1.0.0/include/BlogAlias/Admin/NetworkAdmin.php:109
+#: tmp/multisite-blog-alias/tags/1.0.1/include/BlogAlias/Admin/NetworkAdmin.php:109
+#: tmp/multisite-blog-alias/tags/1.0.2/include/BlogAlias/Admin/NetworkAdmin.php:111
+#: tmp/multisite-blog-alias/tags/1.0.3/include/BlogAlias/Admin/NetworkAdmin.php:175
+#: tmp/multisite-blog-alias/tags/1.0.4/include/BlogAlias/Admin/NetworkAdmin.php:195
+#: tmp/multisite-blog-alias/tags/1.1.0/include/BlogAlias/Admin/NetworkAdmin.php:196
+#: tmp/multisite-blog-alias/trunk/include/BlogAlias/Admin/NetworkAdmin.php:196
 msgid "Please change the following."
 msgstr ""
 
 #. translators: sunrise.php file location
+#. translators: Sunrise file location
 #: include/BlogAlias/Admin/NetworkAdmin.php:233
+#: tmp/multisite-blog-alias/tags/1.0.0/include/BlogAlias/Admin/NetworkAdmin.php:140
+#: tmp/multisite-blog-alias/tags/1.0.1/include/BlogAlias/Admin/NetworkAdmin.php:140
+#: tmp/multisite-blog-alias/tags/1.0.2/include/BlogAlias/Admin/NetworkAdmin.php:142
+#: tmp/multisite-blog-alias/tags/1.0.3/include/BlogAlias/Admin/NetworkAdmin.php:206
+#: tmp/multisite-blog-alias/tags/1.0.4/include/BlogAlias/Admin/NetworkAdmin.php:232
+#: tmp/multisite-blog-alias/tags/1.1.0/include/BlogAlias/Admin/NetworkAdmin.php:233
+#: tmp/multisite-blog-alias/trunk/include/BlogAlias/Admin/NetworkAdmin.php:233
 msgid "Insert the following code into %s:"
 msgstr ""
 
 #. translators: sunrise.php file location
+#. translators: Sunrise file location
 #: include/BlogAlias/Admin/NetworkAdmin.php:239
+#: tmp/multisite-blog-alias/tags/1.0.0/include/BlogAlias/Admin/NetworkAdmin.php:143
+#: tmp/multisite-blog-alias/tags/1.0.1/include/BlogAlias/Admin/NetworkAdmin.php:143
+#: tmp/multisite-blog-alias/tags/1.0.2/include/BlogAlias/Admin/NetworkAdmin.php:145
+#: tmp/multisite-blog-alias/tags/1.0.3/include/BlogAlias/Admin/NetworkAdmin.php:209
+#: tmp/multisite-blog-alias/tags/1.0.4/include/BlogAlias/Admin/NetworkAdmin.php:238
+#: tmp/multisite-blog-alias/tags/1.1.0/include/BlogAlias/Admin/NetworkAdmin.php:239
+#: tmp/multisite-blog-alias/trunk/include/BlogAlias/Admin/NetworkAdmin.php:239
 msgid "Create a file %s with the following code:"
 msgstr ""
 
 #: include/BlogAlias/Admin/NetworkAdmin.php:274
+#: tmp/multisite-blog-alias/tags/1.0.0/include/BlogAlias/Admin/NetworkAdmin.php:174
+#: tmp/multisite-blog-alias/tags/1.0.1/include/BlogAlias/Admin/NetworkAdmin.php:174
+#: tmp/multisite-blog-alias/tags/1.0.2/include/BlogAlias/Admin/NetworkAdmin.php:176
+#: tmp/multisite-blog-alias/tags/1.0.3/include/BlogAlias/Admin/NetworkAdmin.php:240
+#: tmp/multisite-blog-alias/tags/1.0.4/include/BlogAlias/Admin/NetworkAdmin.php:273
+#: tmp/multisite-blog-alias/tags/1.1.0/include/BlogAlias/Admin/NetworkAdmin.php:274
+#: tmp/multisite-blog-alias/trunk/include/BlogAlias/Admin/NetworkAdmin.php:274
 msgid "Sorry, you are not allowed to run the uninstall procedere."
 msgstr ""
 
 #: include/BlogAlias/Admin/NetworkAdmin.php:295
+#: tmp/multisite-blog-alias/tags/1.0.0/include/BlogAlias/Admin/NetworkAdmin.php:196
+#: tmp/multisite-blog-alias/tags/1.0.1/include/BlogAlias/Admin/NetworkAdmin.php:196
+#: tmp/multisite-blog-alias/tags/1.0.2/include/BlogAlias/Admin/NetworkAdmin.php:198
+#: tmp/multisite-blog-alias/tags/1.0.3/include/BlogAlias/Admin/NetworkAdmin.php:262
+#: tmp/multisite-blog-alias/tags/1.0.4/include/BlogAlias/Admin/NetworkAdmin.php:296
+#: tmp/multisite-blog-alias/tags/1.1.0/include/BlogAlias/Admin/NetworkAdmin.php:295
+#: tmp/multisite-blog-alias/trunk/include/BlogAlias/Admin/NetworkAdmin.php:295
 msgid "Uninstall Plugin?"
 msgstr ""
 
 #: include/BlogAlias/Admin/NetworkAdmin.php:298
+#: tmp/multisite-blog-alias/tags/1.0.0/include/BlogAlias/Admin/NetworkAdmin.php:197
+#: tmp/multisite-blog-alias/tags/1.0.1/include/BlogAlias/Admin/NetworkAdmin.php:197
+#: tmp/multisite-blog-alias/tags/1.0.2/include/BlogAlias/Admin/NetworkAdmin.php:199
+#: tmp/multisite-blog-alias/tags/1.0.3/include/BlogAlias/Admin/NetworkAdmin.php:263
+#: tmp/multisite-blog-alias/tags/1.0.4/include/BlogAlias/Admin/NetworkAdmin.php:299
+#: tmp/multisite-blog-alias/tags/1.1.0/include/BlogAlias/Admin/NetworkAdmin.php:298
+#: tmp/multisite-blog-alias/trunk/include/BlogAlias/Admin/NetworkAdmin.php:298
 msgid "Uninstalling the plugin will remove the Blog Alias table from the database and deactivate the plugin."
 msgstr ""
 
 #. translators: number of domains being deleted on plugin uninstall
+#. Translators: %d number of alias domains
 #: include/BlogAlias/Admin/NetworkAdmin.php:307
+#: tmp/multisite-blog-alias/tags/1.0.0/include/BlogAlias/Admin/NetworkAdmin.php:201
+#: tmp/multisite-blog-alias/tags/1.0.1/include/BlogAlias/Admin/NetworkAdmin.php:201
+#: tmp/multisite-blog-alias/tags/1.0.2/include/BlogAlias/Admin/NetworkAdmin.php:203
+#: tmp/multisite-blog-alias/tags/1.0.3/include/BlogAlias/Admin/NetworkAdmin.php:267
+#: tmp/multisite-blog-alias/tags/1.0.4/include/BlogAlias/Admin/NetworkAdmin.php:308
+#: tmp/multisite-blog-alias/tags/1.1.0/include/BlogAlias/Admin/NetworkAdmin.php:307
+#: tmp/multisite-blog-alias/trunk/include/BlogAlias/Admin/NetworkAdmin.php:307
 msgid "%d Alias Domain will be deleted."
 msgid_plural "%d Alias Domains will be deleted."
 msgstr[0] ""
 msgstr[1] ""
 
 #: include/BlogAlias/Admin/NetworkAdmin.php:315
+#: tmp/multisite-blog-alias/tags/1.0.0/include/BlogAlias/Admin/NetworkAdmin.php:204
+#: tmp/multisite-blog-alias/tags/1.0.1/include/BlogAlias/Admin/NetworkAdmin.php:204
+#: tmp/multisite-blog-alias/tags/1.0.2/include/BlogAlias/Admin/NetworkAdmin.php:206
+#: tmp/multisite-blog-alias/tags/1.0.3/include/BlogAlias/Admin/NetworkAdmin.php:270
+#: tmp/multisite-blog-alias/tags/1.0.4/include/BlogAlias/Admin/NetworkAdmin.php:316
+#: tmp/multisite-blog-alias/tags/1.1.0/include/BlogAlias/Admin/NetworkAdmin.php:315
+#: tmp/multisite-blog-alias/trunk/include/BlogAlias/Admin/NetworkAdmin.php:315
 msgid "No, back to plugins"
 msgstr ""
 
 #: include/BlogAlias/Admin/NetworkAdmin.php:318
+#: tmp/multisite-blog-alias/tags/1.0.0/include/BlogAlias/Admin/NetworkAdmin.php:205
+#: tmp/multisite-blog-alias/tags/1.0.1/include/BlogAlias/Admin/NetworkAdmin.php:205
+#: tmp/multisite-blog-alias/tags/1.0.2/include/BlogAlias/Admin/NetworkAdmin.php:207
+#: tmp/multisite-blog-alias/tags/1.0.3/include/BlogAlias/Admin/NetworkAdmin.php:271
+#: tmp/multisite-blog-alias/tags/1.0.4/include/BlogAlias/Admin/NetworkAdmin.php:319
+#: tmp/multisite-blog-alias/tags/1.1.0/include/BlogAlias/Admin/NetworkAdmin.php:318
+#: tmp/multisite-blog-alias/trunk/include/BlogAlias/Admin/NetworkAdmin.php:318
 msgid "Yes, Uninstall now!"
 msgstr ""
 
 #: include/BlogAlias/Admin/NetworkAdmin.php:499
+#: tmp/multisite-blog-alias/tags/1.0.0/include/BlogAlias/Admin/NetworkAdmin.php:369
+#: tmp/multisite-blog-alias/tags/1.0.1/include/BlogAlias/Admin/NetworkAdmin.php:369
+#: tmp/multisite-blog-alias/tags/1.0.2/include/BlogAlias/Admin/NetworkAdmin.php:382
+#: tmp/multisite-blog-alias/tags/1.0.3/include/BlogAlias/Admin/NetworkAdmin.php:446
+#: tmp/multisite-blog-alias/tags/1.0.4/include/BlogAlias/Admin/NetworkAdmin.php:499
+#: tmp/multisite-blog-alias/tags/1.1.0/include/BlogAlias/Admin/NetworkAdmin.php:499
+#: tmp/multisite-blog-alias/trunk/include/BlogAlias/Admin/NetworkAdmin.php:499
 msgid "Alias Domains"
 msgstr ""
 
 #: include/BlogAlias/Admin/NetworkAdmin.php:590
+#: tmp/multisite-blog-alias/tags/1.0.0/include/BlogAlias/Admin/NetworkAdmin.php:445
+#: tmp/multisite-blog-alias/tags/1.0.1/include/BlogAlias/Admin/NetworkAdmin.php:445
+#: tmp/multisite-blog-alias/tags/1.0.2/include/BlogAlias/Admin/NetworkAdmin.php:458
+#: tmp/multisite-blog-alias/tags/1.0.3/include/BlogAlias/Admin/NetworkAdmin.php:522
+#: tmp/multisite-blog-alias/tags/1.0.4/include/BlogAlias/Admin/NetworkAdmin.php:588
+#: tmp/multisite-blog-alias/tags/1.1.0/include/BlogAlias/Admin/NetworkAdmin.php:590
+#: tmp/multisite-blog-alias/trunk/include/BlogAlias/Admin/NetworkAdmin.php:590
 msgid "Not Configured:"
 msgstr ""
 
 #. Translators: link to setup page
 #: include/BlogAlias/Admin/NetworkAdmin.php:593
+#: tmp/multisite-blog-alias/tags/1.0.0/include/BlogAlias/Admin/NetworkAdmin.php:448
+#: tmp/multisite-blog-alias/tags/1.0.1/include/BlogAlias/Admin/NetworkAdmin.php:448
+#: tmp/multisite-blog-alias/tags/1.0.2/include/BlogAlias/Admin/NetworkAdmin.php:461
+#: tmp/multisite-blog-alias/tags/1.0.3/include/BlogAlias/Admin/NetworkAdmin.php:525
+#: tmp/multisite-blog-alias/tags/1.0.4/include/BlogAlias/Admin/NetworkAdmin.php:591
+#: tmp/multisite-blog-alias/tags/1.1.0/include/BlogAlias/Admin/NetworkAdmin.php:593
+#: tmp/multisite-blog-alias/trunk/include/BlogAlias/Admin/NetworkAdmin.php:593
 msgid "Multisite Blog Alias is not configured. Please visit %s for instructions."
 msgstr ""
 
 #: include/BlogAlias/Admin/NetworkAdmin.php:597
+#: tmp/multisite-blog-alias/tags/1.0.0/include/BlogAlias/Admin/NetworkAdmin.php:452
+#: tmp/multisite-blog-alias/tags/1.0.1/include/BlogAlias/Admin/NetworkAdmin.php:452
+#: tmp/multisite-blog-alias/tags/1.0.2/include/BlogAlias/Admin/NetworkAdmin.php:465
+#: tmp/multisite-blog-alias/tags/1.0.3/include/BlogAlias/Admin/NetworkAdmin.php:529
+#: tmp/multisite-blog-alias/tags/1.0.4/include/BlogAlias/Admin/NetworkAdmin.php:595
+#: tmp/multisite-blog-alias/tags/1.1.0/include/BlogAlias/Admin/NetworkAdmin.php:597
+#: tmp/multisite-blog-alias/trunk/include/BlogAlias/Admin/NetworkAdmin.php:597
 msgid "the setup page"
 msgstr ""
 
 #: include/BlogAlias/Admin/NetworkAdmin.php:605
+#: tmp/multisite-blog-alias/tags/1.0.0/include/BlogAlias/Admin/NetworkAdmin.php:460
+#: tmp/multisite-blog-alias/tags/1.0.1/include/BlogAlias/Admin/NetworkAdmin.php:460
+#: tmp/multisite-blog-alias/tags/1.0.2/include/BlogAlias/Admin/NetworkAdmin.php:473
+#: tmp/multisite-blog-alias/tags/1.0.3/include/BlogAlias/Admin/NetworkAdmin.php:537
+#: tmp/multisite-blog-alias/tags/1.0.4/include/BlogAlias/Admin/NetworkAdmin.php:603
+#: tmp/multisite-blog-alias/tags/1.1.0/include/BlogAlias/Admin/NetworkAdmin.php:605
+#: tmp/multisite-blog-alias/trunk/include/BlogAlias/Admin/NetworkAdmin.php:605
 msgid "Alias created"
 msgstr ""
 
 #. translators: number of deleted entries
 #: include/BlogAlias/Admin/NetworkAdmin.php:609
+#: tmp/multisite-blog-alias/tags/1.0.0/include/BlogAlias/Admin/NetworkAdmin.php:463
+#: tmp/multisite-blog-alias/tags/1.0.1/include/BlogAlias/Admin/NetworkAdmin.php:463
+#: tmp/multisite-blog-alias/tags/1.0.2/include/BlogAlias/Admin/NetworkAdmin.php:476
+#: tmp/multisite-blog-alias/tags/1.0.3/include/BlogAlias/Admin/NetworkAdmin.php:540
+#: tmp/multisite-blog-alias/tags/1.0.4/include/BlogAlias/Admin/NetworkAdmin.php:607
+#: tmp/multisite-blog-alias/tags/1.1.0/include/BlogAlias/Admin/NetworkAdmin.php:609
+#: tmp/multisite-blog-alias/trunk/include/BlogAlias/Admin/NetworkAdmin.php:609
 msgid "%d entry deleted"
 msgid_plural "%d entries deleted"
 msgstr[0] ""
 msgstr[1] ""
 
 #: include/BlogAlias/Admin/NetworkAdmin.php:612
+#: tmp/multisite-blog-alias/tags/1.0.0/include/BlogAlias/Admin/NetworkAdmin.php:466
+#: tmp/multisite-blog-alias/tags/1.0.1/include/BlogAlias/Admin/NetworkAdmin.php:466
+#: tmp/multisite-blog-alias/tags/1.0.2/include/BlogAlias/Admin/NetworkAdmin.php:479
+#: tmp/multisite-blog-alias/tags/1.0.3/include/BlogAlias/Admin/NetworkAdmin.php:543
+#: tmp/multisite-blog-alias/tags/1.0.4/include/BlogAlias/Admin/NetworkAdmin.php:610
+#: tmp/multisite-blog-alias/tags/1.1.0/include/BlogAlias/Admin/NetworkAdmin.php:612
+#: tmp/multisite-blog-alias/trunk/include/BlogAlias/Admin/NetworkAdmin.php:612
 msgid "The Alias already exists."
 msgstr ""
 
 #: include/BlogAlias/Admin/NetworkAdmin.php:613
+#: tmp/multisite-blog-alias/tags/1.1.0/include/BlogAlias/Admin/NetworkAdmin.php:613
+#: tmp/multisite-blog-alias/trunk/include/BlogAlias/Admin/NetworkAdmin.php:613
 msgid "Empty domain name"
 msgstr ""
 
 #: include/BlogAlias/Admin/NetworkAdmin.php:614
+#: tmp/multisite-blog-alias/tags/1.0.0/include/BlogAlias/Admin/NetworkAdmin.php:467
+#: tmp/multisite-blog-alias/tags/1.0.1/include/BlogAlias/Admin/NetworkAdmin.php:467
+#: tmp/multisite-blog-alias/tags/1.0.2/include/BlogAlias/Admin/NetworkAdmin.php:480
+#: tmp/multisite-blog-alias/tags/1.0.3/include/BlogAlias/Admin/NetworkAdmin.php:544
+#: tmp/multisite-blog-alias/tags/1.0.4/include/BlogAlias/Admin/NetworkAdmin.php:611
+#: tmp/multisite-blog-alias/tags/1.1.0/include/BlogAlias/Admin/NetworkAdmin.php:614
+#: tmp/multisite-blog-alias/trunk/include/BlogAlias/Admin/NetworkAdmin.php:614
 msgid "Invalid domain name"
 msgstr ""
 
 #: include/BlogAlias/Admin/NetworkAdmin.php:615
+#: tmp/multisite-blog-alias/tags/1.0.0/include/BlogAlias/Admin/NetworkAdmin.php:468
+#: tmp/multisite-blog-alias/tags/1.0.1/include/BlogAlias/Admin/NetworkAdmin.php:468
+#: tmp/multisite-blog-alias/tags/1.0.2/include/BlogAlias/Admin/NetworkAdmin.php:481
+#: tmp/multisite-blog-alias/tags/1.0.3/include/BlogAlias/Admin/NetworkAdmin.php:545
+#: tmp/multisite-blog-alias/tags/1.0.4/include/BlogAlias/Admin/NetworkAdmin.php:612
+#: tmp/multisite-blog-alias/tags/1.1.0/include/BlogAlias/Admin/NetworkAdmin.php:615
+#: tmp/multisite-blog-alias/trunk/include/BlogAlias/Admin/NetworkAdmin.php:615
 msgid "Deletion failed"
 msgstr ""
 
 #: include/BlogAlias/Admin/NetworkAdmin.php:616
+#: tmp/multisite-blog-alias/tags/1.0.0/include/BlogAlias/Admin/NetworkAdmin.php:469
+#: tmp/multisite-blog-alias/tags/1.0.1/include/BlogAlias/Admin/NetworkAdmin.php:469
+#: tmp/multisite-blog-alias/tags/1.0.2/include/BlogAlias/Admin/NetworkAdmin.php:482
+#: tmp/multisite-blog-alias/tags/1.0.3/include/BlogAlias/Admin/NetworkAdmin.php:546
+#: tmp/multisite-blog-alias/tags/1.0.4/include/BlogAlias/Admin/NetworkAdmin.php:613
+#: tmp/multisite-blog-alias/tags/1.1.0/include/BlogAlias/Admin/NetworkAdmin.php:616
+#: tmp/multisite-blog-alias/trunk/include/BlogAlias/Admin/NetworkAdmin.php:616
 msgid "A different Blog is already using this domain."
 msgstr ""
 
 #: include/BlogAlias/Admin/NetworkAdmin.php:617
+#: tmp/multisite-blog-alias/tags/1.0.0/include/BlogAlias/Admin/NetworkAdmin.php:470
+#: tmp/multisite-blog-alias/tags/1.0.1/include/BlogAlias/Admin/NetworkAdmin.php:470
+#: tmp/multisite-blog-alias/tags/1.0.2/include/BlogAlias/Admin/NetworkAdmin.php:483
+#: tmp/multisite-blog-alias/tags/1.0.3/include/BlogAlias/Admin/NetworkAdmin.php:547
+#: tmp/multisite-blog-alias/tags/1.0.4/include/BlogAlias/Admin/NetworkAdmin.php:614
+#: tmp/multisite-blog-alias/tags/1.1.0/include/BlogAlias/Admin/NetworkAdmin.php:617
+#: tmp/multisite-blog-alias/trunk/include/BlogAlias/Admin/NetworkAdmin.php:617
 msgid "Something went wrong..."
 msgstr ""
 
 #: include/BlogAlias/Admin/NetworkAdmin.php:630
+#: tmp/multisite-blog-alias/tags/1.0.0/include/BlogAlias/Admin/NetworkAdmin.php:473
+#: tmp/multisite-blog-alias/tags/1.0.1/include/BlogAlias/Admin/NetworkAdmin.php:473
+#: tmp/multisite-blog-alias/tags/1.0.2/include/BlogAlias/Admin/NetworkAdmin.php:486
+#: tmp/multisite-blog-alias/tags/1.0.3/include/BlogAlias/Admin/NetworkAdmin.php:550
+#: tmp/multisite-blog-alias/tags/1.0.4/include/BlogAlias/Admin/NetworkAdmin.php:627
+#: tmp/multisite-blog-alias/tags/1.1.0/include/BlogAlias/Admin/NetworkAdmin.php:630
+#: tmp/multisite-blog-alias/trunk/include/BlogAlias/Admin/NetworkAdmin.php:630
 msgid "Error:"
 msgstr ""
 
 #: include/BlogAlias/Admin/NetworkAdmin.php:638
+#: tmp/multisite-blog-alias/tags/1.0.0/include/BlogAlias/Admin/NetworkAdmin.php:480
+#: tmp/multisite-blog-alias/tags/1.0.1/include/BlogAlias/Admin/NetworkAdmin.php:480
+#: tmp/multisite-blog-alias/tags/1.0.2/include/BlogAlias/Admin/NetworkAdmin.php:493
+#: tmp/multisite-blog-alias/tags/1.0.3/include/BlogAlias/Admin/NetworkAdmin.php:557
+#: tmp/multisite-blog-alias/tags/1.0.4/include/BlogAlias/Admin/NetworkAdmin.php:635
+#: tmp/multisite-blog-alias/tags/1.1.0/include/BlogAlias/Admin/NetworkAdmin.php:638
+#: tmp/multisite-blog-alias/trunk/include/BlogAlias/Admin/NetworkAdmin.php:638
 msgid "Visit other Blog"
 msgstr ""
 
 #: include/BlogAlias/Admin/NetworkAdmin.php:648
+#: tmp/multisite-blog-alias/tags/1.0.0/include/BlogAlias/Admin/NetworkAdmin.php:491
+#: tmp/multisite-blog-alias/tags/1.0.1/include/BlogAlias/Admin/NetworkAdmin.php:491
+#: tmp/multisite-blog-alias/tags/1.0.2/include/BlogAlias/Admin/NetworkAdmin.php:504
+#: tmp/multisite-blog-alias/tags/1.0.3/include/BlogAlias/Admin/NetworkAdmin.php:568
+#: tmp/multisite-blog-alias/tags/1.0.4/include/BlogAlias/Admin/NetworkAdmin.php:645
+#: tmp/multisite-blog-alias/tags/1.1.0/include/BlogAlias/Admin/NetworkAdmin.php:648
+#: tmp/multisite-blog-alias/trunk/include/BlogAlias/Admin/NetworkAdmin.php:648
 msgid "Notice:"
 msgstr ""
 
 #: include/BlogAlias/Admin/NetworkAdmin.php:649
 #: include/BlogAlias/Model/AliasDomains.php:92
+#: tmp/multisite-blog-alias/tags/1.0.0/include/BlogAlias/Admin/NetworkAdmin.php:492
+#: tmp/multisite-blog-alias/tags/1.0.0/include/BlogAlias/Model/ModelAliasDomains.php:76
+#: tmp/multisite-blog-alias/tags/1.0.1/include/BlogAlias/Admin/NetworkAdmin.php:492
+#: tmp/multisite-blog-alias/tags/1.0.1/include/BlogAlias/Model/ModelAliasDomains.php:76
+#: tmp/multisite-blog-alias/tags/1.0.2/include/BlogAlias/Admin/NetworkAdmin.php:505
+#: tmp/multisite-blog-alias/tags/1.0.2/include/BlogAlias/Model/ModelAliasDomains.php:77
+#: tmp/multisite-blog-alias/tags/1.0.3/include/BlogAlias/Admin/NetworkAdmin.php:569
+#: tmp/multisite-blog-alias/tags/1.0.3/include/BlogAlias/Model/ModelAliasDomains.php:77
+#: tmp/multisite-blog-alias/tags/1.0.4/include/BlogAlias/Admin/NetworkAdmin.php:646
+#: tmp/multisite-blog-alias/tags/1.0.4/include/BlogAlias/Model/ModelAliasDomains.php:77
+#: tmp/multisite-blog-alias/tags/1.1.0/include/BlogAlias/Admin/NetworkAdmin.php:649
+#: tmp/multisite-blog-alias/tags/1.1.0/include/BlogAlias/Model/AliasDomains.php:92
+#: tmp/multisite-blog-alias/trunk/include/BlogAlias/Admin/NetworkAdmin.php:649
+#: tmp/multisite-blog-alias/trunk/include/BlogAlias/Model/AliasDomains.php:92
 msgid "The domain matches the site URL of this blog."
 msgstr ""
 
 #: include/BlogAlias/Admin/NetworkAdmin.php:694
+#: tmp/multisite-blog-alias/tags/1.0.0/include/BlogAlias/Admin/NetworkAdmin.php:524
+#: tmp/multisite-blog-alias/tags/1.0.1/include/BlogAlias/Admin/NetworkAdmin.php:524
+#: tmp/multisite-blog-alias/tags/1.0.2/include/BlogAlias/Admin/NetworkAdmin.php:537
+#: tmp/multisite-blog-alias/tags/1.0.3/include/BlogAlias/Admin/NetworkAdmin.php:601
+#: tmp/multisite-blog-alias/tags/1.0.4/include/BlogAlias/Admin/NetworkAdmin.php:691
+#: tmp/multisite-blog-alias/tags/1.1.0/include/BlogAlias/Admin/NetworkAdmin.php:694
+#: tmp/multisite-blog-alias/trunk/include/BlogAlias/Admin/NetworkAdmin.php:694
 msgid "Add Domain Alias"
 msgstr ""
 
 #: include/BlogAlias/Admin/NetworkAdmin.php:707
+#: tmp/multisite-blog-alias/tags/1.0.0/include/BlogAlias/Admin/NetworkAdmin.php:535
+#: tmp/multisite-blog-alias/tags/1.0.1/include/BlogAlias/Admin/NetworkAdmin.php:535
+#: tmp/multisite-blog-alias/tags/1.0.2/include/BlogAlias/Admin/NetworkAdmin.php:548
+#: tmp/multisite-blog-alias/tags/1.0.3/include/BlogAlias/Admin/NetworkAdmin.php:612
+#: tmp/multisite-blog-alias/tags/1.0.4/include/BlogAlias/Admin/NetworkAdmin.php:704
+#: tmp/multisite-blog-alias/tags/1.1.0/include/BlogAlias/Admin/NetworkAdmin.php:707
+#: tmp/multisite-blog-alias/trunk/include/BlogAlias/Admin/NetworkAdmin.php:707
 msgid "Add"
 msgstr ""
 
 #: include/BlogAlias/Admin/NetworkAdmin.php:715
+#: tmp/multisite-blog-alias/tags/1.0.0/include/BlogAlias/Admin/NetworkAdmin.php:542
+#: tmp/multisite-blog-alias/tags/1.0.1/include/BlogAlias/Admin/NetworkAdmin.php:542
+#: tmp/multisite-blog-alias/tags/1.0.2/include/BlogAlias/Admin/NetworkAdmin.php:555
+#: tmp/multisite-blog-alias/tags/1.0.3/include/BlogAlias/Admin/NetworkAdmin.php:619
+#: tmp/multisite-blog-alias/tags/1.0.4/include/BlogAlias/Admin/NetworkAdmin.php:712
+#: tmp/multisite-blog-alias/tags/1.1.0/include/BlogAlias/Admin/NetworkAdmin.php:715
+#: tmp/multisite-blog-alias/trunk/include/BlogAlias/Admin/NetworkAdmin.php:715
 msgid "Domain Aliases"
 msgstr ""
 
 #: include/BlogAlias/Admin/NetworkAdmin.php:720
+#: tmp/multisite-blog-alias/tags/1.0.0/include/BlogAlias/Admin/NetworkAdmin.php:546
+#: tmp/multisite-blog-alias/tags/1.0.1/include/BlogAlias/Admin/NetworkAdmin.php:546
+#: tmp/multisite-blog-alias/tags/1.0.2/include/BlogAlias/Admin/NetworkAdmin.php:559
+#: tmp/multisite-blog-alias/tags/1.0.3/include/BlogAlias/Admin/NetworkAdmin.php:623
+#: tmp/multisite-blog-alias/tags/1.0.4/include/BlogAlias/Admin/NetworkAdmin.php:717
+#: tmp/multisite-blog-alias/tags/1.1.0/include/BlogAlias/Admin/NetworkAdmin.php:720
+#: tmp/multisite-blog-alias/trunk/include/BlogAlias/Admin/NetworkAdmin.php:720
 msgid "– No Domain Aliases –"
 msgstr ""
 
 #: include/BlogAlias/Admin/NetworkAdmin.php:728
+#: tmp/multisite-blog-alias/tags/1.0.0/include/BlogAlias/Admin/NetworkAdmin.php:554
+#: tmp/multisite-blog-alias/tags/1.0.1/include/BlogAlias/Admin/NetworkAdmin.php:554
+#: tmp/multisite-blog-alias/tags/1.0.2/include/BlogAlias/Admin/NetworkAdmin.php:567
+#: tmp/multisite-blog-alias/tags/1.0.3/include/BlogAlias/Admin/NetworkAdmin.php:631
+#: tmp/multisite-blog-alias/tags/1.0.4/include/BlogAlias/Admin/NetworkAdmin.php:725
+#: tmp/multisite-blog-alias/tags/1.1.0/include/BlogAlias/Admin/NetworkAdmin.php:728
+#: tmp/multisite-blog-alias/trunk/include/BlogAlias/Admin/NetworkAdmin.php:728
 msgid "Alias Domain"
 msgstr ""
 
 #: include/BlogAlias/Admin/NetworkAdmin.php:729
+#: tmp/multisite-blog-alias/tags/1.0.0/include/BlogAlias/Admin/NetworkAdmin.php:555
+#: tmp/multisite-blog-alias/tags/1.0.1/include/BlogAlias/Admin/NetworkAdmin.php:555
+#: tmp/multisite-blog-alias/tags/1.0.2/include/BlogAlias/Admin/NetworkAdmin.php:568
+#: tmp/multisite-blog-alias/tags/1.0.3/include/BlogAlias/Admin/NetworkAdmin.php:632
+#: tmp/multisite-blog-alias/tags/1.0.4/include/BlogAlias/Admin/NetworkAdmin.php:726
+#: tmp/multisite-blog-alias/tags/1.1.0/include/BlogAlias/Admin/NetworkAdmin.php:729
+#: tmp/multisite-blog-alias/trunk/include/BlogAlias/Admin/NetworkAdmin.php:729
 msgid "Status"
 msgstr ""
 
 #: include/BlogAlias/Admin/NetworkAdmin.php:763
+#: tmp/multisite-blog-alias/tags/1.0.0/include/BlogAlias/Admin/NetworkAdmin.php:583
+#: tmp/multisite-blog-alias/tags/1.0.1/include/BlogAlias/Admin/NetworkAdmin.php:583
+#: tmp/multisite-blog-alias/tags/1.0.2/include/BlogAlias/Admin/NetworkAdmin.php:596
+#: tmp/multisite-blog-alias/tags/1.0.3/include/BlogAlias/Admin/NetworkAdmin.php:660
+#: tmp/multisite-blog-alias/tags/1.0.4/include/BlogAlias/Admin/NetworkAdmin.php:756
+#: tmp/multisite-blog-alias/tags/1.1.0/include/BlogAlias/Admin/NetworkAdmin.php:763
+#: tmp/multisite-blog-alias/trunk/include/BlogAlias/Admin/NetworkAdmin.php:763
 msgid "Remove"
 msgstr ""
 
 #: include/BlogAlias/Admin/NetworkAdmin.php:781
+#: tmp/multisite-blog-alias/tags/1.0.0/include/BlogAlias/Admin/NetworkAdmin.php:600
+#: tmp/multisite-blog-alias/tags/1.0.1/include/BlogAlias/Admin/NetworkAdmin.php:600
+#: tmp/multisite-blog-alias/tags/1.0.2/include/BlogAlias/Admin/NetworkAdmin.php:613
+#: tmp/multisite-blog-alias/tags/1.0.3/include/BlogAlias/Admin/NetworkAdmin.php:677
+#: tmp/multisite-blog-alias/tags/1.0.4/include/BlogAlias/Admin/NetworkAdmin.php:774
+#: tmp/multisite-blog-alias/tags/1.1.0/include/BlogAlias/Admin/NetworkAdmin.php:781
+#: tmp/multisite-blog-alias/trunk/include/BlogAlias/Admin/NetworkAdmin.php:781
 msgid "Check Status"
 msgstr ""
 
 #: include/BlogAlias/Admin/NetworkAdmin.php:784
+#: tmp/multisite-blog-alias/tags/1.0.0/include/BlogAlias/Admin/NetworkAdmin.php:602
+#: tmp/multisite-blog-alias/tags/1.0.1/include/BlogAlias/Admin/NetworkAdmin.php:602
+#: tmp/multisite-blog-alias/tags/1.0.2/include/BlogAlias/Admin/NetworkAdmin.php:615
+#: tmp/multisite-blog-alias/tags/1.0.3/include/BlogAlias/Admin/NetworkAdmin.php:679
+#: tmp/multisite-blog-alias/tags/1.0.4/include/BlogAlias/Admin/NetworkAdmin.php:777
+#: tmp/multisite-blog-alias/tags/1.1.0/include/BlogAlias/Admin/NetworkAdmin.php:784
+#: tmp/multisite-blog-alias/trunk/include/BlogAlias/Admin/NetworkAdmin.php:784
 msgid "Remove All"
 msgstr ""
 
 #: include/BlogAlias/Ajax/AjaxHandler.php:155
+#: tmp/multisite-blog-alias/tags/1.1.0/include/BlogAlias/Ajax/AjaxHandler.php:155
+#: tmp/multisite-blog-alias/trunk/include/BlogAlias/Ajax/AjaxHandler.php:155
 msgid "Nonce invalid"
 msgstr ""
 
 #: include/BlogAlias/Ajax/AjaxHandler.php:163
+#: tmp/multisite-blog-alias/tags/1.1.0/include/BlogAlias/Ajax/AjaxHandler.php:163
+#: tmp/multisite-blog-alias/trunk/include/BlogAlias/Ajax/AjaxHandler.php:163
 msgid "Insufficient Permission"
 msgstr ""
 
 #: include/BlogAlias/Core/Sunrise.php:130
+#: tmp/multisite-blog-alias/tags/1.1.0/include/BlogAlias/Core/Sunrise.php:130
+#: tmp/multisite-blog-alias/trunk/include/BlogAlias/Core/Sunrise.php:130
 msgid "Error writing sunrise.php"
 msgstr ""
 
 #: include/BlogAlias/Model/AliasDomains.php:76
+#: tmp/multisite-blog-alias/tags/1.0.0/include/BlogAlias/Model/ModelAliasDomains.php:60
+#: tmp/multisite-blog-alias/tags/1.0.1/include/BlogAlias/Model/ModelAliasDomains.php:60
+#: tmp/multisite-blog-alias/tags/1.0.2/include/BlogAlias/Model/ModelAliasDomains.php:61
+#: tmp/multisite-blog-alias/tags/1.0.3/include/BlogAlias/Model/ModelAliasDomains.php:61
+#: tmp/multisite-blog-alias/tags/1.0.4/include/BlogAlias/Model/ModelAliasDomains.php:61
+#: tmp/multisite-blog-alias/tags/1.1.0/include/BlogAlias/Model/AliasDomains.php:76
+#: tmp/multisite-blog-alias/trunk/include/BlogAlias/Model/AliasDomains.php:76
 msgid "Domain alias not found."
 msgstr ""
 
 #: include/BlogAlias/Model/AliasDomains.php:85
+#: tmp/multisite-blog-alias/tags/1.0.0/include/BlogAlias/Model/ModelAliasDomains.php:69
+#: tmp/multisite-blog-alias/tags/1.0.1/include/BlogAlias/Model/ModelAliasDomains.php:69
+#: tmp/multisite-blog-alias/tags/1.0.2/include/BlogAlias/Model/ModelAliasDomains.php:70
+#: tmp/multisite-blog-alias/tags/1.0.3/include/BlogAlias/Model/ModelAliasDomains.php:70
+#: tmp/multisite-blog-alias/tags/1.0.4/include/BlogAlias/Model/ModelAliasDomains.php:70
+#: tmp/multisite-blog-alias/tags/1.1.0/include/BlogAlias/Model/AliasDomains.php:85
+#: tmp/multisite-blog-alias/trunk/include/BlogAlias/Model/AliasDomains.php:85
 msgid "WP-Site for this alias could not be found."
 msgstr ""
 
 #: include/BlogAlias/Model/AliasDomains.php:90
+#: tmp/multisite-blog-alias/tags/1.0.0/include/BlogAlias/Model/ModelAliasDomains.php:74
+#: tmp/multisite-blog-alias/tags/1.0.1/include/BlogAlias/Model/ModelAliasDomains.php:74
+#: tmp/multisite-blog-alias/tags/1.0.2/include/BlogAlias/Model/ModelAliasDomains.php:75
+#: tmp/multisite-blog-alias/tags/1.0.3/include/BlogAlias/Model/ModelAliasDomains.php:75
+#: tmp/multisite-blog-alias/tags/1.0.4/include/BlogAlias/Model/ModelAliasDomains.php:75
+#: tmp/multisite-blog-alias/tags/1.1.0/include/BlogAlias/Model/AliasDomains.php:90
+#: tmp/multisite-blog-alias/trunk/include/BlogAlias/Model/AliasDomains.php:90
 msgid "The domain is already used by another site."
 msgstr ""
 
 #: include/BlogAlias/Model/AliasDomains.php:108
+#: tmp/multisite-blog-alias/tags/1.0.0/include/BlogAlias/Model/ModelAliasDomains.php:92
+#: tmp/multisite-blog-alias/tags/1.0.1/include/BlogAlias/Model/ModelAliasDomains.php:92
+#: tmp/multisite-blog-alias/tags/1.0.2/include/BlogAlias/Model/ModelAliasDomains.php:93
+#: tmp/multisite-blog-alias/tags/1.0.3/include/BlogAlias/Model/ModelAliasDomains.php:93
+#: tmp/multisite-blog-alias/tags/1.0.4/include/BlogAlias/Model/ModelAliasDomains.php:93
+#: tmp/multisite-blog-alias/tags/1.1.0/include/BlogAlias/Model/AliasDomains.php:108
+#: tmp/multisite-blog-alias/trunk/include/BlogAlias/Model/AliasDomains.php:108
 msgid "The domain is unreachable."
 msgstr ""
 
 #: include/BlogAlias/Model/AliasDomains.php:115
+#: tmp/multisite-blog-alias/tags/1.0.0/include/BlogAlias/Model/ModelAliasDomains.php:99
+#: tmp/multisite-blog-alias/tags/1.0.1/include/BlogAlias/Model/ModelAliasDomains.php:99
+#: tmp/multisite-blog-alias/tags/1.0.2/include/BlogAlias/Model/ModelAliasDomains.php:100
+#: tmp/multisite-blog-alias/tags/1.0.3/include/BlogAlias/Model/ModelAliasDomains.php:100
+#: tmp/multisite-blog-alias/tags/1.0.4/include/BlogAlias/Model/ModelAliasDomains.php:100
+#: tmp/multisite-blog-alias/tags/1.1.0/include/BlogAlias/Model/AliasDomains.php:115
+#: tmp/multisite-blog-alias/trunk/include/BlogAlias/Model/AliasDomains.php:115
 msgid "The domain or a redirect does not point to this blog."
 msgstr ""
 
 #: index.php:68
+#: tmp/multisite-blog-alias/tags/1.0.0/index.php:67
+#: tmp/multisite-blog-alias/tags/1.0.1/index.php:67
+#: tmp/multisite-blog-alias/tags/1.0.2/index.php:67
+#: tmp/multisite-blog-alias/tags/1.0.3/index.php:67
+#: tmp/multisite-blog-alias/tags/1.0.4/index.php:68
+#: tmp/multisite-blog-alias/tags/1.1.0/index.php:68
+#: tmp/multisite-blog-alias/trunk/index.php:68
 msgid "The Multisite Blog Alias plugin requires a WordPress multisite installation."
 msgstr ""
 
 #: index.php:69
+#: tmp/multisite-blog-alias/tags/1.0.0/index.php:68
+#: tmp/multisite-blog-alias/tags/1.0.1/index.php:68
+#: tmp/multisite-blog-alias/tags/1.0.2/index.php:68
+#: tmp/multisite-blog-alias/tags/1.0.3/index.php:68
+#: tmp/multisite-blog-alias/tags/1.0.4/index.php:69
+#: tmp/multisite-blog-alias/tags/1.1.0/index.php:69
+#: tmp/multisite-blog-alias/trunk/index.php:69
 msgid "It has been deactivated."
 msgstr ""
