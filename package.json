@@ -14,7 +14,8 @@
     "postinstall": "composer install",
     "init": "mkdir -p json/acf && mkdir -p json/post-type && mkdir -p json/taxonomy && mkdir -p src/php",
     "test": "node ./src/run/test.js",
-    "dev-test": "./src/run/dev-test.sh"
+    "dev-test": "./src/run/dev-test.sh",
+    "ver": "echo \"<?php return $(jq .version < ./package.json);\" > include/version.php"
   },
   "repository": {
     "type": "git",
@@ -135,7 +136,8 @@
         "wp i18n make-pot . languages/multisite-blog-alias-cli.pot --domain=multisite-blog-alias-cli"
       ],
       "build": [
-        "gulp build"
+        "gulp build",
+        "npm run ver"
       ]
     },
     "git": {
