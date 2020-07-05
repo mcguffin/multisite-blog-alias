@@ -160,8 +160,8 @@ class AliasDomains extends Model {
 			`created` datetime NOT NULL default '0000-00-00 00:00:00',
 			`site_id` bigint(20) unsigned NOT NULL,
 			`blog_id` bigint(20) unsigned NOT NULL,
-			`domain_alias` varchar(200) NOT NULL,
-			`domain_alias_utf8` varchar(200) NOT NULL,
+			`domain_alias` varchar(255) CHARACTER SET ascii NOT NULL,
+			`domain_alias_utf8` varchar(255) NOT NULL,
 			`redirect` tinyint(2) NOT NULL default '1',
 			PRIMARY KEY (`ID`),
 			UNIQUE KEY `domain_alias` (`domain_alias`)

@@ -114,6 +114,10 @@ On the whole upgrading is always a good idea.
 
 == Changelog ==
 
+= 1.1.2 =
+ - Fix: Not installing on Mysql <=5.6 / InnoDB
+ - Fix: Support domain names with up to 253 characters
+
 = 1.1.1 =
  - Fix: Fatal error on entwork activation
 
