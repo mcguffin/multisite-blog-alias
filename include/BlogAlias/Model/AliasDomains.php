@@ -43,7 +43,7 @@ class AliasDomains extends Model {
 	/**
 	 *	@inheritdoc
 	 */
-	protected $_global_table = false;
+	protected $_global_table = true;
 
 
 	/**
@@ -166,7 +166,7 @@ class AliasDomains extends Model {
 			PRIMARY KEY (`ID`),
 			UNIQUE KEY `domain_alias` (`domain_alias`)
 		) $charset_collate;";
-
+error_log('Apply db delta on '.$wpdb->alias_domains);
 		// updates DB
 		dbDelta( $sql );
 	}
