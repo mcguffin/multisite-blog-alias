@@ -4,7 +4,7 @@ Donate link: https://www.msf.org/donate
 Tags: network, redirect, multisite, domain
 Requires at least: 4.8
 Requires PHP: 5.6
-Tested up to: 5.5
+Tested up to: 5.6
 Stable tag: 1.1.3
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
@@ -26,7 +26,7 @@ WP Multisite plugin to maintain URL-redirects for Blogs.
 1. **Set up your DNS**. Make sure your Domain points to your Wordpress installation. You can achieve this by either setting up an A- or CNAME-Record in your DNS configuration. Your webserver must be configured to handle requests on the given Domain.
 2. Under **Network Admin – Sites** edit the site and select the Alias Domains Tab.
 3. Enter the domain without `http` ao `/` and click "Add".
-4. Click "Check Status" to see if it worked. If something went wrong you will show an error message.
+4. Click "Check Status" to see if it worked. If something went wrong you will see an error message.
 
 If you want to redirect with URL path appended (e.g. from `some-alias.tld/some/path` to `some-real-blog.tld/some/path`), add this to your `wp-config.php`:
 
