@@ -5,7 +5,7 @@
   "description": "Alias Domains for Blogs",
   "homepage": "https://github.com/mcguffin/multisite-blog-alias",
   "require": {
-    "composer/installers": "~1.2"
+    "composer/installers": "*"
   },
   "require-dev": {
     "squizlabs/php_codesniffer": "*",
