@@ -5,7 +5,7 @@ Tags: network, redirect, multisite, domain
 Requires at least: 4.8
 Requires PHP: 5.6
 Tested up to: 5.6
-Stable tag: 1.1.3
+Stable tag: 1.1.4
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -113,6 +113,10 @@ No.
 On the whole upgrading is always a good idea.
 
 == Changelog ==
+
+= 1.1.4 =
+ - Security hardening
+ - Tested up to WordPress 5.6
 
 = 1.1.3 =
  - Fix: Wrong table updated after upgrade
