@@ -358,7 +358,7 @@ echo esc_textarea( $sunrise->code );
 		$domain_alias_input = '';
 
 		if ( isset( $_POST['domain_alias'] ) ) {
-			$domain_alias_input = wp_unslash( $_POST['domain_alias'] );
+			$domain_alias_input = sanitize_text_field( wp_unslash( $_POST['domain_alias'] ) );
 		}
 
 		if ( function_exists( 'idn_to_ascii' ) ) {
@@ -620,7 +620,7 @@ echo esc_textarea( $sunrise->code );
 			$error_key = '';
 
 			if ( isset( $_GET['error'] ) ) {
-				$error_key = wp_unslash( $_GET['error'] );
+				$error_key = sanitize_text_field( wp_unslash( $_GET['error'] ) );
 			}
 			if ( ! isset( $errors[ $error_key ] ) ) {
 				$error_key = 'default';

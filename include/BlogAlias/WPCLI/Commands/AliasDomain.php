@@ -230,7 +230,7 @@ class AliasDomain extends Core\Singleton {
 
 		if ( $id !== false ) {
 			if ( $compact ) {
-				echo $this->model->insert_id;
+				\WP_CLI::line( $this->model->insert_id );
 			} else {
 				/* Translators: Alias ID */
 				\WP_CLI::success( sprintf( __( "Alias created with ID %d", 'multisite-blog-alias-cli' ), $this->model->insert_id ) );

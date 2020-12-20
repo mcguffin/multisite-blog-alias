@@ -199,7 +199,8 @@ abstract class Model extends Core\Singleton implements Core\ComponentInterface {
 		}
 		$format = $this->columns[$column];
 
-		foreach ( $wpdb->get_results( $wpdb->prepare("SELECT * FROM $table WHERE $column = $format LIMIT 1", $value ) ) as $result ) {
+		// PHPCS: $column is checked by $this->has_column(), $format is taken directly from table definition
+		foreach ( $wpdb->get_results( $wpdb->prepare("SELECT * FROM $table WHERE $column = $format LIMIT 1", $value ) ) as $result ) { // phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared
 			return $result;
 		};
 		return null;
@@ -224,7 +225,8 @@ abstract class Model extends Core\Singleton implements Core\ComponentInterface {
 		}
 
 		$format = $this->columns[$column];
-		return $wpdb->get_results( $wpdb->prepare("SELECT * FROM $table WHERE $column = $format", $value ) );
+		// PHPCS: $column is checked by $this->has_column(), $format is taken directly from table definition
+		return $wpdb->get_results( $wpdb->prepare("SELECT * FROM $table WHERE $column = $format", $value ) ); // phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared
 	}
 
 	/**
@@ -235,7 +237,7 @@ abstract class Model extends Core\Singleton implements Core\ComponentInterface {
 	public function fetch_all() {
 		global $wpdb;
 		$table = $wpdb->{$this->table};
-		return $wpdb->get_results( "SELECT * FROM $table" );
+		return $wpdb->get_results( "SELECT * FROM $table" );  // phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared
 	}
 
 
@@ -449,7 +451,7 @@ abstract class Model extends Core\Singleton implements Core\ComponentInterface {
 		// drop table
 		global $wpdb;
 		$tbl = $this->table;
-		$wpdb->query("DROP TABLE {$wpdb->$tbl}");
+		$wpdb->query("DROP TABLE {$wpdb->$tbl}"); // phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared
 	}
 
 	/**
