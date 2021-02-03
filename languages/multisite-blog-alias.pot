@@ -1,15 +1,15 @@
-# Copyright (C) 2020 Jörn Lund
+# Copyright (C) 2021 Jörn Lund
 # This file is distributed under the same license as the Multisite Blog Alias plugin.
 msgid ""
 msgstr ""
-"Project-Id-Version: Multisite Blog Alias 1.1.4\n"
+"Project-Id-Version: Multisite Blog Alias 1.1.5\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/multisite-blog-alias\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2020-12-20T18:37:54+00:00\n"
+"POT-Creation-Date: 2021-02-03T12:24:47+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.4.0\n"
 "X-Domain: multisite-blog-alias\n"
@@ -36,7 +36,7 @@ msgid "https://github.com/mcguffin"
 msgstr ""
 
 #: include/BlogAlias/Admin/Ajax.php:71
-#: include/BlogAlias/Admin/NetworkAdmin.php:640
+#: include/BlogAlias/Admin/NetworkAdmin.php:728
 msgid "Edit"
 msgstr ""
 
@@ -127,108 +127,108 @@ msgstr ""
 msgid "Yes, Uninstall now!"
 msgstr ""
 
-#: include/BlogAlias/Admin/NetworkAdmin.php:499
+#: include/BlogAlias/Admin/NetworkAdmin.php:587
 msgid "Alias Domains"
 msgstr ""
 
-#: include/BlogAlias/Admin/NetworkAdmin.php:590
+#: include/BlogAlias/Admin/NetworkAdmin.php:678
 msgid "Not Configured:"
 msgstr ""
 
 #. Translators: link to setup page
-#: include/BlogAlias/Admin/NetworkAdmin.php:593
+#: include/BlogAlias/Admin/NetworkAdmin.php:681
 msgid "Multisite Blog Alias is not configured. Please visit %s for instructions."
 msgstr ""
 
-#: include/BlogAlias/Admin/NetworkAdmin.php:597
+#: include/BlogAlias/Admin/NetworkAdmin.php:685
 msgid "the setup page"
 msgstr ""
 
-#: include/BlogAlias/Admin/NetworkAdmin.php:605
+#: include/BlogAlias/Admin/NetworkAdmin.php:693
 msgid "Alias created"
 msgstr ""
 
 #. translators: number of deleted entries
-#: include/BlogAlias/Admin/NetworkAdmin.php:609
+#: include/BlogAlias/Admin/NetworkAdmin.php:697
 msgid "%d entry deleted"
 msgid_plural "%d entries deleted"
 msgstr[0] ""
 msgstr[1] ""
 
-#: include/BlogAlias/Admin/NetworkAdmin.php:612
+#: include/BlogAlias/Admin/NetworkAdmin.php:700
 msgid "The Alias already exists."
 msgstr ""
 
-#: include/BlogAlias/Admin/NetworkAdmin.php:613
+#: include/BlogAlias/Admin/NetworkAdmin.php:701
 msgid "Empty domain name"
 msgstr ""
 
-#: include/BlogAlias/Admin/NetworkAdmin.php:614
+#: include/BlogAlias/Admin/NetworkAdmin.php:702
 msgid "Invalid domain name"
 msgstr ""
 
-#: include/BlogAlias/Admin/NetworkAdmin.php:615
+#: include/BlogAlias/Admin/NetworkAdmin.php:703
 msgid "Deletion failed"
 msgstr ""
 
-#: include/BlogAlias/Admin/NetworkAdmin.php:616
+#: include/BlogAlias/Admin/NetworkAdmin.php:704
 msgid "A different Blog is already using this domain."
 msgstr ""
 
-#: include/BlogAlias/Admin/NetworkAdmin.php:617
+#: include/BlogAlias/Admin/NetworkAdmin.php:705
 msgid "Something went wrong..."
 msgstr ""
 
-#: include/BlogAlias/Admin/NetworkAdmin.php:630
+#: include/BlogAlias/Admin/NetworkAdmin.php:718
 msgid "Error:"
 msgstr ""
 
-#: include/BlogAlias/Admin/NetworkAdmin.php:638
+#: include/BlogAlias/Admin/NetworkAdmin.php:726
 msgid "Visit other Blog"
 msgstr ""
 
-#: include/BlogAlias/Admin/NetworkAdmin.php:648
+#: include/BlogAlias/Admin/NetworkAdmin.php:736
 msgid "Notice:"
 msgstr ""
 
-#: include/BlogAlias/Admin/NetworkAdmin.php:649
+#: include/BlogAlias/Admin/NetworkAdmin.php:737
 #: include/BlogAlias/Model/AliasDomains.php:92
 msgid "The domain matches the site URL of this blog."
 msgstr ""
 
-#: include/BlogAlias/Admin/NetworkAdmin.php:694
+#: include/BlogAlias/Admin/NetworkAdmin.php:782
 msgid "Add Domain Alias"
 msgstr ""
 
-#: include/BlogAlias/Admin/NetworkAdmin.php:707
+#: include/BlogAlias/Admin/NetworkAdmin.php:795
 msgid "Add"
 msgstr ""
 
-#: include/BlogAlias/Admin/NetworkAdmin.php:715
+#: include/BlogAlias/Admin/NetworkAdmin.php:803
 msgid "Domain Aliases"
 msgstr ""
 
-#: include/BlogAlias/Admin/NetworkAdmin.php:720
+#: include/BlogAlias/Admin/NetworkAdmin.php:808
 msgid "– No Domain Aliases –"
 msgstr ""
 
-#: include/BlogAlias/Admin/NetworkAdmin.php:728
+#: include/BlogAlias/Admin/NetworkAdmin.php:816
 msgid "Alias Domain"
 msgstr ""
 
-#: include/BlogAlias/Admin/NetworkAdmin.php:729
+#: include/BlogAlias/Admin/NetworkAdmin.php:817
 msgid "Status"
 msgstr ""
 
-#: include/BlogAlias/Admin/NetworkAdmin.php:763
+#: include/BlogAlias/Admin/NetworkAdmin.php:851
 msgid "Remove"
 msgstr ""
 
-#: include/BlogAlias/Admin/NetworkAdmin.php:781
+#: include/BlogAlias/Admin/NetworkAdmin.php:869
 msgid "Check Status"
 msgstr ""
 
-#: include/BlogAlias/Admin/NetworkAdmin.php:784
+#: include/BlogAlias/Admin/NetworkAdmin.php:872
 msgid "Remove All"
 msgstr ""
 
@@ -240,7 +240,7 @@ msgstr ""
 msgid "Insufficient Permission"
 msgstr ""
 
-#: include/BlogAlias/Core/Sunrise.php:130
+#: include/BlogAlias/Core/Sunrise.php:135
 msgid "Error writing sunrise.php"
 msgstr ""
 
