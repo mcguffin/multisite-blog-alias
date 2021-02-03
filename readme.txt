@@ -1,6 +1,6 @@
 === Multisite Blog Alias ===
 Contributors: podpirate
-Donate link: https://www.msf.org/donate
+Donate link: https://donate.unhcr.org/
 Tags: network, redirect, multisite, domain
 Requires at least: 4.8
 Requires PHP: 5.6
@@ -103,6 +103,13 @@ Please post an issue in the [GitHub-Repository](https://github.com/mcguffin/mult
 = Will you anwser support requests by email? =
 
 No.
+
+= The plugin works pretty well for me. Any way I can show my appreciation? =
+
+Thanks! As a well trained person living in a rich country there is little more I need.
+The majority on the other hand is not doing very well. And because this plugin is about redirection, I'd like to point your attention to the several refugee crises taking place everwhere around the world.
+
+If my little piece of software was able to help you, please consider helping others and place a donation at the [UNHCR](https://donate.unhcr.org/).
 
 
 == Screenshots ==
