@@ -69,7 +69,7 @@ class Sunrise extends PluginComponent {
 	private function not_writable_error() {
 		$core = Core::instance();
 		$slug = $core->get_slug();
-		if ( ! has_action( "activated_plugin", array( $this, 'show_instructions' ), 20 ) ) {
+		if ( ! defined('WP_CLI') && ! has_action( "activated_plugin", array( $this, 'show_instructions' ), 20 ) ) {
 			add_action( "activated_plugin", array( $this, 'show_instructions' ), 20, 2 );
 		}
 	}
