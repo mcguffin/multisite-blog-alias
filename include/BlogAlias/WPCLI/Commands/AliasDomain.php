@@ -156,6 +156,12 @@ class AliasDomain extends Core\Singleton {
 	 *   - 1
 	 * ---
 	 *
+	 * [--suppress_hooks]
+	 * : Suppress hooks
+	 * ---
+	 * default: 0
+	 * ---
+	 *
 	 * ## EXAMPLES
 	 *
 	 *     wp alias-domains add --blog_id=123 --domain_alias=quux.foobar.tld
@@ -166,6 +172,7 @@ class AliasDomain extends Core\Singleton {
 
 		$kwargs = wp_parse_args($kwargs,array(
 			'compact' => false,
+			'suppress_hooks' => false,
 		));
 
 		extract( $kwargs );
@@ -226,7 +233,17 @@ class AliasDomain extends Core\Singleton {
 			'redirect'			=> intval( $redirect ),
 		);
 
+		if ( ! $suppress_hooks ) {
+			/** This filter is documented in include/BlogAlias/Admin/NetworkAdmin.php */
+			$data = apply_filters( 'blog_alias_create_data', $data );
+		}
+
 		$id = $this->model->insert( $data );
+
+		if ( ! $suppress_hooks ) {
+			/** This action is documented in include/BlogAlias/Admin/NetworkAdmin.php */
+			do_action( 'blog_alias_created', $id, $this->model->fetch_one_by( 'id', $id ) );
+		}
 
 		if ( $id !== false ) {
 			if ( $compact ) {
@@ -272,6 +289,12 @@ class AliasDomain extends Core\Singleton {
      * default: ''
 	 * ---
 	 *
+	 * [--suppress_hooks]
+	 * : Suppress hooks
+	 * ---
+	 * default: 0
+	 * ---
+	 *
 	 * ## EXAMPLES
 	 *
 	 *     // remove all aliases for blog 123
@@ -283,6 +306,11 @@ class AliasDomain extends Core\Singleton {
 	 *	@alias delete
 	 */
 	public function remove( $args, $kwargs ) {
+
+		$kwargs = wp_parse_args($kwargs,array(
+			'suppress_hooks' => false,
+		));
+
 		extract( $kwargs );
 
 		if ( empty( $blog_domain ) && ! $blog_id && ! $id && empty( $domain_alias ) ) {
@@ -311,10 +339,33 @@ class AliasDomain extends Core\Singleton {
 			}
 			$where['id'] = $id;
 		}
-
+		if ( ! $suppress_hooks ) {
+			if ( isset( $where['blog_id'] ) ) {
+				// multiple domains
+				$action_arg = $this->model->fetch_by( $where );
+				/** This action is documented in include/BlogAlias/Admin/NetworkAdmin.php */
+				do_action( 'blog_alias_delete_multiple', $action_arg );
+			} else {
+				// single
+				$action_arg = $this->model->fetch_one_by( $where );
+				/** This action is documented in include/BlogAlias/Admin/NetworkAdmin.php */
+				do_action( 'blog_alias_delete', $action_arg );
+			}
+		}
 		$total = $this->model->delete($where);
 
+
+
 		if ( $total !== false ) {
+			if ( ! $suppress_hooks ) {
+				if ( isset( $where['blog_id'] ) ) {
+					/** This action is documented in include/BlogAlias/Admin/NetworkAdmin.php */
+					do_action( 'blog_alias_deletes_multiple', $action_arg );
+				} else {
+					/** This action is documented in include/BlogAlias/Admin/NetworkAdmin.php */
+					do_action( 'blog_alias_deletes', $action_arg );
+				}
+			}
 			/* Translators: Number of deleted items */
 			\WP_CLI::success( sprintf( __( "%d Aliases deleted", 'multisite-blog-alias-cli' ), $total ) );
 		} else {
