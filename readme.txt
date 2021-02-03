@@ -118,6 +118,7 @@ On the whole upgrading is always a good idea.
  - Plugin-API: introduce filter `blog_alias_create_data` and actions `blog_alias_created`, `blog_alias_delete`, `blog_alias_deleted`, `blog_alias_delete_multiple` and `blog_alias_deleted_multiple`
  - Fix: redirect after activation in WP-Cli environment
  - Fix: php warning __wakeup magic method
+ - Fix: Sunrise and wp-config.php not changed after activation
 
 = 1.1.4 =
  - Security hardening

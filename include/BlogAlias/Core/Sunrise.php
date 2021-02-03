@@ -11,7 +11,6 @@ if ( ! defined( 'ABSPATH' ) ) {
 	die( 'FU!' );
 }
 
-
 class Sunrise extends PluginComponent {
 
 	/**
@@ -21,9 +20,14 @@ class Sunrise extends PluginComponent {
 
 		update_site_option( 'multisite_blog_alias_sunrise_active', true );
 
-		if ( ! is_writable( WP_CONTENT_DIR . '/sunrise.php' ) ) {
+		if (
+			! ( file_exists( WP_CONTENT_DIR . '/sunrise.php' ) && is_writable( WP_CONTENT_DIR . '/sunrise.php' )
+			|| is_writable( WP_CONTENT_DIR ) )
+
+		) {
 			return $this->not_writable_error();
 		}
+
 
 		// update wp-config.php
 		if ( ! defined( 'SUNRISE' ) ) {
@@ -46,6 +50,7 @@ class Sunrise extends PluginComponent {
 		// write sunrise
 		$sunrise_contents = self::reset_sunrise();
 		$sunrise_contents .= self::generate_sunrise_php();
+
 		if ( ! self::write_sunrise( $sunrise_contents ) ) {
 			$this->not_writable_error();
 		}
@@ -172,7 +177,7 @@ class Sunrise extends PluginComponent {
 
 		$file = self::instance()->location;
 
-		if ( $wp_filesystem->is_writable( $file ) ) {
+		if ( ( ! $wp_filesystem->exists( $file ) && $wp_filesystem->is_writable( dirname( $file ) )) || $wp_filesystem->is_writable( $file ) ) {
 			return $wp_filesystem->put_contents( $file, $sunrise_contents );
 		}
 		return false;
