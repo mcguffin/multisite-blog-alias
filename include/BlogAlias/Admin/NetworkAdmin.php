@@ -398,11 +398,37 @@ echo esc_textarea( $sunrise->code );
 				'redirect'          => 1,
 			);
 
+			/**
+			 *	Filter domain alias data before it is written into db
+			 *
+			 *	@param Array $data {
+			 *		@type int    $site_id            current site id
+			 *		@type int    $blog_id            current blog id
+			 *		@type string $domain_alias       domain name
+			 *		@type string $domain_alias_utf8  domain name UTF-8 represetation
+			 *		@type bool   $redirect           NOT IN USE YET: Whether to redirect the domain
+			 *	}
+			 */
+			$data = apply_filters( 'blog_alias_create_data', $data );
+
 			$id = $this->model->insert( $data );
 
 			if ( $id === false ) {
 				$redirect_args['error'] = 'unknown';
 			} else {
+
+				/**
+				 *	Fired after a domain alias has been created
+				 *	@param Integer $alias_id
+				 *	@param Object $alias {
+				 *		@type int    $site_id            current site id
+				 *		@type int    $blog_id            current blog id
+				 *		@type string $domain_alias       domain name
+				 *		@type string $domain_alias_utf8  domain name UTF-8 represetation
+				 *		@type bool   $redirect           NOT IN USE YET: Whether to redirect the domain
+				 *	}
+				 */
+				do_action( 'blog_alias_created', $id, $this->model->fetch_one_by( 'id', $id ) );
 				$redirect_args['created'] = '1';
 			}
 		}
@@ -443,10 +469,42 @@ echo esc_textarea( $sunrise->code );
 			'action' => 'alias-domains',
 		);
 
+		$alias = $this->model->fetch_one_by( 'id', $id );
+
+		/**
+		 *	Fired before a domain alias going to be deleted
+		 *
+		 *	@param Object $alias {
+		 *		@type int      $ID                 alias database id
+		 *		@type string   $created            created date and time as mysql string
+		 *		@type int      $site_id            current site id
+		 *		@type int      $blog_id            current blog id
+		 *		@type string   $domain_alias       domain name
+		 *		@type string   $domain_alias_utf8  domain name UTF-8 represetation
+		 *		@type bool     $redirect           NOT IN USE YET: Whether to redirect the domain
+		 *	}
+		 */
+		do_action('blog_alias_delete', $alias );
 
 		if ( $total = $this->model->delete( array(
 			'id'    => $id,
 		) ) ) {
+
+			/**
+			 *	Fired before a domain alias is going to be deleted
+			 *
+			 *	@param Object $alias {
+			 *		@type int      $ID                 alias database id
+			 *		@type string   $created            created date and time as mysql string
+			 *		@type int      $site_id            current site id
+			 *		@type int      $blog_id            current blog id
+			 *		@type string   $domain_alias       domain name
+			 *		@type string   $domain_alias_utf8  domain name UTF-8 represetation
+			 *		@type bool     $redirect           NOT IN USE YET: Whether to redirect the domain
+			 *	}
+			 */
+			do_action('blog_alias_deleted', $alias );
+
 			$redirect_args['deleted'] = $total;
 		} else {
 			$redirect_args['error'] = 'delete';
@@ -477,10 +535,40 @@ echo esc_textarea( $sunrise->code );
 			'action' => 'alias-domains',
 		);
 
+		$aliases = $this->model->fetch_by( 'id', $id );
+
+		/**
+		 *	Fired before multiple domain aliases are going to be deleted
+		 *
+		 *	@param Object[] $aliases {
+		 *		@type int      $ID                 alias database id
+		 *		@type string   $created            created date and time as mysql string
+		 *		@type int      $site_id            current site id
+		 *		@type int      $blog_id            current blog id
+		 *		@type string   $domain_alias       domain name
+		 *		@type string   $domain_alias_utf8  domain name UTF-8 represetation
+		 *		@type bool     $redirect           NOT IN USE YET: Whether to redirect the domain
+		 *	}
+		 */
+		do_action('blog_alias_delete_muliple', $aliases );
 
 		if ( $total = $this->model->delete( array(
 			'blog_id'   => $blog_id,
 		) ) ) {
+			/**
+			 *	Fired after multiple domain aliases have been deleted
+			 *
+			 *	@param Object[] $aliases {
+			 *		@type int      $ID                 alias database id
+			 *		@type string   $created            created date and time as mysql string
+			 *		@type int      $site_id            current site id
+			 *		@type int      $blog_id            current blog id
+			 *		@type string   $domain_alias       domain name
+			 *		@type string   $domain_alias_utf8  domain name UTF-8 represetation
+			 *		@type bool     $redirect           NOT IN USE YET: Whether to redirect the domain
+			 *	}
+			 */
+			do_action('blog_alias_deleted_muliple', $aliases );
 			$redirect_args['deleted'] = $total;
 		} else {
 			$redirect_args['error'] = 'delete';
