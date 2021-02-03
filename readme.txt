@@ -114,6 +114,11 @@ On the whole upgrading is always a good idea.
 
 == Changelog ==
 
+= 1.1.5 =
+ - Plugin-API: introduce filter `blog_alias_create_data` and actions `blog_alias_created`, `blog_alias_delete`, `blog_alias_deleted`, `blog_alias_delete_multiple` and `blog_alias_deleted_multiple`
+ - Fix: redirect after activation in WP-Cli environment
+ - Fix: php warning __wakeup magic method
+
 = 1.1.4 =
  - Security hardening
  - Tested up to WordPress 5.6
