@@ -58,11 +58,20 @@ class NetworkAdmin extends Core\Singleton {
 
 		add_action( 'admin_action_' . $this->instructions_action, array( $this, 'instructions_action' ) );
 
-
+		add_action( 'wp_uninitialize_site', array( $this, 'uninitialize_site' ), 5 );
 
 		add_action( 'update_wpmu_options', array( $this, 'update_wpmu_options' ) );
 
 		add_action( 'wpmu_options', array( $this, 'wpmu_options' ) );
+
+	}
+
+	/**
+	 *	@action wp_uninitialize_site
+	 */
+	public function uninitialize_site( $wp_site ) {
+
+		$this->model->delete( array( 'blog_id' => $wp_site->blog_id ) );
 
 	}
 
@@ -200,25 +209,25 @@ class NetworkAdmin extends Core\Singleton {
 				<?php if ( ! defined( 'SUNRISE' ) || $this->is_configured() ) { ?>
 					<li>
 						<p>
-                        <?php
-						// stolen from WP-Core
-						wp_kses( sprintf(
-							/* translators: 1: wp-config.php, 2: location of wp-config file, 3: translated version of "That's all, stop editing! Happy publishing." */
-							__( 'Add the following to your %1$s file in %2$s <strong>above</strong> the line reading %3$s:' ),
-							'<code>wp-config.php</code>',
-							'<code>' . $location_of_wp_config . '</code>',
-							/*
-							 * translators: This string should only be translated if wp-config-sample.php is localized.
-							 * You can check the localized release package or
-							 * https://i18n.svn.wordpress.org/<locale code>/branches/<wp version>/dist/wp-config-sample.php
-							 */
-							'<code>/* ' . __( 'That&#8217;s all, stop editing! Happy publishing.' ) . ' */</code>'
-						), [
-							'code' => [],
-							'strong' => [],
-						] );
-						?>
-                        </p>
+							<?php
+							// stolen from WP-Core
+							wp_kses( sprintf(
+								/* translators: 1: wp-config.php, 2: location of wp-config file, 3: translated version of "That's all, stop editing! Happy publishing." */
+								__( 'Add the following to your %1$s file in %2$s <strong>above</strong> the line reading %3$s:' ),
+								'<code>wp-config.php</code>',
+								'<code>' . $location_of_wp_config . '</code>',
+								/*
+								 * translators: This string should only be translated if wp-config-sample.php is localized.
+								 * You can check the localized release package or
+								 * https://i18n.svn.wordpress.org/<locale code>/branches/<wp version>/dist/wp-config-sample.php
+								 */
+								'<code>/* ' . __( 'That&#8217;s all, stop editing! Happy publishing.' ) . ' */</code>'
+							), [
+								'code' => [],
+								'strong' => [],
+							] );
+							?>
+						</p>
 						<textarea class="code" readonly="readonly" cols="100" rows="2">
 define('SUNRISE', true);</textarea>
 					</li>
@@ -298,18 +307,18 @@ echo esc_textarea( $sunrise->code );
 					<?php esc_html_e( 'Uninstalling the plugin will remove the Blog Alias table from the database and deactivate the plugin.', 'multisite-blog-alias' ); ?>
 				</p>
 				<p><strong>
-                <?php
-					$count = $this->model->fetch_count();
-					/* Translators: %d number of alias domains */
-					esc_html_e(
-						sprintf(
-							/* translators: number of domains being deleted on plugin uninstall */
-							_n( '%d Alias Domain will be deleted.', '%d Alias Domains will be deleted.', $count, 'multisite-blog-alias' ),
-							$count
-						)
-					);
-				?>
-                </strong></p>
+					<?php
+						$count = $this->model->fetch_count();
+						/* Translators: %d number of alias domains */
+						esc_html_e(
+							sprintf(
+								/* translators: number of domains being deleted on plugin uninstall */
+								_n( '%d Alias Domain will be deleted.', '%d Alias Domains will be deleted.', $count, 'multisite-blog-alias' ),
+								$count
+							)
+						);
+					?>
+				</strong></p>
 				<form method="post">
 					<a href="<?php esc_attr_e( network_admin_url( 'plugins.php' ) ); ?>" class="button">
 						<?php esc_html_e( 'No, back to plugins', 'multisite-blog-alias' ); ?>
