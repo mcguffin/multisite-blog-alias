@@ -79,7 +79,7 @@ class AliasDomains extends Model {
 
 		$site = get_site_by_path( $alias->domain_alias, '/' );
 
-		$site_url = get_site_url( $alias->blog_id );
+		$site_url = get_blog_option( $alias->blog_id, 'siteurl' );
 
 		if ( ! $site_url ) {
 			return new \WP_Error( 'site-not_found', __( 'WP-Site for this alias could not be found.', 'multisite-blog-alias' ) );
