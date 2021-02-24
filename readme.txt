@@ -121,6 +121,11 @@ On the whole upgrading is always a good idea.
 
 == Changelog ==
 
+= 1.1.6 =
+ - Feature: auto-remove blog aliases when a blog is being deleted
+ - Fix: domain check returned false negative if network admin is under ssl and blog URL is not
+ - Fix: Model class didn't return insert id. As a result action `blog_alias_created` was called with a wrong argument
+
 = 1.1.5 =
  - Plugin-API: introduce filter `blog_alias_create_data` and actions `blog_alias_created`, `blog_alias_delete`, `blog_alias_deleted`, `blog_alias_delete_multiple` and `blog_alias_deleted_multiple`
  - Fix: redirect after activation in WP-Cli environment
