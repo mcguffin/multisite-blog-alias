@@ -246,7 +246,7 @@ abstract class Model extends Core\Singleton implements Core\ComponentInterface {
 	 *
 	 *	@param	array 		$data
 	 *	@param	null|array	$format
-	 *	@return	int|false
+	 *	@return	int|false	Last insert ID
 	 */
 	public function insert( $data, $format = null ) {
 		global $wpdb;
@@ -257,7 +257,8 @@ abstract class Model extends Core\Singleton implements Core\ComponentInterface {
 			$format = $this->get_format_for_data( $data );
 		}
 
-		return $wpdb->insert( $wpdb->$table, $data, $format );
+		$wpdb->insert( $wpdb->$table, $data, $format );
+		return $wpdb->insert_id;
 	}
 
 	/**
