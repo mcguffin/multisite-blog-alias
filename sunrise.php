@@ -25,9 +25,9 @@ function blog_alias_site_not_found( $current_site, $domain, $path ) {
 		global $wpdb;
 
 		// get site url
-		switch_to_blog( $result->blog_id );
+		// #11 $wpdb->options is not set during sunrise. Need to trigger it manually here.
+		$wpdb->set_blog_id( $result->blog_id );
 		$site_url = get_option( 'siteurl' );
-		restore_current_blog();
 
 		$add_path = defined( 'WPMU_BLOG_ALIAS_REDIRECT_WITH_PATH' )
 			? WPMU_BLOG_ALIAS_REDIRECT_WITH_PATH

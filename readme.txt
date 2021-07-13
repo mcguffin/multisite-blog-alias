@@ -121,6 +121,10 @@ On the whole upgrading is always a good idea.
 
 == Changelog ==
 
+= 1.1.7 =
+ - Fixed main blog redirection
+ - Tested with PHP 8
+
 = 1.1.6 =
  - Feature: auto-remove blog aliases when a blog is being deleted
  - Fix: domain check returned false negative if network admin is under ssl and blog URL is not
