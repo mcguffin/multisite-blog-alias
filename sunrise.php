@@ -7,7 +7,23 @@ if ( ! defined( 'ABSPATH' ) ) {
 	die( 'FU!' );
 }
 
+/**
+ *	Redirect if $domain is an alias
+ *
+ *	@param String $domain
+ *	@param String $path
+ */
+function blog_alias_network_not_found( $domain, $path ) {
+	blog_alias_site_not_found( null, $domain, $path );
+}
 
+/**
+ *	Redirect if $domain is an alias
+ *
+ *	@param Object $current_site
+ *	@param String $domain
+ *	@param String $path
+ */
 function blog_alias_site_not_found( $current_site, $domain, $path ) {
 
 	if ( '' === get_site_option( 'multisite_blog_alias_sunrise_active' ) ) {
@@ -48,3 +64,4 @@ function blog_alias_site_not_found( $current_site, $domain, $path ) {
 }
 
 add_action( 'ms_site_not_found', 'blog_alias_site_not_found', 10, 3 );
+add_action( 'ms_network_not_found', 'blog_alias_network_not_found', 10, 2 );

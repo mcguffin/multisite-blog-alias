@@ -4,7 +4,7 @@ Donate link: https://donate.unhcr.org/
 Tags: network, redirect, multisite, domain
 Requires at least: 4.8
 Requires PHP: 5.6
-Tested up to: 6.0.2
+Tested up to: 6.0
 Stable tag: 1.1.7
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
@@ -120,6 +120,9 @@ If my little piece of software was able to help you, please consider helping oth
 On the whole upgrading is always a good idea.
 
 == Changelog ==
+
+= 1.1.8 =
+ - Enhancement: Handle `ms_network_not_found`
 
 = 1.1.7 =
  - Fixed main blog redirection
