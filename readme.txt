@@ -121,6 +121,10 @@ On the whole upgrading is always a good idea.
 
 == Changelog ==
 
+= 1.1.9 =
+ - Fix: PHP 8.2 deprecation notices
+ - Fix: Missing network admin page title
+
 = 1.1.8 =
  - Enhancement: Handle `ms_network_not_found`
 
