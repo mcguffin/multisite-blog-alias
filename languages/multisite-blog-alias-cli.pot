@@ -1,17 +1,17 @@
-# Copyright (C) 2022 Jörn Lund
+# Copyright (C) 2023 Jörn Lund
 # This file is distributed under the GPL3.
 msgid ""
 msgstr ""
-"Project-Id-Version: Multisite Blog Alias 1.1.8\n"
+"Project-Id-Version: Multisite Blog Alias 1.1.9\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/multisite-blog-alias\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2022-09-23T11:34:59+00:00\n"
+"POT-Creation-Date: 2023-05-03T12:32:27+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"X-Generator: WP-CLI 2.6.0\n"
+"X-Generator: WP-CLI 2.7.1\n"
 "X-Domain: multisite-blog-alias-cli\n"
 
 #. Plugin Name of the plugin
