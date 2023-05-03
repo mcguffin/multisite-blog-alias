@@ -18,7 +18,12 @@ use BlogAlias\Model;
 
 class NetworkAdmin extends Core\Singleton {
 
+	/** @var Model\AliasDomains */
+	private $model;
+
+	/** @var Core\Core */
 	private $core;
+
 	private $blog_details;
 
 	/** @var string plugin uninstall action name */
@@ -643,6 +648,8 @@ echo esc_textarea( $sunrise->code );
 	 */
 	private function admin_header( $parent = '', $page_title = false ) {
 
+		global $title;
+
 		// handle actions here!
 		$this->current_menu_parent = $parent;
 
@@ -654,6 +661,10 @@ echo esc_textarea( $sunrise->code );
 		Asset\Asset::get('js/admin/network/alias.js')
 			->deps( [ 'jquery' ] )
 			->enqueue();
+
+		if ( $page_title !== false ) {
+			$title = $page_title;
+		}
 
 		require ABSPATH . 'wp-admin/admin-header.php';
 
