@@ -23,10 +23,10 @@ class Ajax extends Core\Singleton {
 	 *  @inheritdoc
 	 */
 	protected function __construct() {
-		$this->ajax_handler = new CoreAjax\AjaxHandler( 'domain-alias-status', array(
+		$this->ajax_handler = new CoreAjax\AjaxHandler( 'domain-alias-status', [
 			'capability'    => 'manage_network_options',
-			'callback'      => array( $this, 'ajax_status' ),
-		) );
+			'callback'      => [ $this, 'ajax_status' ],
+		] );
 		parent::__construct();
 		// vaR_dump($this);exit();
 	}

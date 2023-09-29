@@ -21,7 +21,7 @@ class AliasDomain extends Core\Singleton {
 
 	private $model;
 
-	private $fields = array(
+	private $fields = [
 		'ID',
 		'created',
 		'site_id',
@@ -29,7 +29,7 @@ class AliasDomain extends Core\Singleton {
 		'domain_alias',
 		'domain_alias_utf8',
 		'redirect'
-	);
+	];
 
 
 	/**
@@ -170,10 +170,10 @@ class AliasDomain extends Core\Singleton {
 	 */
 	public function add( $args, $kwargs ) {
 
-		$kwargs = wp_parse_args($kwargs,array(
-			'compact' => false,
+		$kwargs = wp_parse_args( $kwargs, [
+			'compact'        => false,
 			'suppress_hooks' => false,
-		));
+		]);
 
 		extract( $kwargs );
 
@@ -224,14 +224,14 @@ class AliasDomain extends Core\Singleton {
 		}
 
 
-		$data = array(
-			'created'			=> strftime('%Y-%m-%d %H:%M:%S'),
-			'site_id'			=> get_current_site()->id,
-			'blog_id'			=> $blog_id,
-			'domain_alias'		=> $domain_alias,
-			'domain_alias_utf8'	=> $domain_alias_utf8,
-			'redirect'			=> intval( $redirect ),
-		);
+		$data = [
+			'created'           => strftime('%Y-%m-%d %H:%M:%S'),
+			'site_id'           => get_current_site()->id,
+			'blog_id'           => $blog_id,
+			'domain_alias'      => $domain_alias,
+			'domain_alias_utf8' => $domain_alias_utf8,
+			'redirect'          => intval( $redirect ),
+		];
 
 		if ( ! $suppress_hooks ) {
 			/** This filter is documented in include/BlogAlias/Admin/NetworkAdmin.php */
@@ -307,16 +307,16 @@ class AliasDomain extends Core\Singleton {
 	 */
 	public function remove( $args, $kwargs ) {
 
-		$kwargs = wp_parse_args($kwargs,array(
+		$kwargs = wp_parse_args( $kwargs, [
 			'suppress_hooks' => false,
-		));
+		] );
 
 		extract( $kwargs );
 
 		if ( empty( $blog_domain ) && ! $blog_id && ! $id && empty( $domain_alias ) ) {
 			\WP_CLI::error( __( 'Must specify either `id` or `blog_id` or `blog_domain` or `domain_alias` to remove', 'multisite-blog-alias-cli' ) );
 		}
-		$where = array();
+		$where = [];
 
 		if ( ! empty( $blog_domain ) ) {
 			if ( ! $blog_id = get_blog_id_from_url( $blog_domain )) {
@@ -417,9 +417,9 @@ class AliasDomain extends Core\Singleton {
 	 */
 	 public function test( $args, $kwargs ) {
 
- 		$kwargs = wp_parse_args($kwargs,array(
+ 		$kwargs = wp_parse_args( $kwargs, [
  			'compact' => false,
- 		));
+ 		] );
 		extract( $kwargs );
 		if ( ! $id && empty( $domain_alias ) ) {
 			\WP_CLI::error( __( 'Must specify either `id` or `domain_alias` to test', 'multisite-blog-alias-cli' ) );

@@ -18,7 +18,7 @@ class AliasDomains extends Model {
 	/**
 	 *	@inheritdoc
 	 */
-	protected $columns = array(
+	protected $columns = [
 		'ID'                => '%d', // intval
 		'created'           => '%s',
 		'site_id'           => '%d', // intval
@@ -26,14 +26,14 @@ class AliasDomains extends Model {
 		'domain_alias'      => '%s',
 		'domain_alias_utf8' => '%s',
 		'redirect'          => '%d', // intval
-	);
+	];
 
 	/**
 	 *	@inheritdoc
 	 */
-	protected $identifier_columns = array(
+	protected $identifier_columns = [
 		'ID',
-	);
+	];
 
 	/**
 	 *	@inheritdoc
@@ -53,8 +53,8 @@ class AliasDomains extends Model {
 
 		parent::__construct();
 
-		add_filter( "sanitize_{$this->_table}/domain_alias", array( $this, 'sanitize_domain_alias' ) );
-		add_filter( "validate_{$this->_table}/domain_alias", array( $this, 'validate_domain_alias' ), 10, 2 );
+		add_filter( "sanitize_{$this->_table}/domain_alias", [ $this, 'sanitize_domain_alias' ] );
+		add_filter( "validate_{$this->_table}/domain_alias", [ $this, 'validate_domain_alias' ], 10, 2 );
 
 	}
 
@@ -99,10 +99,10 @@ class AliasDomains extends Model {
 
 		while ( true ) {
 
-			$response = wp_remote_head( $location, array(
+			$response = wp_remote_head( $location, [
 				'redirection'   => 0,
 				'sslverify'     => false,
-			) );
+			] );
 			if ( is_wp_error( $response ) ) {
 
 				return new \WP_Error( 'redirect-http_error', __( 'The domain is unreachable.', 'multisite-blog-alias' ), $response );
@@ -132,7 +132,7 @@ class AliasDomains extends Model {
 	 */
 	public function sanitize_domain_alias( $alias ) {
 
-		return filter_var( strtolower( $alias ), FILTER_VALIDATE_DOMAIN, array( 'flags' => FILTER_FLAG_HOSTNAME ) );
+		return filter_var( strtolower( $alias ), FILTER_VALIDATE_DOMAIN, [ 'flags' => FILTER_FLAG_HOSTNAME ] );
 
 	}
 

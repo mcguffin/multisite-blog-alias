@@ -20,25 +20,25 @@ class WPCLIAliasDomain extends Core\Singleton {
 	 */
 	protected function __construct() {
 		$command = Commands\AliasDomain::instance();
-		\WP_CLI::add_command( 'alias-domains list', array( $command, 'get_list' ), array(
+		\WP_CLI::add_command( 'alias-domains list', [ $command, 'get_list' ], [
 			'shortdesc'     => 'List blog aliases',
 			'is_deferred'   => false,
-		) );
+		] );
 
-		\WP_CLI::add_command( 'alias-domains add', array( $command, 'add' ), array(
+		\WP_CLI::add_command( 'alias-domains add', [ $command, 'add' ], [
 			'shortdesc'     => 'Add a blog alias',
 			'is_deferred'   => false,
-		) );
+		] );
 
-		\WP_CLI::add_command( 'alias-domains remove', array( $command, 'remove' ), array(
+		\WP_CLI::add_command( 'alias-domains remove', [ $command, 'remove' ], [
 			'shortdesc'     => 'Remove a blog alias',
 			'is_deferred'   => false,
-		) );
+		] );
 
-		\WP_CLI::add_command( 'alias-domains test', array( $command, 'test' ), array(
+		\WP_CLI::add_command( 'alias-domains test', [ $command, 'test' ], [
 			'shortdesc'     => 'Test blog alias',
 			'is_deferred'   => false,
-		) );
+		] );
 
 	}
 

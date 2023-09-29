@@ -48,26 +48,26 @@ class NetworkAdmin extends Core\Singleton {
 		$this->model = Model\AliasDomains::instance();
 
 		// render tab navigation
-		add_filter( 'network_edit_site_nav_links', array( $this, 'edit_site_nav_links' ) );
+		add_filter( 'network_edit_site_nav_links', [ $this, 'edit_site_nav_links' ] );
 
 		// editor
-		add_action( 'admin_action_alias-domains', array( $this, 'admin_alias_domains' ) );
+		add_action( 'admin_action_alias-domains', [ $this, 'admin_alias_domains' ] );
 
 		// actions
-		add_action( 'admin_action_alias-domain-add', array( $this, 'add_alias_domain' ) );
-		add_action( 'admin_action_alias-domain-remove', array( $this, 'remove_alias_domain' ) );
-		add_action( 'admin_action_alias-domain-remove-all', array( $this, 'remove_alias_domains' ) );
+		add_action( 'admin_action_alias-domain-add', [ $this, 'add_alias_domain' ] );
+		add_action( 'admin_action_alias-domain-remove', [ $this, 'remove_alias_domain' ] );
+		add_action( 'admin_action_alias-domain-remove-all', [ $this, 'remove_alias_domains' ] );
 
-		add_filter( 'network_admin_plugin_action_links_' . $this->core->get_wp_plugin(), array( $this, 'add_uninstall_action' ), 10, 4 );
-		add_action( 'admin_action_' . $this->uninstall_action, array( $this, 'uninstall_action' ) );
+		add_filter( 'network_admin_plugin_action_links_' . $this->core->get_wp_plugin(), [ $this, 'add_uninstall_action' ], 10, 4 );
+		add_action( 'admin_action_' . $this->uninstall_action, [ $this, 'uninstall_action' ] );
 
-		add_action( 'admin_action_' . $this->instructions_action, array( $this, 'instructions_action' ) );
+		add_action( 'admin_action_' . $this->instructions_action, [ $this, 'instructions_action' ] );
 
-		add_action( 'wp_uninitialize_site', array( $this, 'uninitialize_site' ), 5 );
+		add_action( 'wp_uninitialize_site', [ $this, 'uninitialize_site' ], 5 );
 
-		add_action( 'update_wpmu_options', array( $this, 'update_wpmu_options' ) );
+		add_action( 'update_wpmu_options', [ $this, 'update_wpmu_options' ] );
 
-		add_action( 'wpmu_options', array( $this, 'wpmu_options' ) );
+		add_action( 'wpmu_options', [ $this, 'wpmu_options' ] );
 
 	}
 
@@ -76,7 +76,7 @@ class NetworkAdmin extends Core\Singleton {
 	 */
 	public function uninitialize_site( $wp_site ) {
 
-		$this->model->delete( array( 'blog_id' => $wp_site->blog_id ) );
+		$this->model->delete( [ 'blog_id' => $wp_site->blog_id ] );
 
 	}
 
@@ -111,13 +111,13 @@ class NetworkAdmin extends Core\Singleton {
 						<div class="notice notice-warning inline">
 							<p>
 								<?php
-                                printf(
+								printf(
 									/* translators: 1: name of constant 2: wp-config.php filename */
 									esc_html__( 'This setting is overridden by the constant %1$s in your %2$s', 'multisite-blog-alias' ),
 									'<code>WPMU_BLOG_ALIAS_REDIRECT_WITH_PATH</code>',
 									'<code>wp-config.php</code>'
 								);
-                                ?>
+								?>
 							</p>
 						</div>
 						<?php
@@ -154,10 +154,10 @@ class NetworkAdmin extends Core\Singleton {
 
 		if ( current_user_can( 'manage_network_plugins' ) && current_user_can( 'activate_plugins' ) ) {
 			$url = network_admin_url( 'admin.php' );
-			$url = add_query_arg( array(
+			$url = add_query_arg( [
 				'action'    => $this->uninstall_action,
 				'nonce'     => wp_create_nonce( $this->uninstall_action ),
-			), $url );
+			], $url );
 			$links[] = sprintf(
 				'<a href="%s">%s</a>',
 				esc_url( $url ),
@@ -364,10 +364,10 @@ echo esc_textarea( $sunrise->code );
 			wp_die( esc_html__( 'Invalid request' ) );
 		}
 
-		$redirect_args = array(
-			'id' => $blog_id,
+		$redirect_args = [
+			'id'     => $blog_id,
 			'action' => 'alias-domains',
-		);
+		];
 
 		$domain_alias_input = '';
 
@@ -404,13 +404,13 @@ echo esc_textarea( $sunrise->code );
 		}
 
 		if ( ! isset( $redirect_args['error'] ) ) {
-			$data = array(
+			$data = [
 				'site_id'           => get_current_site()->id,
 				'blog_id'           => $blog_id,
 				'domain_alias'      => $domain_alias,
 				'domain_alias_utf8' => $domain_alias_utf8,
 				'redirect'          => 1,
-			);
+			];
 
 			/**
 			 *	Filter domain alias data before it is written into db
@@ -478,10 +478,10 @@ echo esc_textarea( $sunrise->code );
 			wp_die( esc_html__( 'Invalid request' ) );
 		}
 
-		$redirect_args = array(
-			'id' => $blog_id,
+		$redirect_args = [
+			'id'     => $blog_id,
 			'action' => 'alias-domains',
-		);
+		];
 
 		$alias = $this->model->fetch_one_by( 'id', $id );
 
@@ -500,9 +500,7 @@ echo esc_textarea( $sunrise->code );
 		 */
 		do_action('blog_alias_delete', $alias );
 
-		if ( $total = $this->model->delete( array(
-			'id'    => $id,
-		) ) ) {
+		if ( $total = $this->model->delete( [ 'id' => $id ] ) ) {
 
 			/**
 			 *	Fired before a domain alias is going to be deleted
@@ -544,10 +542,10 @@ echo esc_textarea( $sunrise->code );
 			wp_die( esc_html__( 'Invalid request' ) );
 		}
 
-		$redirect_args = array(
-			'id' => $blog_id,
+		$redirect_args = [
+			'id'     => $blog_id,
 			'action' => 'alias-domains',
-		);
+		];
 
 		$aliases = $this->model->fetch_by( 'id', $id );
 
@@ -566,9 +564,7 @@ echo esc_textarea( $sunrise->code );
 		 */
 		do_action('blog_alias_delete_muliple', $aliases );
 
-		if ( $total = $this->model->delete( array(
-			'blog_id'   => $blog_id,
-		) ) ) {
+		if ( $total = $this->model->delete( [ 'blog_id' => $blog_id ] ) ) {
 			/**
 			 *	Fired after multiple domain aliases have been deleted
 			 *
@@ -597,11 +593,11 @@ echo esc_textarea( $sunrise->code );
 	 *  @filter network_edit_site_nav_links
 	 */
 	public function edit_site_nav_links( $links ) {
-		$links['alias'] = array(
+		$links['alias'] = [
 			'label'    => __( 'Alias Domains', 'multisite-blog-alias' ),
 			'url'      => 'admin.php?action=alias-domains',
 			'cap'      => $this->cap,
-		);
+		];
 		return $links;
 	}
 
@@ -688,10 +684,10 @@ echo esc_textarea( $sunrise->code );
 
 		global $title;
 
-		$messages = array(
+		$messages = [
 			'error'     => '',
 			'success'   => '',
-		);
+		];
 
 		if ( ! $this->is_configured() ) {
 			$messages['error'] = sprintf( '<strong>%1$s</strong> %2$s',
@@ -711,19 +707,19 @@ echo esc_textarea( $sunrise->code );
 
 		if ( isset( $_GET['created'] ) ) {
 			$messages['updated'] = esc_html__( 'Alias created', 'multisite-blog-alias' );
-		} elseif ( isset( $_GET['deleted'] ) ) {
+		} else if ( isset( $_GET['deleted'] ) ) {
 			$deleted = intval( $_GET['deleted'] );
 			/* translators: number of deleted entries */
 			$messages['notice-warning'] = esc_html( sprintf( _n( '%d entry deleted', '%d entries deleted', $deleted, 'multisite-blog-alias' ), $deleted ) );
-		} elseif ( isset( $_GET['error'] ) ) {
-			$errors = array(
+		} else if ( isset( $_GET['error'] ) ) {
+			$errors = [
 				'add-alias-exists'      => __( 'The Alias already exists.', 'multisite-blog-alias' ),
 				'add-empty-domain'    	=> __( 'Empty domain name', 'multisite-blog-alias' ),
 				'add-invalid-domain'    => __( 'Invalid domain name', 'multisite-blog-alias' ),
 				'delete'                => __( 'Deletion failed', 'multisite-blog-alias' ),
 				'add-site-exists'       => __( 'A different Blog is already using this domain.', 'multisite-blog-alias' ),
 				'default'               => __( 'Something went wrong...', 'multisite-blog-alias' ),
-			);
+			];
 
 			$error_key = '';
 
@@ -774,10 +770,10 @@ echo esc_textarea( $sunrise->code );
 		</p>
 		<?php
 
-			network_edit_site_nav( array(
+			network_edit_site_nav( [
 				'blog_id'  => $this->blog_details->id,
 				'selected' => 'alias',
-			) );
+			] );
 
 			foreach ( $messages as $type => $msg ) {
 				if ( ! empty( $msg ) ) {
@@ -822,7 +818,7 @@ echo esc_textarea( $sunrise->code );
 			<!-- remove -->
 			<h2><?php esc_html_e( 'Domain Aliases', 'multisite-blog-alias' ); ?></h2>
 			<?php
-            if ( empty( $aliases ) ) {
+			if ( empty( $aliases ) ) {
 
 				?>
 					<p><?php esc_html_e( '– No Domain Aliases –', 'multisite-blog-alias' ); ?></p>

@@ -23,12 +23,12 @@ abstract class Model extends Core\Singleton implements Core\ComponentInterface {
 	/**
 	 *	@var assoc column => format
 	 */
-	protected $columns = array();
+	protected $columns = [];
 
 	/**
 	 *	@var array Column names
 	 */
-	protected $identifier_columns = array();
+	protected $identifier_columns = [];
 
 	/**
 	 *	@var string table name for model
@@ -147,10 +147,10 @@ abstract class Model extends Core\Singleton implements Core\ComponentInterface {
 	/**
 	 *	Get columns
 	 *
-	 *	@return array array(
+	 *	@return array [
 	 *		'column_name'	=> 'format',
 	 *		...
-	 *	)
+	 *	]
 	 */
 	public function get_columns( ) {
 		return $this->columns;
@@ -160,14 +160,14 @@ abstract class Model extends Core\Singleton implements Core\ComponentInterface {
 	/**
 	 *	Get identifier columns
 	 *
-	 *	@return array array(
+	 *	@return array [
 	 *		'column_name'	=> 'format',
 	 *		...
-	 *	)
+	 *	]
 	 */
 	public function get_id_columns( ) {
-		$ret = array();
-		return array_filter( $this->columns, array( $this, 'filter_identifier_columns'), ARRAY_FILTER_USE_KEY );
+		$ret = [];
+		return array_filter( $this->columns, [ $this, 'filter_identifier_columns' ], ARRAY_FILTER_USE_KEY );
 	}
 
 	/**
@@ -323,7 +323,7 @@ abstract class Model extends Core\Singleton implements Core\ComponentInterface {
 	 *	@return assoc
 	 */
 	private function sanitize_data( $data ) {
-		$sane = array();
+		$sane = [];
 		if ( ! is_array( $data ) ) {
 			if ( is_object( $data ) ) {
 				$data = get_object_vars( $data );
@@ -346,7 +346,7 @@ abstract class Model extends Core\Singleton implements Core\ComponentInterface {
 	 *	@return assoc
 	 */
 	private function get_format_for_data( $data ) {
-		$format = array();
+		$format = [];
 		foreach ( $data as $key => $val ) {
 			if ( $key === 'id' ) {
 				$key = 'ID';

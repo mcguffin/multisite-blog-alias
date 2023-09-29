@@ -16,10 +16,10 @@ interface ComponentInterface {
 	/**
 	 *	Called on Plugin activation
 	 *
-	 *	@return array(
+	 *	@return array [
 	 *		'success'	=> bool,
 	 *		'messages'	=> array,
-	 *	)
+	 *	]
 	 */
 	public function activate();
 
@@ -27,19 +27,19 @@ interface ComponentInterface {
 	 *	Called on Plugin upgrade
 	 *	@param	string	$new_version
 	 *	@param	string	$old_version
-	 *	@return array(
+	 *	@return array [
 	 *		'success'	=> bool,
 	 *		'messages'	=> array,
-	 *	)
+	 *	]
 	 */
 	public function upgrade( $new_version, $old_version );
 
 	/**
 	 *	Called on Plugin deactivation
-	 *	@return array(
+	 *	@return array [
 	 *		'success'	=> bool,
 	 *		'messages'	=> array,
-	 *	)
+	 *	]
 	 */
 	public function deactivate();
 
@@ -47,10 +47,10 @@ interface ComponentInterface {
 	 *	Called on Plugin uninstall
 	 *	@param	string	$new_version
 	 *	@param	string	$old_version
-	 *	@return array(
+	 *	@return array [
 	 *		'success'	=> bool,
 	 *		'messages'	=> array,
-	 *	)
+	 *	]
 	 */
 	public static function uninstall();
 

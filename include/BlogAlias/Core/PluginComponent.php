@@ -17,10 +17,10 @@ abstract class PluginComponent extends Singleton {
 	/**
 	 *  Called on plugin activation
 	 *
-	 *  @return array(
+	 *  @return array [
 	 *      'success'   => bool,
 	 *      'messages'  => array,
-	 *  )
+	 *  ]
 	 */
 	abstract public function activate();
 
@@ -28,19 +28,19 @@ abstract class PluginComponent extends Singleton {
 	 *  Called on plugin upgrade
 	 *  @param  string  $new_version
 	 *  @param  string  $old_version
-	 *  @return array(
+	 *  @return array [
 	 *      'success'   => bool,
 	 *      'messages'  => array,
-	 *  )
+	 *  ]
 	 */
 	abstract public function upgrade( $new_version, $old_version );
 
 	/**
 	 *  Called on plugin deactivation
-	 *  @return array(
+	 *  @return array [
 	 *      'success'   => bool,
 	 *      'messages'  => array,
-	 *  )
+	 *  ]
 	 */
 	abstract public function deactivate();
 
@@ -48,10 +48,10 @@ abstract class PluginComponent extends Singleton {
 	 *  Called on plugin uninstall
 	 *  @param  string  $new_version
 	 *  @param  string  $old_version
-	 *  @return array(
+	 *  @return array [
 	 *      'success'   => bool,
 	 *      'messages'  => array,
-	 *  )
+	 *  ]
 	 */
 	public static function uninstall(){}
 
