@@ -5,13 +5,13 @@ Plugin Name: Multisite Blog Alias
 Plugin URI: https://github.com/mcguffin/multisite-blog-alias
 Description: Alias Domains for Blogs
 Author: Jörn Lund
-Version: 1.1.9
+Version: 1.1.10
 Author URI: https://github.com/mcguffin
 License: GPL3
 Github Repository: mcguffin/multisite-blog-alias
 GitHub Plugin URI: mcguffin/multisite-blog-alias
 Requires WP: 4.8
-Requires PHP: 5.5
+Requires PHP: 7.4
 Network: true
 Text Domain: multisite-blog-alias
 Domain Path: /languages/
