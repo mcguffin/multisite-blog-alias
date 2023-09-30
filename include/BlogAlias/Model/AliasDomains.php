@@ -58,6 +58,138 @@ class AliasDomains extends Model {
 
 	}
 
+	/**
+	 *	@param string $error_code
+	 *	@return string
+	 */
+	public function get_error( $error_code = 'unknown' ) {
+
+		if ('add-blog-not-exists' === $error_code ) {
+			return new \WP_Error( $error_code, __( 'Blog does not exists.', 'multisite-blog-alias' ) );
+
+		} else if ('add-alias-exists' === $error_code ) {
+			return new \WP_Error( $error_code, __( 'The Alias already exists.', 'multisite-blog-alias' ) );
+
+		} else if ('add-empty-domain' === $error_code ) {
+			return new \WP_Error( $error_code, __( 'Empty domain name', 'multisite-blog-alias' ) );
+
+		} else if ('add-invalid-domain' === $error_code ) {
+			return new \WP_Error( $error_code, __( 'Invalid domain name', 'multisite-blog-alias' ) );
+
+		} else if ('add-site-exists' === $error_code ) {
+			return new \WP_Error( $error_code, __( 'A different Blog is already using this domain.', 'multisite-blog-alias' ) );
+
+		} else if ('delete' === $error_code ) {
+			return new \WP_Error( $error_code, __( 'Deletion failed', 'multisite-blog-alias' ) );
+
+		} else if ( 'invalid' === $error_code ) {
+			return new \WP_Error( $error_code, __( 'Deletion failed', 'multisite-blog-alias' ) );//$this->get_error( 'add-empty-domain' );
+		}
+
+		return new \WP_Error( $error_code, __( 'Something went wrong...', 'multisite-blog-alias' ) );
+
+	}
+
+	/**
+	 *	@param int $blog_id
+	 *	@param string $domain_alias_input
+	 *	@param boolean $suppress_hooks
+	 *	@return array
+	 */
+	public function create_insert_data( $blog_id, $domain_alias_input, $suppress_hooks = false ) {
+
+		if ( function_exists( 'idn_to_ascii' ) ) {
+			$domain_alias = idn_to_ascii( $domain_alias_input, IDNA_NONTRANSITIONAL_TO_ASCII, INTL_IDNA_VARIANT_UTS46 );
+			$domain_alias_utf8 = sanitize_text_field( $domain_alias_input );
+		} else {
+			$domain_alias = $domain_alias_utf8 = sanitize_text_field( $domain_alias_input );
+		}
+
+		if ( empty( $domain_alias ) ) {
+			return $this->get_error( 'add-empty-domain' );
+
+		} else if ( ! get_site( $blog_id ) ) {
+			return $this->get_error( 'add-blog-not-exists' );
+
+		} else if ( false === $this->validate_domain_alias( 'domain_alias', $domain_alias ) ) {
+			// check validity
+			return $this->get_error( 'add-invalid-domain' );
+
+		} else if ( $record = $this->fetch_one_by( 'domain_alias', $domain_alias ) ) {
+			$error = $this->get_error( 'add-alias-exists' );
+			$error->add_data( $record );
+			return $error;
+
+		} else if ( $other_blog_id = get_blog_id_from_url( $domain_alias ) && ( $other_blog_id != $blog_id ) ) {
+			$error = $this->get_error( 'add-site-exists' );
+			$error->add_data( (object) [ 'blog_id' => (int) $other_blog_id ] );
+			return $error;
+		}
+
+		$data = [
+			'created'           => date_format( date_create(), 'Y-m-d H:i:s' ),
+			'site_id'           => get_current_site()->id,
+			'blog_id'           => $blog_id,
+			'domain_alias'      => $domain_alias,
+			'domain_alias_utf8' => $domain_alias_utf8,
+			'redirect'          => 1,
+		];
+
+		/**
+		 *	Filter domain alias data before it is written into db
+		 *
+		 *	@param Array $data [
+		 *		@type int    $site_id            current site id
+		 *		@type int    $blog_id            current blog id
+		 *		@type string $domain_alias       domain name
+		 *		@type string $domain_alias_utf8  domain name UTF-8 represetation
+		 *		@type bool   $redirect           NOT IN USE YET: Whether to redirect the domain
+		 *	]
+		 */
+		 if ( ! $suppress_hooks ) {
+			 $data = apply_filters( 'blog_alias_create_data', $data );
+		 }
+		 return $data;
+	}
+
+	/**
+	 *	@param Array $data [
+	 *		@type int    $site_id            current site id
+	 *		@type int    $blog_id            current blog id
+	 *		@type string $domain_alias       domain name
+	 *		@type string $domain_alias_utf8  domain name UTF-8 represetation
+	 *		@type bool   $redirect           NOT IN USE YET: Whether to redirect the domain
+	 *	]
+	 *	@param Boolean $suppress_hooks
+	 *	@return Integer|WP_Error
+	 */
+	public function insert_blog_alias( $data, $suppress_hooks = false ) {
+
+		$id = $this->insert( $data );
+
+		if ( (int) $id <= 0 ) {
+
+			return $this->get_error();
+
+		}
+
+		if ( ! $suppress_hooks ) {
+			/**
+			 *	Fired after a domain alias has been created
+			 *	@param Integer $alias_id
+			 *	@param Object $alias {
+			 *		@type int    $site_id            current site id
+			 *		@type int    $blog_id            current blog id
+			 *		@type string $domain_alias       domain name
+			 *		@type string $domain_alias_utf8  domain name UTF-8 represetation
+			 *		@type bool   $redirect           NOT IN USE YET: Whether to redirect the domain
+			 *	}
+			 */
+			do_action( 'blog_alias_created', $id, $this->fetch_one_by( 'id', $id ) );
+		}
+		return $id;
+
+	}
 
 	/**
 	 *  Check alias status
@@ -157,7 +289,7 @@ class AliasDomains extends Model {
 
 		$sql = "CREATE TABLE $wpdb->alias_domains (
 			`ID` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
-			`created` datetime NOT NULL default '0000-00-00 00:00:00',
+			`created` datetime NOT NULL DEFAULT current_timestamp(),
 			`site_id` bigint(20) unsigned NOT NULL,
 			`blog_id` bigint(20) unsigned NOT NULL,
 			`domain_alias` varchar(255) CHARACTER SET ascii NOT NULL,
