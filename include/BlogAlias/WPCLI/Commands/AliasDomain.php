@@ -193,65 +193,49 @@ class AliasDomain extends Core\Singleton {
 
 		$domain_alias_input = $domain_alias;
 
-		if ( function_exists( 'idn_to_ascii' ) ) {
-			$domain_alias = idn_to_ascii( $domain_alias_input, IDNA_NONTRANSITIONAL_TO_ASCII, INTL_IDNA_VARIANT_UTS46 );
-			$domain_alias_utf8 = sanitize_text_field( $domain_alias_input );
-		} else {
-			$domain_alias = $domain_alias_utf8 = sanitize_text_field( $domain_alias_input );
-		}
+		$data = $this->model->create_insert_data( $blog_id, $domain_alias_input, $suppress_hooks );
 
-
-		// invalid hostname
-		if ( false === $this->model->validate( 'domain_alias', $domain_alias ) ) {
-			\WP_CLI::error( __( 'Invalid domain_alias', 'multisite-blog-alias-cli' ) );
-		}
-
-		// url exists as blog
-		if ( $other_blog_id = get_blog_id_from_url( $domain_alias ) ) {
-			/* Translators: AliasDomain, Blog ID */
-			$msg = sprintf(__( 'Domain %1$s exists for blog %2$d', 'multisite-blog-alias-cli' ), $domain_alias, $other_blog_id );
-			if ( $other_blog_id !== $blog_id ) {
-				\WP_CLI::error( $msg );
+		if ( is_wp_error( $data ) ) {
+			if ( in_array( $data->get_error_code(), [ 'add-alias-exists', 'add-site-exists' ] ) ) {
+				$other_blog_id = $data->get_error_data()->blog_id;
+				if ( 'add-alias-exists' === $data->get_error_code() ) {
+					/* Translators: AliasDomain, Blog ID */
+					$msg = __( 'Domain Alias %1$s exists for blog %2$d', 'multisite-blog-alias-cli' );
+				} else {
+					/* Translators: AliasDomain, Blog ID */
+					$msg = __( 'Domain %1$s exists for blog %2$d', 'multisite-blog-alias-cli' );
+				}
+				if ( $other_blog_id !== $blog_id ) {
+					\WP_CLI::error( sprintf( $msg, $domain_alias, $other_blog_id ) );
+				} else {
+					\WP_CLI::warning( sprintf( $msg, $domain_alias, $other_blog_id ) );
+				}
 			} else {
-				\WP_CLI::warning( $msg );
+				\WP_CLI::error( $data->get_error_message() );
 			}
-		}
-
-		// alias exists
-		if ( $record = $this->model->fetch_one_by('domain_alias', $domain_alias ) ) {
-			/* Translators: AliasDomain, Blog ID */
-			\WP_CLI::error( sprintf(__( 'Domain Alias %1$s exists for blog %2$d', 'multisite-blog-alias-cli' ), $domain_alias, $record->blog_id ) );
+			return;
 		}
 
 
-		$data = [
-			'created'           => strftime('%Y-%m-%d %H:%M:%S'),
-			'site_id'           => get_current_site()->id,
-			'blog_id'           => $blog_id,
-			'domain_alias'      => $domain_alias,
-			'domain_alias_utf8' => $domain_alias_utf8,
-			'redirect'          => intval( $redirect ),
-		];
 
-		if ( ! $suppress_hooks ) {
-			/** This filter is documented in include/BlogAlias/Admin/NetworkAdmin.php */
-			$data = apply_filters( 'blog_alias_create_data', $data );
+		$id = $this->model->insert_blog_alias( $data, $suppress_hooks );
+
+		if ( is_wp_error( $id ) ) {
+
+			\WP_CLI::error( $id->get_error_message() );
+
+			return;
+
 		}
 
-		$id = $this->model->insert( $data );
-
-		if ( ! $suppress_hooks ) {
-			/** This action is documented in include/BlogAlias/Admin/NetworkAdmin.php */
-			do_action( 'blog_alias_created', $id, $this->model->fetch_one_by( 'id', $id ) );
+		if ( $compact ) {
+			\WP_CLI::line( $this->model->insert_id );
+		} else {
+			/* Translators: Alias ID */
+			\WP_CLI::success( sprintf( __( "Alias created with ID %d", 'multisite-blog-alias-cli' ), $id ) );
 		}
 
 		if ( $id !== false ) {
-			if ( $compact ) {
-				\WP_CLI::line( $this->model->insert_id );
-			} else {
-				/* Translators: Alias ID */
-				\WP_CLI::success( sprintf( __( "Alias created with ID %d", 'multisite-blog-alias-cli' ), $this->model->insert_id ) );
-			}
 		} else {
 			/* Translators: Error message */
 			\WP_CLI::error( sprintf( __( 'Error creating Domain Alias: %s', 'multisite-blog-alias-cli' ), $this->model->last_error ) );
@@ -347,14 +331,12 @@ class AliasDomain extends Core\Singleton {
 				do_action( 'blog_alias_delete_multiple', $action_arg );
 			} else {
 				// single
-				$action_arg = $this->model->fetch_one_by( $where );
+				$action_arg = $this->model->fetch_one_by( 'domain_alias', $where['domain_alias'] );
 				/** This action is documented in include/BlogAlias/Admin/NetworkAdmin.php */
 				do_action( 'blog_alias_delete', $action_arg );
 			}
 		}
 		$total = $this->model->delete($where);
-
-
 
 		if ( $total !== false ) {
 			if ( ! $suppress_hooks ) {

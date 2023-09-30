@@ -375,75 +375,39 @@ echo esc_textarea( $sunrise->code );
 			$domain_alias_input = sanitize_text_field( wp_unslash( $_POST['domain_alias'] ) );
 		}
 
-		if ( function_exists( 'idn_to_ascii' ) ) {
-			$domain_alias = idn_to_ascii( $domain_alias_input, IDNA_NONTRANSITIONAL_TO_ASCII, INTL_IDNA_VARIANT_UTS46 );
-			$domain_alias_utf8 = sanitize_text_field( $domain_alias_input );
+		$data = $this->model->create_insert_data( $blog_id, $domain_alias_input );
+
+		if ( is_wp_error( $data ) ) {
+
+			$redirect_args['error'] = $data->get_error_code();
+
+			if ( 'add-alias-exists' === $data->get_error_code()) {
+				$redirect_args['other_blog'] = $data->get_error_data()->blog_id;
+
+			} else if ( 'add-site-exists' === $data->get_error_code()) {
+
+				$error_data = $data->get_error_data()->blog_id;
+
+				if ( $error_data->blog_id != $blog_id ) {
+					$redirect_args['other_blog'] = $data->get_error_data();
+
+				} else {
+					$redirect_args['notice']        = 'add-is-self';
+				}
+			}
+
 		} else {
-			$domain_alias = $domain_alias_utf8 = sanitize_text_field( $domain_alias_input );
-		}
 
-		if ( empty( $domain_alias ) ) {
-			$redirect_args['error'] = 'add-empty-domain';
-		} else if ( false === $this->model->validate( 'domain_alias', $domain_alias ) ) {
-			// check validity
-			$redirect_args['error'] = 'add-invalid-domain';
-		} elseif ( $record = $this->model->fetch_one_by( 'domain_alias', $domain_alias ) ) {
-			// check existence (alias)
-			$redirect_args['error'] = 'add-alias-exists';
-			if ( $record->blog_id != $blog_id ) {
-				$redirect_args['other_blog']    = $record->blog_id;
-			}
-		} elseif ( $other_blog_id = get_blog_id_from_url( $domain_alias ) ) {
-			// check existence (blog)
-			if ( $other_blog_id != $blog_id ) {
-				$redirect_args['error']         = 'add-site-exists';
-				$redirect_args['other_blog']    = $other_blog_id;
-			} else {
-				$redirect_args['notice']        = 'add-is-self';
-			}
-		}
+			$id = $this->model->insert_blog_alias( $data );
 
-		if ( ! isset( $redirect_args['error'] ) ) {
-			$data = [
-				'site_id'           => get_current_site()->id,
-				'blog_id'           => $blog_id,
-				'domain_alias'      => $domain_alias,
-				'domain_alias_utf8' => $domain_alias_utf8,
-				'redirect'          => 1,
-			];
+			if ( is_wp_error( $id ) ) {
 
-			/**
-			 *	Filter domain alias data before it is written into db
-			 *
-			 *	@param Array $data {
-			 *		@type int    $site_id            current site id
-			 *		@type int    $blog_id            current blog id
-			 *		@type string $domain_alias       domain name
-			 *		@type string $domain_alias_utf8  domain name UTF-8 represetation
-			 *		@type bool   $redirect           NOT IN USE YET: Whether to redirect the domain
-			 *	}
-			 */
-			$data = apply_filters( 'blog_alias_create_data', $data );
+				$redirect_args['error'] = $data->get_error_code();
 
-			$id = $this->model->insert( $data );
-
-			if ( $id === false ) {
-				$redirect_args['error'] = 'unknown';
 			} else {
 
-				/**
-				 *	Fired after a domain alias has been created
-				 *	@param Integer $alias_id
-				 *	@param Object $alias {
-				 *		@type int    $site_id            current site id
-				 *		@type int    $blog_id            current blog id
-				 *		@type string $domain_alias       domain name
-				 *		@type string $domain_alias_utf8  domain name UTF-8 represetation
-				 *		@type bool   $redirect           NOT IN USE YET: Whether to redirect the domain
-				 *	}
-				 */
-				do_action( 'blog_alias_created', $id, $this->model->fetch_one_by( 'id', $id ) );
 				$redirect_args['created'] = '1';
+
 			}
 		}
 
@@ -716,8 +680,8 @@ echo esc_textarea( $sunrise->code );
 				'add-alias-exists'      => __( 'The Alias already exists.', 'multisite-blog-alias' ),
 				'add-empty-domain'    	=> __( 'Empty domain name', 'multisite-blog-alias' ),
 				'add-invalid-domain'    => __( 'Invalid domain name', 'multisite-blog-alias' ),
-				'delete'                => __( 'Deletion failed', 'multisite-blog-alias' ),
 				'add-site-exists'       => __( 'A different Blog is already using this domain.', 'multisite-blog-alias' ),
+				'delete'                => __( 'Deletion failed', 'multisite-blog-alias' ),
 				'default'               => __( 'Something went wrong...', 'multisite-blog-alias' ),
 			];
 
