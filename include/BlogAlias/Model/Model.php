@@ -79,9 +79,6 @@ abstract class Model extends Core\Singleton implements Core\ComponentInterface {
 		parent::__construct();
 	}
 
-
-
-
 	/**
 	 *	magic getter
 	 */
@@ -97,7 +94,6 @@ abstract class Model extends Core\Singleton implements Core\ComponentInterface {
 			return $wpdb->$what;
 		}
 	}
-
 
 	/**
 	 *	@inheritdoc
@@ -385,6 +381,13 @@ abstract class Model extends Core\Singleton implements Core\ComponentInterface {
 	 */
 	private function sanitize_cb( &$value, $key ) {
 
+		/**
+		 *	Sanitize value before it is written to db.
+		 *	The dynamic parts refer to the unprefixed table name ($table) and the columns name ($key)
+		 *
+		 *	@param mixed $value Value to sanitize
+		 *	@return mixed sanitized $value
+		 */
 		$value = apply_filters( "sanitize_{$this->_table}/{$key}", $value );
 
 	}
@@ -420,10 +423,16 @@ abstract class Model extends Core\Singleton implements Core\ComponentInterface {
 	 */
 	private function validate_cb( &$value, $key ) {
 
+		/**
+		 *	Validate value before it is written to db.
+		 *	The dynamic parts refer to the unprefixed table name ($table) and the columns name ($key)
+		 *
+		 *	@param mixed $value Value to validate
+		 *	@return boolean
+		 */
 		$value = apply_filters( "validate_{$this->_table}/{$key}", true, $value );
 
 	}
-
 
 	/**
 	 *	@param \DateTime|string $value Datetime expected to be
@@ -443,7 +452,6 @@ abstract class Model extends Core\Singleton implements Core\ComponentInterface {
 		return $value->format( Model::MYSQL_DATE_FORMAT );
 
 	}
-
 
 	/**
 	 *	Drop table
