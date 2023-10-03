@@ -301,5 +301,13 @@ class AliasDomains extends Model {
 
 		// updates DB
 		dbDelta( $sql );
+
+		// Changing the default value is only working for literals
+		// @see https://core.trac.wordpress.org/ticket/28591
+		$created_row = $wpdb->get_row("DESCRIBE {$wpdb->alias_domains} `created`");
+		if ( ! in_array( strtolower( $created_row->Default ), [ 'current_timestamp', 'current_timestamp()' ] ) ) {
+			$sql = "ALTER TABLE {$wpdb->alias_domains} ALTER `created` SET DEFAULT current_timestamp()";
+			$wpdb->query( $sql );
+		}
 	}
 }
