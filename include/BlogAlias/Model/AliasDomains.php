@@ -60,34 +60,59 @@ class AliasDomains extends Model {
 
 	/**
 	 *	@param string $error_code
+	 *	@param mixed $error_data
 	 *	@return string
 	 */
-	public function get_error( $error_code = 'unknown' ) {
+	public function get_error( $error_code = 'unknown', $error_data = null ) {
 
-		if ('add-blog-not-exists' === $error_code ) {
-			return new \WP_Error( $error_code, __( 'Blog does not exists.', 'multisite-blog-alias' ) );
-
-		} else if ('add-alias-exists' === $error_code ) {
-			return new \WP_Error( $error_code, __( 'The Alias already exists.', 'multisite-blog-alias' ) );
-
-		} else if ('add-empty-domain' === $error_code ) {
-			return new \WP_Error( $error_code, __( 'Empty domain name', 'multisite-blog-alias' ) );
-
-		} else if ('add-invalid-domain' === $error_code ) {
-			return new \WP_Error( $error_code, __( 'Invalid domain name', 'multisite-blog-alias' ) );
-
-		} else if ('add-site-exists' === $error_code ) {
-			return new \WP_Error( $error_code, __( 'A different Blog is already using this domain.', 'multisite-blog-alias' ) );
-
-		} else if ('delete' === $error_code ) {
-			return new \WP_Error( $error_code, __( 'Deletion failed', 'multisite-blog-alias' ) );
-
-		} else if ( 'invalid' === $error_code ) {
-			return new \WP_Error( $error_code, __( 'Deletion failed', 'multisite-blog-alias' ) );//$this->get_error( 'add-empty-domain' );
+		if ( ! is_scalar( $error_data ) ) {
+			$error_data = (object) $error_data;
 		}
 
-		return new \WP_Error( $error_code, __( 'Something went wrong...', 'multisite-blog-alias' ) );
+		if ('add-blog-not-exists' === $error_code ) {
+			$error_message = __( 'Blog does not exists.', 'multisite-blog-alias' );
 
+		} else if ( in_array( $error_code, [ 'add-site-exists', 'add-alias-exists'] ) ) {
+			if ('add-alias-exists' === $error_code ) {
+				$error_message = __( 'The Alias already exists.', 'multisite-blog-alias' );
+
+			} else {
+				$error_message = __( 'A different Blog is already using this domain.', 'multisite-blog-alias' );
+			}
+
+			if ( isset( $error_data->blog_id ) ) {
+				if ( defined( 'WP_CLI' ) ) {
+					$error_message .= sprintf( __(' Other blog ID: %d'), $error_data->blog_id );
+				} else {
+					$error_message .= sprintf( ' <a href="%s">%s</a> | <a href="%s">%s</a>',
+						esc_url( get_site_url( $error_data->blog_id ) ),
+						__( 'Visit other Blog', 'multisite-blog-alias' ),
+						esc_url( network_admin_url( 'site-info.php?id=' . $error_data->blog_id ) ),
+						__( 'Edit', 'multisite-blog-alias' )
+					);
+				}
+			}
+
+		} else if ('add-empty-domain' === $error_code ) {
+			$error_message =__( 'Empty domain name', 'multisite-blog-alias' );
+
+		} else if ('add-invalid-domain' === $error_code ) {
+			$error_message =__( 'Invalid domain name', 'multisite-blog-alias' );
+
+		} else if ('delete' === $error_code ) {
+			$error_message = __( 'Deletion failed', 'multisite-blog-alias' );
+
+		} else {
+			$error_message =__( 'Something went wrong...', 'multisite-blog-alias' );
+		}
+
+		$error = new \WP_Error( $error_code, $error_message );
+
+		if ( ! is_null( $error_data ) ) {
+			$error->add_data( $error_data );
+		}
+
+		return $error;
 	}
 
 	/**
@@ -116,18 +141,13 @@ class AliasDomains extends Model {
 			return $this->get_error( 'add-invalid-domain' );
 
 		} else if ( $record = $this->fetch_one_by( 'domain_alias', $domain_alias ) ) {
-			$error = $this->get_error( 'add-alias-exists' );
-			$error->add_data( $record );
-			return $error;
+			return $this->get_error( 'add-alias-exists', $record );
 
-		} else if ( $other_blog_id = get_blog_id_from_url( $domain_alias ) && ( $other_blog_id != $blog_id ) ) {
-			$error = $this->get_error( 'add-site-exists' );
-			$error->add_data( (object) [ 'blog_id' => (int) $other_blog_id ] );
-			return $error;
+		} else if ( ( $other_blog_id = get_blog_id_from_url( $domain_alias ) ) && ( $other_blog_id != $blog_id ) ) {
+			return $this->get_error( 'add-site-exists',  (object) [ 'blog_id' => (int) $other_blog_id ] );
 		}
 
 		$data = [
-			'created'           => date_format( date_create(), 'Y-m-d H:i:s' ),
 			'site_id'           => get_current_site()->id,
 			'blog_id'           => $blog_id,
 			'domain_alias'      => $domain_alias,
@@ -168,9 +188,7 @@ class AliasDomains extends Model {
 		$id = $this->insert( $data );
 
 		if ( (int) $id <= 0 ) {
-
 			return $this->get_error();
-
 		}
 
 		if ( ! $suppress_hooks ) {
@@ -191,14 +209,109 @@ class AliasDomains extends Model {
 
 	}
 
+
+	/**
+	 *	@param string $what id, site_id, blog_id, domain_alias
+	 *	@param string $value
+	 *	@return int|WP_Error
+	 */
+	function remove_blog_alias_by( $what = 'id', $value = null, $suppress_hooks = false ) {
+
+		if ( ! in_array( $what, [ 'ID', 'site_id', 'blog_id', 'domain_alias' ] ) ) {
+			return $this->get_error( 'remove-invalid-prop', $what );
+		}
+
+		if ( empty( $value ) ) {
+			return $this->get_error( 'remove-empty-condition', $what );
+		}
+
+		$where = [ $what => $value ];
+
+		if ( ! $suppress_hooks ) {
+			if ( in_array( $what, [ 'id', 'domain_alias' ] ) ) {
+				// single
+				$action_arg = $this->fetch_one_by( $what, $value );
+				/**
+				 *	Fired before a domain alias going to be deleted
+				 *
+				 *	@param Object $alias {
+				 *		@type int      $ID                 alias database id
+				 *		@type string   $created            created date and time as mysql string
+				 *		@type int      $site_id            current site id
+				 *		@type int      $blog_id            current blog id
+				 *		@type string   $domain_alias       domain name
+				 *		@type string   $domain_alias_utf8  domain name UTF-8 represetation
+				 *		@type bool     $redirect           NOT IN USE YET: Whether to redirect the domain
+				 *	}
+				 */
+				do_action( 'blog_alias_delete', $action_arg );
+			} else {
+				// multiple
+				$action_arg = $this->fetch_by( $what, $value );
+				/**
+				 *	Fired before domain aliases are going to be deleted
+				 *
+				 *	@param Object[] $aliases {
+				 *		@type int      $ID                 alias database id
+				 *		@type string   $created            created date and time as mysql string
+				 *		@type int      $site_id            current site id
+				 *		@type int      $blog_id            current blog id
+				 *		@type string   $domain_alias       domain name
+				 *		@type string   $domain_alias_utf8  domain name UTF-8 represetation
+				 *		@type bool     $redirect           NOT IN USE YET: Whether to redirect the domain
+				 *	}
+				 */
+				do_action( 'blog_alias_delete_multiple', $action_arg );
+			}
+		}
+
+		$total = $this->delete( $where );
+
+		if ( ! $suppress_hooks ) {
+			if ( in_array( $what, [ 'id', 'domain_alias' ] ) ) {
+				/**
+				 *	Fired after a domain alias has been deleted
+				 *
+				 *	@param Object $alias {
+				 *		@type int      $ID                 alias database id
+				 *		@type string   $created            created date and time as mysql string
+				 *		@type int      $site_id            current site id
+				 *		@type int      $blog_id            current blog id
+				 *		@type string   $domain_alias       domain name
+				 *		@type string   $domain_alias_utf8  domain name UTF-8 represetation
+				 *		@type bool     $redirect           NOT IN USE YET: Whether to redirect the domain
+				 *	}
+				 */
+				do_action( 'blog_alias_deleted', $action_arg );
+			} else {
+				/**
+				 *	Fired after domain alias have been deleted
+				 *
+				 *	@param Object[] $aliases {
+				 *		@type int      $ID                 alias database id
+				 *		@type string   $created            created date and time as mysql string
+				 *		@type int      $site_id            current site id
+				 *		@type int      $blog_id            current blog id
+				 *		@type string   $domain_alias       domain name
+				 *		@type string   $domain_alias_utf8  domain name UTF-8 represetation
+				 *		@type bool     $redirect           NOT IN USE YET: Whether to redirect the domain
+				 *	}
+				 */
+				do_action( 'blog_alias_deleted_multiple', $action_arg );
+			}
+		}
+
+		return $total;
+	}
+
 	/**
 	 *  Check alias status
-	 *  Checks:
-	 *  1. Is domain used by another wp-site?
-	 *  2. Is domain reachable and redirects to actual blog domain?
+	 *  Perfomed tests:
+	 *  1. Is domain used by another wp-site? If all runs well this should always pass
+	 *  2. Is domain reachable in the network?
+	 *	3. Does Domain redirect to actual blog domain?
 	 *
 	 *  @param int|stdClass $alias Alias domain
-	 *  @param int|null $site_id Check validity for current site
 	 *  @return boolean|WP_Error
 	 */
 	public function check_status( $alias ) {
@@ -216,6 +329,7 @@ class AliasDomains extends Model {
 		if ( ! $site_url ) {
 			return new \WP_Error( 'site-not_found', __( 'WP-Site for this alias could not be found.', 'multisite-blog-alias' ) );
 		}
+
 		// test if used by other sites
 		if ( $site !== false ) {
 			if ( intval( $site->blog_id ) !== intval( $alias->blog_id ) ) {
@@ -225,22 +339,42 @@ class AliasDomains extends Model {
 			}
 		}
 
-		// test redirects
-		$location = trailingslashit( "http://{$alias->domain_alias}" );
+		// 2. + 3. Test redirects
 		$site_url = trailingslashit( $site_url );
+		$location = trailingslashit( "http://{$alias->domain_alias}" );
+		$location = set_url_scheme( $location );
 
+		// add_filter( 'https_local_ssl_verify', '__return_true', 20 );
 		while ( true ) {
-
+			// 2. Network reachable?
 			$response = wp_remote_head( $location, [
 				'redirection'   => 0,
 				'sslverify'     => false,
 			] );
 			if ( is_wp_error( $response ) ) {
-
+/*
+Curl SSL Error Codes
+35 SSL_CONNECT_ERROR
+51 PEER_FAILED_VERIFICATION
+53 SSL_ENGINE_NOTFOUND
+54 SSL_ENGINE_SETFAILED
+58 SSL_CERTPROBLEM
+59 SSL_CIPHER
+60 SSL_CACERT
+64 USE_SSL_FAILED
+66 SSL_ENGINE_INITFAILED
+77 SSL_CACERT_BADFILE
+80 SSL_SHUTDOWN_FAILED
+82 SSL_CRL_BADFILE
+83 SSL_ISSUER_ERROR
+90 SSL_PINNEDPUBKEYNOTMATCH
+91 SSL_INVALIDCERTSTATUS
+*/
 				return new \WP_Error( 'redirect-http_error', __( 'The domain is unreachable.', 'multisite-blog-alias' ), $response );
 
 			}
 
+			// 3. Redirect correct?
 			$loc = $response['headers']->offsetGet( 'location' );
 
 			if ( ! $loc ) {

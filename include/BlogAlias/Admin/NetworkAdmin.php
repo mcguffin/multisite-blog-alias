@@ -381,19 +381,8 @@ echo esc_textarea( $sunrise->code );
 
 			$redirect_args['error'] = $data->get_error_code();
 
-			if ( 'add-alias-exists' === $data->get_error_code()) {
-				$redirect_args['other_blog'] = $data->get_error_data()->blog_id;
-
-			} else if ( 'add-site-exists' === $data->get_error_code()) {
-
-				$error_data = $data->get_error_data()->blog_id;
-
-				if ( $error_data->blog_id != $blog_id ) {
-					$redirect_args['other_blog'] = $data->get_error_data();
-
-				} else {
-					$redirect_args['notice']        = 'add-is-self';
-				}
+			if ( in_array( $data->get_error_code(), [ 'add-alias-exists', 'add-site-exists' ] ) ) {
+				$redirect_args['error_data[blog_id]'] = $data->get_error_data()->blog_id;
 			}
 
 		} else {
@@ -401,11 +390,9 @@ echo esc_textarea( $sunrise->code );
 			$id = $this->model->insert_blog_alias( $data );
 
 			if ( is_wp_error( $id ) ) {
-
 				$redirect_args['error'] = $data->get_error_code();
 
 			} else {
-
 				$redirect_args['created'] = '1';
 
 			}
@@ -424,7 +411,7 @@ echo esc_textarea( $sunrise->code );
 
 		current_user_can( $this->cap ) || wp_die( esc_html__( 'Insufficient permission' ) );
 
-		$id = false;
+		$id = $blog_id = false;
 
 		if ( isset( $_POST['id'] ) ) {
 			$id = absint( $_POST['id'] );
@@ -438,6 +425,7 @@ echo esc_textarea( $sunrise->code );
 		if ( isset( $_POST['blog_id'] ) ) {
 			$blog_id = absint( $_POST['blog_id'] );
 		}
+
 		if ( ! $blog_id ) {
 			wp_die( esc_html__( 'Invalid request' ) );
 		}
@@ -447,44 +435,14 @@ echo esc_textarea( $sunrise->code );
 			'action' => 'alias-domains',
 		];
 
-		$alias = $this->model->fetch_one_by( 'id', $id );
-
-		/**
-		 *	Fired before a domain alias going to be deleted
-		 *
-		 *	@param Object $alias {
-		 *		@type int      $ID                 alias database id
-		 *		@type string   $created            created date and time as mysql string
-		 *		@type int      $site_id            current site id
-		 *		@type int      $blog_id            current blog id
-		 *		@type string   $domain_alias       domain name
-		 *		@type string   $domain_alias_utf8  domain name UTF-8 represetation
-		 *		@type bool     $redirect           NOT IN USE YET: Whether to redirect the domain
-		 *	}
-		 */
-		do_action('blog_alias_delete', $alias );
-
-		if ( $total = $this->model->delete( [ 'id' => $id ] ) ) {
-
-			/**
-			 *	Fired before a domain alias is going to be deleted
-			 *
-			 *	@param Object $alias {
-			 *		@type int      $ID                 alias database id
-			 *		@type string   $created            created date and time as mysql string
-			 *		@type int      $site_id            current site id
-			 *		@type int      $blog_id            current blog id
-			 *		@type string   $domain_alias       domain name
-			 *		@type string   $domain_alias_utf8  domain name UTF-8 represetation
-			 *		@type bool     $redirect           NOT IN USE YET: Whether to redirect the domain
-			 *	}
-			 */
-			do_action('blog_alias_deleted', $alias );
-
+		if ( $total = $this->model->remove_blog_alias_by( 'id', $id ) ) {
 			$redirect_args['deleted'] = $total;
+
 		} else {
 			$redirect_args['error'] = 'delete';
+
 		}
+
 		wp_safe_redirect( add_query_arg( $redirect_args, network_admin_url( 'admin.php' ) ) );
 		exit();
 	}
@@ -511,41 +469,14 @@ echo esc_textarea( $sunrise->code );
 			'action' => 'alias-domains',
 		];
 
-		$aliases = $this->model->fetch_by( 'id', $id );
+		$deleted = $this->model->remove_blog_alias_by( 'blog_id', $blog_id );
 
-		/**
-		 *	Fired before multiple domain aliases are going to be deleted
-		 *
-		 *	@param Object[] $aliases {
-		 *		@type int      $ID                 alias database id
-		 *		@type string   $created            created date and time as mysql string
-		 *		@type int      $site_id            current site id
-		 *		@type int      $blog_id            current blog id
-		 *		@type string   $domain_alias       domain name
-		 *		@type string   $domain_alias_utf8  domain name UTF-8 represetation
-		 *		@type bool     $redirect           NOT IN USE YET: Whether to redirect the domain
-		 *	}
-		 */
-		do_action('blog_alias_delete_muliple', $aliases );
+		if ( ! is_wp_error( $deleted ) ) {
+			$redirect_args['deleted'] = $deleted;
 
-		if ( $total = $this->model->delete( [ 'blog_id' => $blog_id ] ) ) {
-			/**
-			 *	Fired after multiple domain aliases have been deleted
-			 *
-			 *	@param Object[] $aliases {
-			 *		@type int      $ID                 alias database id
-			 *		@type string   $created            created date and time as mysql string
-			 *		@type int      $site_id            current site id
-			 *		@type int      $blog_id            current blog id
-			 *		@type string   $domain_alias       domain name
-			 *		@type string   $domain_alias_utf8  domain name UTF-8 represetation
-			 *		@type bool     $redirect           NOT IN USE YET: Whether to redirect the domain
-			 *	}
-			 */
-			do_action('blog_alias_deleted_muliple', $aliases );
-			$redirect_args['deleted'] = $total;
 		} else {
-			$redirect_args['error'] = 'delete';
+			$redirect_args['error'] = $deleted->get_error_code();
+
 		}
 
 		wp_safe_redirect( add_query_arg( $redirect_args, network_admin_url( 'admin.php?action=alias-domains' ) ) );
@@ -669,54 +600,38 @@ echo esc_textarea( $sunrise->code );
 
 		}
 
+		// show resopnse message
 		if ( isset( $_GET['created'] ) ) {
 			$messages['updated'] = esc_html__( 'Alias created', 'multisite-blog-alias' );
+
 		} else if ( isset( $_GET['deleted'] ) ) {
 			$deleted = intval( $_GET['deleted'] );
 			/* translators: number of deleted entries */
 			$messages['notice-warning'] = esc_html( sprintf( _n( '%d entry deleted', '%d entries deleted', $deleted, 'multisite-blog-alias' ), $deleted ) );
+
 		} else if ( isset( $_GET['error'] ) ) {
-			$errors = [
-				'add-alias-exists'      => __( 'The Alias already exists.', 'multisite-blog-alias' ),
-				'add-empty-domain'    	=> __( 'Empty domain name', 'multisite-blog-alias' ),
-				'add-invalid-domain'    => __( 'Invalid domain name', 'multisite-blog-alias' ),
-				'add-site-exists'       => __( 'A different Blog is already using this domain.', 'multisite-blog-alias' ),
-				'delete'                => __( 'Deletion failed', 'multisite-blog-alias' ),
-				'default'               => __( 'Something went wrong...', 'multisite-blog-alias' ),
-			];
 
-			$error_key = '';
-
-			if ( isset( $_GET['error'] ) ) {
-				$error_key = sanitize_text_field( wp_unslash( $_GET['error'] ) );
+			$model = Model\AliasDomains::instance();
+			$error_code = wp_unslash( $_GET['error'] );
+			$error_data = null;
+			if ( isset( $_GET['error_data'] ) ) {
+				$error_data = wp_unslash( $_GET['error_data'] );
 			}
-			if ( ! isset( $errors[ $error_key ] ) ) {
-				$error_key = 'default';
-			}
-
-			$messages['error'] = sprintf( '<strong>%1$s</strong> %2$s',
-				__( 'Error:', 'multisite-blog-alias' ),
-				$errors[ $error_key ]
-			);
-
-			if ( isset( $_GET['other_blog'] ) ) {
-				$other_blog = intval( $_GET['other_blog'] );
-				$messages['error'] .= sprintf( ' <a href="%s">%s</a> | <a href="%s">%s</a>',
-					esc_url( get_site_url( $other_blog ) ),
-					__( 'Visit other Blog', 'multisite-blog-alias' ),
-					esc_url( network_admin_url( 'site-info.php?id=' . $other_blog ) ),
-					__( 'Edit', 'multisite-blog-alias' )
+			$error = $model->get_error( $error_code, $error_data );
+			if ( ( $data = $error->get_error_data() ) && isset( $_GET['id'] ) && (int) $data->blog_id === (int) wp_unslash( $_GET['id'] ) ) {
+				$messages['notice-warning'] = sprintf( '<strong>%1$s</strong> %2$s',
+					__( 'Notice:', 'multisite-blog-alias' ),
+					__( 'The domain matches the site URL of this blog.', 'multisite-blog-alias' )
 				);
-
+			} else {
+				$messages['error'] = sprintf( '<strong>%1$s</strong> %2$s',
+					__( 'Error:', 'multisite-blog-alias' ),
+					$error->get_error_message()
+				);
 			}
-		}
-		if ( isset( $_GET['notice'] ) && $_GET['notice'] === 'add-is-self' ) {
 
-			$messages['notice-warning'] = sprintf( '<strong>%1$s</strong> %2$s',
-				__( 'Notice:', 'multisite-blog-alias' ),
-				__( 'The domain matches the site URL of this blog.', 'multisite-blog-alias' )
-			);
 		}
+
 		?>
 
 		<div class="wrap admin-domain-alias">
@@ -782,15 +697,14 @@ echo esc_textarea( $sunrise->code );
 			<!-- remove -->
 			<h2><?php esc_html_e( 'Domain Aliases', 'multisite-blog-alias' ); ?></h2>
 			<?php
-			if ( empty( $aliases ) ) {
 
+			if ( empty( $aliases ) ) {
 				?>
 					<p><?php esc_html_e( '– No Domain Aliases –', 'multisite-blog-alias' ); ?></p>
 				<?php
 
 			} else {
 				?>
-
 				<table class="widefat striped domain-status-list-table">
 					<thead>
 						<th><?php esc_html_e( 'Alias Domain', 'multisite-blog-alias' ); ?></th>
@@ -836,7 +750,6 @@ echo esc_textarea( $sunrise->code );
 							<?php
 						}
 						?>
-
 					</tbody>
 					<tfoot>
 						<tr>
@@ -859,7 +772,6 @@ echo esc_textarea( $sunrise->code );
 				<?php
 			}
 			?>
-
 		</div>
 		<?php
 
