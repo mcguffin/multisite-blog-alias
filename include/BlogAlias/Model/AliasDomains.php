@@ -80,7 +80,7 @@ class AliasDomains extends Model {
 				$error_message = __( 'A different Blog is already using this domain.', 'multisite-blog-alias' );
 			}
 
-			if ( isset( $error_data->blog_id ) ) {
+			if ( is_object( $error_data ) && isset( $error_data->blog_id ) ) {
 				if ( defined( 'WP_CLI' ) ) {
 					$error_message .= sprintf( __(' Other blog ID: %d'), $error_data->blog_id );
 				} else {
@@ -141,7 +141,7 @@ class AliasDomains extends Model {
 			return $this->get_error( 'add-invalid-domain' );
 
 		} else if ( $record = $this->fetch_one_by( 'domain_alias', $domain_alias ) ) {
-			return $this->get_error( 'add-alias-exists', $record );
+			return $this->get_error( 'add-alias-exists', (object) [ 'blog_id' => (int) $record->blog_id ] );
 
 		} else if ( ( $other_blog_id = get_blog_id_from_url( $domain_alias ) ) && ( $other_blog_id != $blog_id ) ) {
 			return $this->get_error( 'add-site-exists',  (object) [ 'blog_id' => (int) $other_blog_id ] );

@@ -380,17 +380,15 @@ echo esc_textarea( $sunrise->code );
 		if ( is_wp_error( $data ) ) {
 
 			$redirect_args['error'] = $data->get_error_code();
-
-			if ( in_array( $data->get_error_code(), [ 'add-alias-exists', 'add-site-exists' ] ) ) {
-				$redirect_args['error_data[blog_id]'] = $data->get_error_data()->blog_id;
-			}
+			$redirect_args['error_data'] = rawurlencode( json_encode( $data->get_error_data() ) );
 
 		} else {
 
 			$id = $this->model->insert_blog_alias( $data );
 
 			if ( is_wp_error( $id ) ) {
-				$redirect_args['error'] = $data->get_error_code();
+				$redirect_args['error']      = $id->get_error_code();
+				$redirect_args['error_data'] = rawurlencode( json_encode( $id->get_error_data() ) );
 
 			} else {
 				$redirect_args['created'] = '1';
@@ -440,7 +438,8 @@ echo esc_textarea( $sunrise->code );
 		if ( ! is_wp_error( $total ) ) {
 			$redirect_args['deleted'] = $total;
 		} else {
-			$redirect_args['error'] = 'delete';
+			$redirect_args['error']      = $total->get_error_code();
+			$redirect_args['error_data'] = rawurlencode( json_encode( $total->get_error_data() ) );
 		}
 
 		wp_safe_redirect( add_query_arg( $redirect_args, network_admin_url( 'admin.php' ) ) );
@@ -475,7 +474,8 @@ echo esc_textarea( $sunrise->code );
 			$redirect_args['deleted'] = $deleted;
 
 		} else {
-			$redirect_args['error'] = $deleted->get_error_code();
+			$redirect_args['error']      = $deleted->get_error_code();
+			$redirect_args['error_data'] = rawurlencode( json_encode( $deleted->get_error_data() ) );
 
 		}
 
@@ -611,11 +611,10 @@ echo esc_textarea( $sunrise->code );
 		} else if ( isset( $_GET['error'] ) ) {
 
 			$model = Model\AliasDomains::instance();
+
 			$error_code = wp_unslash( $_GET['error'] );
-			$error_data = null;
-			if ( isset( $_GET['error_data'] ) ) {
-				$error_data = wp_unslash( $_GET['error_data'] );
-			}
+			$error_data = json_decode( wp_unslash( $_GET['error_data'] ) );
+
 			$error = $model->get_error( $error_code, $error_data );
 			if ( ( $data = $error->get_error_data() ) && isset( $_GET['id'] ) && (int) $data->blog_id === (int) wp_unslash( $_GET['id'] ) ) {
 				$messages['notice-warning'] = sprintf( '<strong>%1$s</strong> %2$s',
@@ -628,7 +627,6 @@ echo esc_textarea( $sunrise->code );
 					$error->get_error_message()
 				);
 			}
-
 		}
 
 		?>
@@ -668,6 +666,13 @@ echo esc_textarea( $sunrise->code );
 			}
 
 			$aliases = $this->model->fetch_by( 'blog_id', $this->blog_details->id );
+
+			if ( count( $messages ) ) {
+				$url = add_query_arg( ['action' => 'alias-domains', 'id' => $this->blog_details->id ], network_admin_url( 'admin.php' ) )
+				?>
+				<script>history.replaceState({},[],<?php echo json_encode( $url ) ?>);</script>
+				<?php
+			}
 
 			// form
 			?>
