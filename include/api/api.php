@@ -7,11 +7,11 @@ use BlogAlias\Model;
  *	@param string $domain_alias_input
  *	@return int|WP_Error ID of created alias or error
  */
-function alias_domain_add( $blog_id, $domain_alias_input ) {
+function alias_domain_add( $blog_id, $domain_alias ) {
 
 	$model = Model\AliasDomains::instance();
 
-	$data = $model->create_insert_data( $blog_id, $domain_alias_input );
+	$data = $model->create_insert_data( $blog_id, $domain_alias );
 
 	if ( is_wp_error( $data ) ) {
 		return $data;

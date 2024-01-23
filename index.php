@@ -80,6 +80,7 @@ if ( ! is_multisite() ) {
 }
 
 require_once __DIR__ . DIRECTORY_SEPARATOR . 'include/autoload.php';
+require_once __DIR__ . DIRECTORY_SEPARATOR . 'include/api/api.php';
 
 Core\Core::instance( __FILE__ );//->set_plugin_file( __FILE__ );
 
