@@ -215,7 +215,6 @@ class AliasDomain extends Core\Singleton {
 		}
 	}
 
-
 	/**
 	 * Remove a Domain alias.
 	 * You must either specify an ID, a blog ID, a blog Domain or an alias domain
@@ -231,7 +230,13 @@ class AliasDomain extends Core\Singleton {
 	 * --blog_id=<blog_id>
 	 * : The Blog ID
 	 * ---
-     * default: 0
+	 * default: 0
+	 * ---
+	 *
+	 * --site_id=<site_id>
+	 * : Site ID
+	 * ---
+	 * default: 0
 	 * ---
 	 *
 	 * --blog_domain=<blog_id>
@@ -294,6 +299,10 @@ class AliasDomain extends Core\Singleton {
 			$by = 'blog_id';
 			$by_value = $blog_id;
 
+		} else if ( $site_id ) {
+			$by = 'site_id';
+			$by_value = $site_id;
+
 		} else if ( $id ) {
 			if ( ! $this->model->fetch_one_by( 'id', $id ) ) {
 				/* Translators: Domain Alias ID */
@@ -324,7 +333,6 @@ class AliasDomain extends Core\Singleton {
 			/* Translators: Error message */
 			\WP_CLI::error( $deleted->get_error_message() );
 		}
-
 	}
 
 
