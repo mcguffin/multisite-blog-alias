@@ -299,7 +299,7 @@ class AliasDomain extends Core\Singleton {
 				/* Translators: Domain Alias ID */
 				\WP_CLI::error( sprintf(__( 'Domain Alias with ID %d does not exist', 'multisite-blog-alias-cli' ), $id ) );
 			}
-			$by = 'id';
+			$by = 'ID';
 			$by_value = $id;
 		}
 		if ( ! $suppress_hooks ) {

@@ -215,7 +215,7 @@ class AliasDomains extends Model {
 	 *	@param string $value
 	 *	@return int|WP_Error
 	 */
-	function remove_blog_alias_by( $what = 'id', $value = null, $suppress_hooks = false ) {
+	function remove_blog_alias_by( $what, $value = null, $suppress_hooks = false ) {
 
 		if ( ! in_array( $what, [ 'ID', 'site_id', 'blog_id', 'domain_alias' ] ) ) {
 			return $this->get_error( 'remove-invalid-prop', $what );

@@ -25,7 +25,7 @@ function alias_domain_add( $blog_id, $domain_alias_input ) {
  *	@param string $value
  *	@return int|WP_Error Number of deleted aliases or error
  */
-function alias_domain_remove_by( $what = 'alias_domain', $value = null ) {
+function alias_domain_remove_by( $what, $value = null ) {
 
 	$model = Model\AliasDomains::instance();
 

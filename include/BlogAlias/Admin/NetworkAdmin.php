@@ -435,12 +435,12 @@ echo esc_textarea( $sunrise->code );
 			'action' => 'alias-domains',
 		];
 
-		if ( $total = $this->model->remove_blog_alias_by( 'id', $id ) ) {
-			$redirect_args['deleted'] = $total;
+		$total = $this->model->remove_blog_alias_by( 'ID', $id );
 
+		if ( ! is_wp_error( $total ) ) {
+			$redirect_args['deleted'] = $total;
 		} else {
 			$redirect_args['error'] = 'delete';
-
 		}
 
 		wp_safe_redirect( add_query_arg( $redirect_args, network_admin_url( 'admin.php' ) ) );
@@ -482,7 +482,6 @@ echo esc_textarea( $sunrise->code );
 		wp_safe_redirect( add_query_arg( $redirect_args, network_admin_url( 'admin.php?action=alias-domains' ) ) );
 		exit();
 	}
-
 
 	/**
 	 *  @filter network_edit_site_nav_links
