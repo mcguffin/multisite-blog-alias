@@ -74,6 +74,30 @@ If you want to redirect with URL path appended (e.g. from `some-alias.tld/some/p
 
     wp alias-domains test --domain_alias=quux.foobar.tld
 
+## Plugin PHP-API
+
+The plugin introduces two functions allowing you to add / remove a domain aliases from inside PHP.
+
+**Add Domain alias**
+
+    $result = alias_domain_add( $blog_id, 'quux.foobar.tld' );
+    if ( is_wp_error( $result ) ) {
+        // handle eerror
+    }
+
+**Remove specific Domain alias**
+
+    $result = alias_domain_remove_by( 'domain_alias', 'quux.foobar.tld' );
+    if ( is_wp_error( $result ) ) {
+        // handle eerror
+    }
+
+**Remove Domain aliases for a specific blog**
+
+    $result = alias_domain_remove_by( 'blog_id', 123 );
+    if ( is_wp_error( $result ) ) {
+        // handle eerror
+    }
 
 ## Development
 
@@ -87,6 +111,7 @@ The installer will:
 1. Create a database table `{$table_prefix}alias_domains`
 2. Create a file `wp-content/sunrise.php` or append its PHP to it, if the file already exists.
 3. Insert `define( 'SUNRISE', true );` in your wp-config.
+
 
 == Frequently asked questions ==
 
@@ -120,6 +145,10 @@ If my little piece of software was able to help you, please consider helping oth
 On the whole upgrading is always a good idea.
 
 == Changelog ==
+
+= 1.1.10 =
+ - Introduce PHP API
+ - CLI: Introduce site_id parameter
 
 = 1.1.9 =
  - Fix: PHP 8.2 deprecation notices
