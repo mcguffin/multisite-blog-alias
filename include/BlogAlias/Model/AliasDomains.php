@@ -8,10 +8,7 @@
 
 namespace BlogAlias\Model;
 
-if ( ! defined('ABSPATH') ) {
-	die('FU!');
-}
-
+use BlogAlias\Helper;
 
 class AliasDomains extends Model {
 
@@ -45,7 +42,6 @@ class AliasDomains extends Model {
 	 */
 	protected $_global_table = true;
 
-
 	/**
 	 *	@inheritdoc
 	 */
@@ -55,7 +51,6 @@ class AliasDomains extends Model {
 
 		add_filter( "sanitize_{$this->_table}/domain_alias", [ $this, 'sanitize_domain_alias' ] );
 		add_filter( "validate_{$this->_table}/domain_alias", [ $this, 'validate_domain_alias' ], 10, 2 );
-
 	}
 
 	/**
@@ -209,7 +204,6 @@ class AliasDomains extends Model {
 
 	}
 
-
 	/**
 	 *	@param string $what id, site_id, blog_id, domain_alias
 	 *	@param string $value
@@ -314,7 +308,7 @@ class AliasDomains extends Model {
 	 *  @param int|stdClass $alias Alias domain
 	 *  @return boolean|WP_Error
 	 */
-	public function check_status( $alias ) {
+	public function check_status( $alias, $verify_ssl = false ) {
 		if ( is_numeric( $alias ) ) {
 			$alias = $this->fetch_one_by( 'ID', $alias );
 			if ( ! $alias ) {
@@ -341,53 +335,10 @@ class AliasDomains extends Model {
 
 		// 2. + 3. Test redirects
 		$site_url = trailingslashit( $site_url );
-		$site_url = set_url_scheme( $site_url );
-		$location = trailingslashit( "http://{$alias->domain_alias}" );
-		$location = set_url_scheme( $location );
+		$result = Helper\URL::test_redirect( trailingslashit( "http://{$alias->domain_alias}" ), $site_url, $verify_ssl );
 
-		// add_filter( 'https_local_ssl_verify', '__return_true', 20 );
-		while ( true ) {
-			// 2. Network reachable?
-			$response = wp_remote_head( $location, [
-				'redirection'   => 0,
-				'sslverify'     => false,
-			] );
-			if ( is_wp_error( $response ) ) {
-				/*
-				Curl SSL Error Codes
-				35 SSL_CONNECT_ERROR
-				51 PEER_FAILED_VERIFICATION
-				53 SSL_ENGINE_NOTFOUND
-				54 SSL_ENGINE_SETFAILED
-				58 SSL_CERTPROBLEM
-				59 SSL_CIPHER
-				60 SSL_CACERT
-				64 USE_SSL_FAILED
-				66 SSL_ENGINE_INITFAILED
-				77 SSL_CACERT_BADFILE
-				80 SSL_SHUTDOWN_FAILED
-				82 SSL_CRL_BADFILE
-				83 SSL_ISSUER_ERROR
-				90 SSL_PINNEDPUBKEYNOTMATCH
-				91 SSL_INVALIDCERTSTATUS
-				*/
-				return new \WP_Error( 'redirect-http_error', __( 'The domain is unreachable.', 'multisite-blog-alias' ), $response );
-			}
+		return $result;
 
-			// 3. Redirect correct?
-			$loc = $response['headers']->offsetGet( 'location' );
-
-			if ( ! $loc ) {
-				return new \WP_Error( 'redirect-target_invalid', __( 'The domain or a redirect does not point to this blog.', 'multisite-blog-alias' ), $location );
-			}
-			$location = trailingslashit( $loc );
-			if ( $site_url === $location ) {
-				// test passed!
-				break;
-			}
-		}
-
-		return true;
 	}
 
 	/**
@@ -397,9 +348,7 @@ class AliasDomains extends Model {
 	 *  @return bool|string false if invalid, sanitized value otherwise
 	 */
 	public function sanitize_domain_alias( $alias ) {
-
 		return filter_var( strtolower( $alias ), FILTER_VALIDATE_DOMAIN, [ 'flags' => FILTER_FLAG_HOSTNAME ] );
-
 	}
 
 	/**
@@ -411,7 +360,6 @@ class AliasDomains extends Model {
 	public function validate_domain_alias( $valid, $alias ) {
 		return false !== $this->sanitize_domain_alias( $alias );
 	}
-
 
 	/**
 	 *	@inheritdoc

@@ -7,6 +7,10 @@ if ( ! defined( 'ABSPATH' ) ) {
 	die( 'FU!' );
 }
 
+if ( ! defined( 'WPMS_BLOG_ALIAS_REDIRECT_BY' ) ) {
+	define( 'WPMS_BLOG_ALIAS_REDIRECT_BY', 'WPMS-Blog-Alias@' . get_network( get_site()->site_id )->domain );
+}
+
 /**
  *	Redirect if $domain is an alias
  *
@@ -56,7 +60,7 @@ function blog_alias_site_not_found( $current_site, $domain, $path ) {
 		}
 
 		http_response_code( 301 );
-		header( "X-Redirect-By: WPMS-Blog-Alias" );
+		header( "X-Redirect-By: ".WPMS_BLOG_ALIAS_REDIRECT_BY );
 		header( 'Location: ' . wp_sanitize_redirect( $redirect ) );
 
 		exit();
