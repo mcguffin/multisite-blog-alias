@@ -3,8 +3,8 @@ msgstr ""
 "Project-Id-Version: WPMS Blog Alias\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/multisite-blog-"
 "alias\n"
-"POT-Creation-Date: 2019-07-16T13:34:38+00:00\n"
-"PO-Revision-Date: 2019-07-16 15:47+0200\n"
+"POT-Creation-Date: 2024-03-06T14:57:37+00:00\n"
+"PO-Revision-Date: 2024-03-06 16:18+0100\n"
 "Last-Translator: Jörn Lund <joern@podpirate.org>\n"
 "Language-Team: \n"
 "Language: de_DE\n"
@@ -12,7 +12,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Poedit 2.2\n"
+"X-Generator: Poedit 3.4.1\n"
 "X-Poedit-SourceCharset: UTF-8\n"
 "X-Poedit-KeywordsList: __;_e;__ngettext:1,2;_n:1,2;__ngettext_noop:1,2;"
 "_n_noop:1,2;_x:1,2c;_nx:4c,1,2;_nx_noop:4c,1,2;_ex:1,2c;esc_attr__;"
@@ -23,64 +23,84 @@ msgstr ""
 "X-Poedit-SearchPathExcluded-0: node_modules\n"
 
 #. Plugin Name of the plugin
+#: index.php include/BlogAlias/Admin/NetworkAdmin.php:90
 msgid "Multisite Blog Alias"
 msgstr "Multisite Blog Alias"
 
 #. Plugin URI of the plugin
+#: index.php
 msgid "https://github.com/mcguffin/multisite-blog-alias"
 msgstr "https://github.com/mcguffin/multisite-blog-alias"
 
 #. Description of the plugin
+#: index.php
 msgid "Alias Domains for Blogs"
 msgstr "Alias Domains für Blogs"
 
 #. Author of the plugin
+#: index.php
 msgid "Jörn Lund"
 msgstr "Jörn Lund"
 
 #. Author URI of the plugin
+#: index.php
 msgid "https://github.com/mcguffin"
 msgstr "https://github.com/mcguffin"
 
-#: index.php:67
-msgid ""
-"The Multisite Blog Alias plugin requires a WordPress multisite installation."
-msgstr "Das Plugin Multisite Blog Alias benötigt eine Multisite-Installation."
-
-#: index.php:68
-msgid "It has been deactivated."
-msgstr "Es wurde deaktiviert."
-
-#: include/BlogAlias/Admin/Ajax.php:67
-#: include/BlogAlias/Admin/NetworkAdmin.php:484
+#: include/BlogAlias/Admin/Ajax.php:71
+#: include/BlogAlias/Model/AliasDomains.php:86
 msgid "Edit"
 msgstr "Bearbeiten"
 
-#: include/BlogAlias/Admin/Ajax.php:72
+#: include/BlogAlias/Admin/Ajax.php:76
 msgid "View"
 msgstr "Ansehen"
 
-#: include/BlogAlias/Admin/Ajax.php:75
-msgid "Error message:"
-msgstr "Fehlermeldung:"
+#: include/BlogAlias/Admin/Ajax.php:144
+msgid "Redirects are working."
+msgstr "Die Weiterleitungen funktionieren."
 
-#: include/BlogAlias/Admin/Ajax.php:80
-msgid "Last Redirect to:"
-msgstr "Letzte Weiterleitung:"
+#. translators: lock symbol
+#: include/BlogAlias/Admin/Ajax.php:151
+msgid ""
+"However there are problems with your SSL-Certificates indicated by a red %s "
+"in the report above."
+msgstr ""
+"Es gibt allerdings Probleme mit den SSL-Zertifikaten. Oben am roten %s "
+"erkennbar."
 
-#: include/BlogAlias/Admin/NetworkAdmin.php:70
+#: include/BlogAlias/Admin/Ajax.php:156
+msgid "Some of the redirects (the gray ones) are not triggered by this system."
+msgstr "Einige Weiterleitungen werden nicht von diesem WordPress ausgelöst."
+
+#: include/BlogAlias/Admin/NetworkAdmin.php:96
+#: include/BlogAlias/Admin/NetworkAdmin.php:102
+msgid "Redirect with path"
+msgstr "Mit Pfad weiterleiten."
+
+#: include/BlogAlias/Admin/NetworkAdmin.php:105
+msgid "If checked the request path will be appended to the redirect URL."
+msgstr "Den Anfragepfad beim Weiterleiten an die URL anhängen."
+
+#. translators: 1: name of constant 2: wp-config.php filename
+#: include/BlogAlias/Admin/NetworkAdmin.php:116
+msgid "This setting is overridden by the constant %1$s in your %2$s"
+msgstr ""
+"Diese Einstellung wird von der Konstante %1$s in Deiner %2$s überschrieben."
+
+#: include/BlogAlias/Admin/NetworkAdmin.php:164
 msgid "Uninstall"
 msgstr "Deinstallieren"
 
-#: include/BlogAlias/Admin/NetworkAdmin.php:80
+#: include/BlogAlias/Admin/NetworkAdmin.php:177
 msgid "Sorry, you are not allowed to install plugins."
 msgstr "Es tut uns leid, aber Du darfst keine Plugins installieren."
 
-#: include/BlogAlias/Admin/NetworkAdmin.php:96
+#: include/BlogAlias/Admin/NetworkAdmin.php:194
 msgid "Multisite Blog Alias Setup"
 msgstr "Multisite Blog Alias Einrichtung"
 
-#: include/BlogAlias/Admin/NetworkAdmin.php:101
+#: include/BlogAlias/Admin/NetworkAdmin.php:201
 msgid ""
 "The plugin is well configured. The instructions are kept for documentation "
 "purposes."
@@ -88,33 +108,33 @@ msgstr ""
 "Das Plugin ist fertig eingerichtet. Die Anleitung wird hier zur "
 "Dokumentation angezeigt."
 
-#: include/BlogAlias/Admin/NetworkAdmin.php:108
+#: include/BlogAlias/Admin/NetworkAdmin.php:209
 msgid "The plugin could not write to the filesystem."
 msgstr "Das Plugin kann keine Dateien schreiben."
 
-#: include/BlogAlias/Admin/NetworkAdmin.php:109
+#: include/BlogAlias/Admin/NetworkAdmin.php:210
 msgid "Please change the following."
 msgstr "Bitte nimm die folgenden Änderungen vor."
 
-#. translators: Sunrise file location
-#: include/BlogAlias/Admin/NetworkAdmin.php:140
+#. translators: sunrise.php file location
+#: include/BlogAlias/Admin/NetworkAdmin.php:247
 msgid "Insert the following code into %s:"
 msgstr "Füge folgenden Code in %s ein:"
 
-#. translators: Sunrise file location
-#: include/BlogAlias/Admin/NetworkAdmin.php:143
+#. translators: sunrise.php file location
+#: include/BlogAlias/Admin/NetworkAdmin.php:253
 msgid "Create a file %s with the following code:"
 msgstr "Erstelle eine Datei namens %s mit folgendem Code:"
 
-#: include/BlogAlias/Admin/NetworkAdmin.php:174
+#: include/BlogAlias/Admin/NetworkAdmin.php:288
 msgid "Sorry, you are not allowed to run the uninstall procedere."
 msgstr "Es tut uns leid, aber Du darfst keine Deinstallation durchführen."
 
-#: include/BlogAlias/Admin/NetworkAdmin.php:196
+#: include/BlogAlias/Admin/NetworkAdmin.php:309
 msgid "Uninstall Plugin?"
 msgstr "Plugin Deinstallieren?"
 
-#: include/BlogAlias/Admin/NetworkAdmin.php:197
+#: include/BlogAlias/Admin/NetworkAdmin.php:312
 msgid ""
 "Uninstalling the plugin will remove the Blog Alias table from the database "
 "and deactivate the plugin."
@@ -122,144 +142,187 @@ msgstr ""
 "Die Deinstallation entfernt die Blog-Alias-Tabelle aus der Datenbank und "
 "deaktiviert das Plugin."
 
-#. Translators: %d number of alias domains
-#: include/BlogAlias/Admin/NetworkAdmin.php:201
+#. translators: number of domains being deleted on plugin uninstall
+#: include/BlogAlias/Admin/NetworkAdmin.php:321
 msgid "%d Alias Domain will be deleted."
 msgid_plural "%d Alias Domains will be deleted."
 msgstr[0] "%d Alias-Domain wird gelöscht."
 msgstr[1] "%d Alias-Domains werden gelöscht."
 
-#: include/BlogAlias/Admin/NetworkAdmin.php:204
+#: include/BlogAlias/Admin/NetworkAdmin.php:329
 msgid "No, back to plugins"
 msgstr "Nein, zurück zu den Plugins"
 
-#: include/BlogAlias/Admin/NetworkAdmin.php:205
+#: include/BlogAlias/Admin/NetworkAdmin.php:332
 msgid "Yes, Uninstall now!"
 msgstr "Ja, Deinstallation durchführen!"
 
-#: include/BlogAlias/Admin/NetworkAdmin.php:369
+#: include/BlogAlias/Admin/NetworkAdmin.php:491
 msgid "Alias Domains"
 msgstr "Alias Domains"
 
-#: include/BlogAlias/Admin/NetworkAdmin.php:445
+#: include/BlogAlias/Admin/NetworkAdmin.php:588
 msgid "Not Configured:"
 msgstr "Nicht konfiguriert:"
 
 #. Translators: link to setup page
-#: include/BlogAlias/Admin/NetworkAdmin.php:448
+#: include/BlogAlias/Admin/NetworkAdmin.php:591
 msgid ""
 "Multisite Blog Alias is not configured. Please visit %s for instructions."
 msgstr ""
 "Multisite Blog Alias ist noch nicht fertig eingerichtet. Bitte besuche %s "
 "für eine Anleitung."
 
-#: include/BlogAlias/Admin/NetworkAdmin.php:452
+#: include/BlogAlias/Admin/NetworkAdmin.php:595
 msgid "the setup page"
 msgstr "die Einrichtungs-Seite"
 
-#: include/BlogAlias/Admin/NetworkAdmin.php:461
+#: include/BlogAlias/Admin/NetworkAdmin.php:604
 msgid "Alias created"
 msgstr "Alias erstellt"
 
 #. translators: number of deleted entries
-#: include/BlogAlias/Admin/NetworkAdmin.php:464
+#: include/BlogAlias/Admin/NetworkAdmin.php:609
 msgid "%d entry deleted"
 msgid_plural "%d entries deleted"
 msgstr[0] "%d Eintrag gelöscht"
 msgstr[1] "%d Einträge gelöscht"
 
-#: include/BlogAlias/Admin/NetworkAdmin.php:467
-msgid "The Alias already exists."
-msgstr "Das Alias existiert bereits."
-
-#: include/BlogAlias/Admin/NetworkAdmin.php:468
-msgid "Invalid domain name"
-msgstr "Ungültiger Domain-Name"
-
-#: include/BlogAlias/Admin/NetworkAdmin.php:469
-msgid "Deletion failed"
-msgstr "Löschen fehlgeschlagen"
-
-#: include/BlogAlias/Admin/NetworkAdmin.php:470
-msgid "A different Blog is already using this domain."
-msgstr "Ein anderer Blog nutzt diese Domain bereits."
-
-#: include/BlogAlias/Admin/NetworkAdmin.php:471
-msgid "Something went wrong..."
-msgstr "Etwas ist schief gelaufen..."
-
-#: include/BlogAlias/Admin/NetworkAdmin.php:474
-msgid "Error:"
-msgstr "Fehler:"
-
-#: include/BlogAlias/Admin/NetworkAdmin.php:481
-msgid "Visit other Blog"
-msgstr "Anderen Blog ansehen"
-
-#: include/BlogAlias/Admin/NetworkAdmin.php:492
+#: include/BlogAlias/Admin/NetworkAdmin.php:621
 msgid "Notice:"
 msgstr "Achtung:"
 
-#: include/BlogAlias/Admin/NetworkAdmin.php:493
-#: include/BlogAlias/Model/ModelAliasDomains.php:76
+#: include/BlogAlias/Admin/NetworkAdmin.php:622
+#: include/BlogAlias/Model/AliasDomains.php:332
 msgid "The domain matches the site URL of this blog."
 msgstr "Die Domain entspricht der URL dieses Blogs."
 
-#: include/BlogAlias/Admin/NetworkAdmin.php:525
+#: include/BlogAlias/Admin/NetworkAdmin.php:626
+msgid "Error:"
+msgstr "Fehler:"
+
+#: include/BlogAlias/Admin/NetworkAdmin.php:681
 msgid "Add Domain Alias"
 msgstr "Neues Domain Alias"
 
-#: include/BlogAlias/Admin/NetworkAdmin.php:536
+#: include/BlogAlias/Admin/NetworkAdmin.php:694
 msgid "Add"
 msgstr "Hinzufügen"
 
-#: include/BlogAlias/Admin/NetworkAdmin.php:543
+#: include/BlogAlias/Admin/NetworkAdmin.php:702
 msgid "Domain Aliases"
 msgstr "Domain Aliase"
 
-#: include/BlogAlias/Admin/NetworkAdmin.php:547
+#: include/BlogAlias/Admin/NetworkAdmin.php:707
 msgid "– No Domain Aliases –"
 msgstr "– Keine Domain Aliase –"
 
-#: include/BlogAlias/Admin/NetworkAdmin.php:555
+#: include/BlogAlias/Admin/NetworkAdmin.php:714
 msgid "Alias Domain"
 msgstr "Alias Domain"
 
-#: include/BlogAlias/Admin/NetworkAdmin.php:556
+#: include/BlogAlias/Admin/NetworkAdmin.php:715
 msgid "Status"
 msgstr "Status"
 
-#: include/BlogAlias/Admin/NetworkAdmin.php:584
+#: include/BlogAlias/Admin/NetworkAdmin.php:749
 msgid "Remove"
 msgstr "Entfernen"
 
-#: include/BlogAlias/Admin/NetworkAdmin.php:601
+#: include/BlogAlias/Admin/NetworkAdmin.php:764
 msgid "Check Status"
 msgstr "Status prüfen"
 
-#: include/BlogAlias/Admin/NetworkAdmin.php:603
+#: include/BlogAlias/Admin/NetworkAdmin.php:767
 msgid "Remove All"
 msgstr "Alle Entfernen"
 
-#: include/BlogAlias/Model/ModelAliasDomains.php:60
+#: include/BlogAlias/Ajax/AjaxHandler.php:155
+msgid "Nonce invalid"
+msgstr ""
+
+#: include/BlogAlias/Ajax/AjaxHandler.php:163
+msgid "Insufficient Permission"
+msgstr ""
+
+#: include/BlogAlias/Core/Sunrise.php:135
+msgid "Error writing sunrise.php"
+msgstr ""
+
+#: include/BlogAlias/Helper/URL.php:112
+msgid "Circular Redirect."
+msgstr "Endlosschleife in den Weiterleitungen."
+
+#. translators: nubmer of redirects
+#: include/BlogAlias/Helper/URL.php:122
+msgid "Maximum number of %d Redirects reached"
+msgstr "Die Höchstzahl von Weiterleitungen (%d) wurde überschritten."
+
+#: include/BlogAlias/Helper/URL.php:133
+msgid "The domain or a redirect does not point to this blog."
+msgstr "Die Domain oder eine Weiterleitung zeigen nicht auf diesen Blog."
+
+#: include/BlogAlias/Model/AliasDomains.php:68
+msgid "Blog does not exists."
+msgstr "Der Blog existiert nicht."
+
+#: include/BlogAlias/Model/AliasDomains.php:72
+msgid "The Alias already exists."
+msgstr "Das Alias existiert bereits."
+
+#: include/BlogAlias/Model/AliasDomains.php:75
+msgid "A different Blog is already using this domain."
+msgstr "Ein anderer Blog nutzt diese Domain bereits."
+
+#: include/BlogAlias/Model/AliasDomains.php:84
+msgid "Visit other Blog"
+msgstr "Anderen Blog ansehen"
+
+#: include/BlogAlias/Model/AliasDomains.php:92
+msgid "Empty domain name"
+msgstr "Leerer Domainname"
+
+#: include/BlogAlias/Model/AliasDomains.php:95
+msgid "Invalid domain name"
+msgstr "Ungültiger Domain-Name"
+
+#: include/BlogAlias/Model/AliasDomains.php:98
+msgid "Deletion failed"
+msgstr "Löschen fehlgeschlagen"
+
+#: include/BlogAlias/Model/AliasDomains.php:101
+msgid "Something went wrong..."
+msgstr "Etwas ist schief gelaufen..."
+
+#: include/BlogAlias/Model/AliasDomains.php:315
 msgid "Domain alias not found."
 msgstr "Domain alias nicht gefunden."
 
-#: include/BlogAlias/Model/ModelAliasDomains.php:69
+#: include/BlogAlias/Model/AliasDomains.php:324
 msgid "WP-Site for this alias could not be found."
 msgstr "Konnte keine WP-Site für dieses Alias finden."
 
-#: include/BlogAlias/Model/ModelAliasDomains.php:74
+#: include/BlogAlias/Model/AliasDomains.php:330
 msgid "The domain is already used by another site."
 msgstr "Die Domain wird schon von einer anderen Site genutzt."
 
-#: include/BlogAlias/Model/ModelAliasDomains.php:92
-msgid "The domain is unreachable."
-msgstr "Die Domain ist unerreichbar."
+#: index.php:68
+msgid ""
+"The Multisite Blog Alias plugin requires a WordPress multisite installation."
+msgstr "Das Plugin Multisite Blog Alias benötigt eine Multisite-Installation."
 
-#: include/BlogAlias/Model/ModelAliasDomains.php:99
-msgid "The domain or a redirect does not point to this blog."
-msgstr "Die Domain oder eine Weiterleitung zeigen nicht auf diesen Blog."
+#: index.php:69
+msgid "It has been deactivated."
+msgstr "Es wurde deaktiviert."
+
+#~ msgid "Error message:"
+#~ msgstr "Fehlermeldung:"
+
+#~ msgid "Last Redirect to:"
+#~ msgstr "Letzte Weiterleitung:"
+
+#~ msgid "The domain is unreachable."
+#~ msgstr "Die Domain ist unerreichbar."
 
 #~ msgid "Error during delete"
 #~ msgstr "Fehler während des Löschens"
@@ -279,9 +342,9 @@ msgstr "Die Domain oder eine Weiterleitung zeigen nicht auf diesen Blog."
 
 #~ msgctxt "1: ACF Pro URL, 2: plugins page url"
 #~ msgid ""
-#~ "The ACF Duplicate Repeater plugin only provies support for <a href=\"%1$s"
-#~ "\">ACF Pro</a>. You can disable and uninstall it on the <a href=\"%2$s"
-#~ "\">plugins page</a>."
+#~ "The ACF Duplicate Repeater plugin only provies support for <a "
+#~ "href=\"%1$s\">ACF Pro</a>. You can disable and uninstall it on the <a "
+#~ "href=\"%2$s\">plugins page</a>."
 #~ msgstr ""
 #~ "Das ACF Duplicate Repeater Plugin unterstützt nur <a href=\"%1$s\">ACF "
 #~ "Pro</a>. Du kannst es auf der <a href=\"%2$s\">plugins page</a> "

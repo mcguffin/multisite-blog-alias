@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "gulp dev",
     "build": "gulp build && npm run i18n",
-    "i18n": "node src/run/json-i18n.js multisite-blog-alias",
+    "i18n": "wp i18n make-pot . languages/multisite-blog-alias-cli.pot --domain=multisite-blog-alias-cli && wp i18n make-pot . languages/multisite-blog-alias.pot --domain=multisite-blog-alias",
     "rollback": "git reset --hard HEAD~ && git push origin +master",
     "dashicons": "node ./src/run/dashicons.js",
     "audit": "./vendor/squizlabs/php_codesniffer/bin/phpcs . --report=code --standard=./phpcs-security.ruleset.xml -n -s > ./phpcs-report.txt || exit 0",

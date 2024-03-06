@@ -141,19 +141,19 @@ class Ajax extends Core\Singleton {
 			if ( $result->success ) {
 				$message_class = 'success';
 				$messages = [
-					esc_html__( 'Redirects are working.', 'wpmu-blog-alias' )
+					esc_html__( 'Redirects are working.', 'multisite-blog-alias' )
 				];
 
 				if ( ! $ssl_status ) {
 					$message_class = 'notice-warning';
 					$messages[] = sprintf(
 						/* translators: lock symbol */
-						esc_html__( 'However there are problems with your SSL-Certificates indicated by a red %s in the report above.', 'wpmu-blog-alias' ),
+						esc_html__( 'However there are problems with your SSL-Certificates indicated by a red %s in the report above.', 'multisite-blog-alias' ),
 						'<span class="dashicons dashicons-lock error"></span>'
 					);
 				}
 				if ( ! $redirect_status ) {
-					$messages[] = esc_html__( 'Some of the redirects (the gray ones) are not triggered by this system.', 'wpmu-blog-alias' );
+					$messages[] = esc_html__( 'Some of the redirects (the gray ones) are not triggered by this system.', 'multisite-blog-alias' );
 				}
 				printf(
 					'<div class="notice %1$s inline">%2$s</div>',

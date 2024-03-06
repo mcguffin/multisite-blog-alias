@@ -106,7 +106,6 @@ class URL {
 
 		while ( true ) {
 
-
 			if ( isset( $result->report[$location] ) ) {
 				$result->report[$location]->redirect = false;
 				$result->report[$location]->error = new \WP_Error( 'redirect-inifinite', __( 'Circular Redirect.', 'multisite-blog-alias' ) );
@@ -118,6 +117,7 @@ class URL {
 			$result->report[$location] = $tested;
 
 			if ( $count >= $max_redirect ) {
+				/* translators: number of redirects */
 				$result->report[$location]->error = new \WP_Error( 'redirect-max_exceeded', sprintf( __( 'Maximum number of %d Redirects reached', 'multisite-blog-alias' ), $max_redirect ) );
 			}
 
