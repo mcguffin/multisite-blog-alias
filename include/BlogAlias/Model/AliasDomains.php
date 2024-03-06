@@ -322,7 +322,7 @@ class AliasDomains extends Model {
 			}
 		}
 
-		$site = get_site_by_path( $alias->domain_alias, '/' );
+		$site     = get_site_by_path( $alias->domain_alias, '/' );
 
 		$site_url = get_blog_option( $alias->blog_id, 'siteurl' );
 
@@ -341,6 +341,7 @@ class AliasDomains extends Model {
 
 		// 2. + 3. Test redirects
 		$site_url = trailingslashit( $site_url );
+		$site_url = set_url_scheme( $site_url );
 		$location = trailingslashit( "http://{$alias->domain_alias}" );
 		$location = set_url_scheme( $location );
 
@@ -352,26 +353,25 @@ class AliasDomains extends Model {
 				'sslverify'     => false,
 			] );
 			if ( is_wp_error( $response ) ) {
-/*
-Curl SSL Error Codes
-35 SSL_CONNECT_ERROR
-51 PEER_FAILED_VERIFICATION
-53 SSL_ENGINE_NOTFOUND
-54 SSL_ENGINE_SETFAILED
-58 SSL_CERTPROBLEM
-59 SSL_CIPHER
-60 SSL_CACERT
-64 USE_SSL_FAILED
-66 SSL_ENGINE_INITFAILED
-77 SSL_CACERT_BADFILE
-80 SSL_SHUTDOWN_FAILED
-82 SSL_CRL_BADFILE
-83 SSL_ISSUER_ERROR
-90 SSL_PINNEDPUBKEYNOTMATCH
-91 SSL_INVALIDCERTSTATUS
-*/
+				/*
+				Curl SSL Error Codes
+				35 SSL_CONNECT_ERROR
+				51 PEER_FAILED_VERIFICATION
+				53 SSL_ENGINE_NOTFOUND
+				54 SSL_ENGINE_SETFAILED
+				58 SSL_CERTPROBLEM
+				59 SSL_CIPHER
+				60 SSL_CACERT
+				64 USE_SSL_FAILED
+				66 SSL_ENGINE_INITFAILED
+				77 SSL_CACERT_BADFILE
+				80 SSL_SHUTDOWN_FAILED
+				82 SSL_CRL_BADFILE
+				83 SSL_ISSUER_ERROR
+				90 SSL_PINNEDPUBKEYNOTMATCH
+				91 SSL_INVALIDCERTSTATUS
+				*/
 				return new \WP_Error( 'redirect-http_error', __( 'The domain is unreachable.', 'multisite-blog-alias' ), $response );
-
 			}
 
 			// 3. Redirect correct?
