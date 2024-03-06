@@ -757,9 +757,7 @@ echo esc_textarea( $sunrise->code );
 					</tbody>
 					<tfoot>
 						<tr>
-							<th></th>
-							<th class="status"></th>
-							<th class="action-links">
+							<th colspan="3" class="action-links">
 								<form method="post" action="admin.php?action=alias-domain-remove-all">
 									<?php wp_nonce_field( 'alias-domain-remove-all' ); ?>
 									<a href="#" data-action="check-alias-status" class="button">
