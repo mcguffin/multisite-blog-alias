@@ -4,7 +4,7 @@ Donate link: https://donate.unhcr.org/
 Tags: network, redirect, multisite, domain
 Requires at least: 4.8
 Requires PHP: 5.6
-Tested up to: 6.3
+Tested up to: 6.5
 Stable tag: 1.1.9
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
@@ -82,21 +82,21 @@ The plugin introduces two functions allowing you to add / remove a domain aliase
 
     $result = alias_domain_add( $blog_id, 'quux.foobar.tld' );
     if ( is_wp_error( $result ) ) {
-        // handle eerror
+        // handle error
     }
 
 **Remove specific Domain alias**
 
     $result = alias_domain_remove_by( 'domain_alias', 'quux.foobar.tld' );
     if ( is_wp_error( $result ) ) {
-        // handle eerror
+        // handle error
     }
 
 **Remove Domain aliases for a specific blog**
 
     $result = alias_domain_remove_by( 'blog_id', 123 );
     if ( is_wp_error( $result ) ) {
-        // handle eerror
+        // handle error
     }
 
 ## Development
@@ -138,7 +138,7 @@ If my little piece of software was able to help you, please consider helping oth
 
 
 == Screenshots ==
-1. Network admin - Edit site
+1. Network admin - Edit site. I completely messed up a few webservers to run the last test in the list!
 
 == Upgrade Notice ==
 
@@ -146,9 +146,11 @@ On the whole upgrading is always a good idea.
 
 == Changelog ==
 
-= 1.1.10 =
- - Introduce PHP API
+= 1.2.0 =
+ - Status Check: Test SSL status and show redirects
+ - Introduce PHP functions `alias_domain_add()` and `alias_domain_remove_by()`
  - CLI: Introduce site_id parameter
+ - Refactor: Error messages
 
 = 1.1.9 =
  - Fix: PHP 8.2 deprecation notices
