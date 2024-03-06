@@ -76,13 +76,14 @@ class AliasDomains extends Model {
 			}
 
 			if ( is_object( $error_data ) && isset( $error_data->blog_id ) ) {
+				$blog_id = (int) $error_data->blog_id;
 				if ( defined( 'WP_CLI' ) ) {
-					$error_message .= sprintf( __(' Other blog ID: %d'), $error_data->blog_id );
+					$error_message .= sprintf( __(' Other blog ID: %d'), $blog_id );
 				} else {
 					$error_message .= sprintf( ' <a href="%s">%s</a> | <a href="%s">%s</a>',
-						esc_url( get_site_url( $error_data->blog_id ) ),
+						esc_url( get_site_url( $blog_id ) ),
 						__( 'Visit other Blog', 'multisite-blog-alias' ),
-						esc_url( network_admin_url( 'site-info.php?id=' . $error_data->blog_id ) ),
+						esc_url( network_admin_url( 'site-info.php?id=' . $blog_id ) ),
 						__( 'Edit', 'multisite-blog-alias' )
 					);
 				}
@@ -308,7 +309,7 @@ class AliasDomains extends Model {
 	 *  @param int|stdClass $alias Alias domain
 	 *  @return boolean|WP_Error
 	 */
-	public function check_status( $alias, $verify_ssl = false ) {
+	public function check_status( $alias ) {
 		if ( is_numeric( $alias ) ) {
 			$alias = $this->fetch_one_by( 'ID', $alias );
 			if ( ! $alias ) {
@@ -335,7 +336,7 @@ class AliasDomains extends Model {
 
 		// 2. + 3. Test redirects
 		$site_url = trailingslashit( $site_url );
-		$result = Helper\URL::test_redirect( trailingslashit( "http://{$alias->domain_alias}" ), $site_url, $verify_ssl );
+		$result = Helper\URL::test_redirect( trailingslashit( "http://{$alias->domain_alias}" ), $site_url );
 
 		return $result;
 
@@ -389,7 +390,7 @@ class AliasDomains extends Model {
 		$created_row = $wpdb->get_row("DESCRIBE {$wpdb->alias_domains} `created`");
 		if ( ! in_array( strtolower( $created_row->Default ), [ 'current_timestamp', 'current_timestamp()' ] ) ) {
 			$sql = "ALTER TABLE {$wpdb->alias_domains} ALTER `created` SET DEFAULT current_timestamp()";
-			$wpdb->query( $sql );
+			$wpdb->query( $sql ); // phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared
 		}
 	}
 }

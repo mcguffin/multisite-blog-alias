@@ -553,7 +553,7 @@ echo esc_textarea( $sunrise->code );
 			->enqueue();
 
 		if ( $page_title !== false ) {
-			$title = $page_title;
+			$title = $page_title; // phpcs:ignore WordPress.WP.GlobalVariablesOverride.Prohibited
 		}
 
 		require ABSPATH . 'wp-admin/admin-header.php';
@@ -612,11 +612,14 @@ echo esc_textarea( $sunrise->code );
 
 			$model = Model\AliasDomains::instance();
 
-			$error_code = wp_unslash( $_GET['error'] );
-			$error_data = json_decode( wp_unslash( $_GET['error_data'] ) );
+			$error_code = sanitize_text_field( wp_unslash( $_GET['error'] ));
+			$error_data = null;
+			if ( isset( $_GET['error_data'] ) ) {
+				$error_data = json_decode( wp_unslash( $_GET['error_data'] ) ); // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
+			}
 
 			$error = $model->get_error( $error_code, $error_data );
-			if ( ( $data = $error->get_error_data() ) && isset( $_GET['id'] ) && (int) $data->blog_id === (int) wp_unslash( $_GET['id'] ) ) {
+			if ( ( $data = $error->get_error_data() ) && isset( $_GET['id'] ) && (int) $data->blog_id === (int) wp_unslash( $_GET['id'] ) ) { // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
 				$messages['notice-warning'] = sprintf( '<strong>%1$s</strong> %2$s',
 					__( 'Notice:', 'multisite-blog-alias' ),
 					__( 'The domain matches the site URL of this blog.', 'multisite-blog-alias' )

@@ -157,11 +157,11 @@ class Ajax extends Core\Singleton {
 				}
 				printf(
 					'<div class="notice %1$s inline">%2$s</div>',
-					$message_class,
-					implode( '<br />', $messages )
+					sanitize_html_class( $message_class ),
+					wp_kses_post( implode( '<br />', $messages ) )
 				);
 			} else {
-				echo $errors;
+				echo wp_kses_post( $errors );
 			}
 		}
 

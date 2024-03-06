@@ -31,7 +31,7 @@ function __autoload( $class ) {
 	if ( file_exists( $file ) ) {
 		require_once $file;
 	} else {
-		throw new \Exception( sprintf( 'Class `%s` could not be loaded. File `%s` not found.', $class, $file ) );
+		throw new \Exception( sprintf( 'Class `%s` could not be loaded. File `%s` not found.', esc_html( $class ), esc_html( $file ) ) );
 	}
 }
 

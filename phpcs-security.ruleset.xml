@@ -21,7 +21,6 @@
 	<rule ref="WordPress.NamingConventions.PrefixAllGlobals"/>
 	<rule ref="WordPress.PHP">
 		<!-- omit non security sniffs -->
-		<exclude name="WordPress.PHP.DisallowShortTernary"/>
 		<exclude name="WordPress.PHP.DontExtract"/>
 		<exclude name="WordPress.PHP.YodaConditions"/>
 	</rule>
@@ -30,7 +29,6 @@
 	<rule ref="WordPress.Utils">
 	</rule>
 	<rule ref="WordPress.WP">
-		<exclude name="WordPress.WP.TimezoneChange"/>
 		<exclude name="WordPress.WP.I18n.MixedOrderedPlaceholders"/>
 		<exclude name="WordPress.WP.I18n.UnorderedPlaceholders"/>
 		<exclude name="WordPress.WP.I18n.NonSingularStringLiteralText"/>

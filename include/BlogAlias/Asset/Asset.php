@@ -150,7 +150,7 @@ class Asset {
 			}
 		}
 		if ( defined('WP_DEBUG') && WP_DEBUG ) {
-			throw new \Exception( sprintf( 'Couldn\'t locate %s', $this->asset ) );
+			throw new \Exception( sprintf( 'Couldn\'t locate %s', esc_html( $this->asset ) ) );
 		}
 	}
 
