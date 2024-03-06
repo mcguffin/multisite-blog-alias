@@ -40,16 +40,16 @@ class Ajax extends Core\Singleton {
 		$model = Model\AliasDomains::instance();
 
 		// occupied by another domain...
-		$status = $model->check_status( $args['alias_id'] );
+		$result = $model->check_status( $args['alias_id'] );
 
-		if ( is_wp_error( $status ) ) {
-			$code = $status->get_error_code();
+		if ( is_wp_error( $result ) ) {
+			$code = $result->get_error_code();
 
 			if ( $code === 'usedby-self' ) {
 				?>
 				<div class="notice notice-warning inline">
 					<p><strong>
-						<?php esc_html_e( $status->get_error_message() ); ?>
+						<?php esc_html_e( $result->get_error_message() ); ?>
 					</strong></p>
 				</div>
 				<?php
@@ -58,11 +58,11 @@ class Ajax extends Core\Singleton {
 				<div class="notice error inline">
 					<p>
 						<strong>
-							<?php esc_html_e( $status->get_error_message() ); ?>
+							<?php esc_html_e( $result->get_error_message() ); ?>
 						</strong>
 						<?php
 
-							$data = $status->get_error_data( $code );
+							$data = $result->get_error_data( $code );
 
 							if ( $code === 'usedby-ms_site' ) {
 								echo ' ';
@@ -75,19 +75,6 @@ class Ajax extends Core\Singleton {
 									esc_url( get_site_url( $data->blog_id ) ),
 									esc_html__( 'View', 'multisite-blog-alias' )
 								);
-							} elseif ( $code === 'redirect-http_error' ) {
-								printf(
-									'<br />%s <code>%s</code>',
-									esc_html__( 'Error message:', 'multisite-blog-alias' ),
-									esc_html( $data->get_error_message() )
-								);
-
-							} elseif ( $code === 'redirect-target_invalid' ) {
-								//
-								printf( '<br />%1$s <a href="%2$s" rel="noopener noreferrer" target="_blank">%2$s</a>',
-									esc_html__( 'Last Redirect to:', 'multisite-blog-alias' ),
-									esc_url( $data )
-								);
 							}
 
 						?>
@@ -97,9 +84,86 @@ class Ajax extends Core\Singleton {
 
 			}
 		} else {
-			echo '<span class="success dashicons dashicons-yes"></span>';
-		}
+			$errors          = '';
+			$ssl_status      = true;
+			$redirect_status = true;
 
+			?><ul class="muba-result-list"><?php
+
+			foreach ( $result->report as $item ) {
+
+				$ssl_status      &= $item->ssl_status;
+				$redirect_status &= ! $item->redirect || WPMS_BLOG_ALIAS_REDIRECT_BY === $item->redirect_by;
+
+				printf(
+					'<li class="%1$s %2$s">',
+					$item->redirect
+						? 'url-redirect'
+						: 'url-final',
+					WPMS_BLOG_ALIAS_REDIRECT_BY !== $item->redirect_by
+						? 'external-redirect'
+						: 'internal-redirect'
+				);
+
+				printf(
+					'<span class="url source"><span class="dashicons dashicons-%1$s %2$s"></span>%3$s</span>',
+					$item->is_ssl
+						? 'lock'
+						: 'unlock',
+					$item->ssl_status
+						? ($item->is_ssl ? 'success' : 'none')
+						: 'error',
+					esc_html( $item->url )
+				);
+
+
+				if ( $item->redirect ) {
+
+				} else {
+					printf(
+						'<span class="dashicons dashicons-%1$s"></span>',
+						! is_wp_error( $item->error )
+							? 'yes success'
+							: 'no error'
+					);
+				}
+
+				if ( is_wp_error( $item->error ) ) {
+					$errors .= sprintf('<div class="notice error inline">%s</div>', esc_html( $item->error->get_error_message() ) );
+				}
+
+				?></li><?php
+			}
+
+			?></ul>
+			<?php
+
+			if ( $result->success ) {
+				$message_class = 'success';
+				$messages = [
+					esc_html__( 'Redirects are working.', 'wpmu-blog-alias' )
+				];
+
+				if ( ! $ssl_status ) {
+					$message_class = 'notice-warning';
+					$messages[] = sprintf(
+						/* translators: lock symbol */
+						esc_html__( 'However there are problems with your SSL-Certificates indicated by a red %s in the report above.', 'wpmu-blog-alias' ),
+						'<span class="dashicons dashicons-lock error"></span>'
+					);
+				}
+				if ( ! $redirect_status ) {
+					$messages[] = esc_html__( 'Some of the redirects (the gray ones) are not triggered by this system.', 'wpmu-blog-alias' );
+				}
+				printf(
+					'<div class="notice %1$s inline">%2$s</div>',
+					$message_class,
+					implode( '<br />', $messages )
+				);
+			} else {
+				echo $errors;
+			}
+		}
 
 		// print
 		exit();

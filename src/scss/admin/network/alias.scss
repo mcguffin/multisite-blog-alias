@@ -2,13 +2,13 @@
 @import '../../variables/index';
 
 .card-warning {
-	border-left: 4px solid $wp-yellow;
+	border-left: 4px solid wp-color(yellow-50);
 }
 
 .domain-status-list-table {
 	th,td {
 		&.status {
-			width:40%;
+			width:60%;
 			display:none;
 			.spinner {
 				float:none;
@@ -26,19 +26,50 @@
 	.dashicons {
 		&.error,
 		&.warning,
-		&.success {
-			font-size:24px;
+		&.success,
+		&.none {
+			// font-size:24px;
 			width:auto;
 			height:auto;
 		}
 		&.error {
-			color:$wp-red;
+			color: wp-color(red-50);
 		}
 		&.warning {
-			color:$wp-yellow;
+			color: wp-color(yellow-50);
 		}
 		&.success {
-			color:$wp-green;
+			color: wp-color(green-50);
 		}
+		&.none {
+			color: wp-color(gray-40);
+		}
+	}
+	.status-error {
+
+	}
+}
+.muba-result-list {
+	display: flex;
+	flex-wrap: wrap;
+	li {
+		display: flex;
+		white-space: nowrap;
+		overflow: hidden;
+		grid-gap: 0.5em;
+		flex-wrap: wrap;
+		&.url-redirect {
+			&.external-redirect {
+				color: wp-color(gray-40);
+			}
+			&:after {
+				font-family: dashicons;
+				content: $dashicon-arrow-right;
+				font-size: 20px;
+			}
+		}
+	}
+	.notice {
+		flex-basis: 100%;
 	}
 }

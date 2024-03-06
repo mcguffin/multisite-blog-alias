@@ -354,13 +354,28 @@ class AliasDomain extends Core\Singleton {
      * default: ''
 	 * ---
 	 *
-	 * [--compact[=<compact>]]
-	 * : Just print the ID
+	 * [--verifyssl]
+	 * : Check for valid SSL certificates
 	 * ---
 	 * default: 0
-	 * options:
-	 *   - 0
-	 *   - 1
+	 * ---
+	 *
+	 * [--compact]
+	 * : Just print basic information
+	 * ---
+	 * default: 0
+	 * ---
+	 *
+	 * [--quiet]
+	 * : be quiet
+	 * ---
+	 * default: 0
+	 * ---
+	 *
+	 * [--report]
+	 * : Print redirect report
+	 * ---
+	 * default: 0
 	 * ---
 	 *
 	 * ## EXAMPLES
@@ -378,9 +393,11 @@ class AliasDomain extends Core\Singleton {
 	 public function test( $args, $kwargs ) {
 
  		$kwargs = wp_parse_args( $kwargs, [
- 			'compact' => false,
+ 			'compact'   => false,
+			'report'    => false,
  		] );
 		extract( $kwargs );
+
 		if ( ! $id && empty( $domain_alias ) ) {
 			\WP_CLI::error( __( 'Must specify either `id` or `domain_alias` to test', 'multisite-blog-alias-cli' ) );
 		}
@@ -394,6 +411,7 @@ class AliasDomain extends Core\Singleton {
 				} else {
 					\WP_CLI::error( sprintf(__( 'Domain Alias %s does not exist', 'multisite-blog-alias-cli' ), $domain_alias ) );
 				}
+				exit(1);
 			}
 		} else if ( $id ) {
 			if ( ! $record = $this->model->fetch_one_by( 'id', $id ) ) {
@@ -404,24 +422,55 @@ class AliasDomain extends Core\Singleton {
 				} else {
 					\WP_CLI::error( sprintf(__( 'Domain Alias with ID %d does not exist', 'multisite-blog-alias-cli' ), $id ) );
 				}
+				exit(1);
 			}
 			$where['id'] = $id;
 		}
 
 		$result = $this->model->check_status( $record );
 
-		if ( true === $result ) {
+		if ( $report ) {
+			$report_items = array_map( function( $item ) {
+					return [
+						'URL'      => $item->url,
+						'Redirect' => (string) $item->redirect,
+						'By'       => (string) $item->redirect_by,
+						'SSL'      => $item->is_ssl && $item->ssl_status
+							? 'ok'
+							: (
+								$item->is_ssl
+									? 'error'
+									: '-'
+							),
+						'Status'   => is_wp_error($item->error)
+							? $item->error->get_error_code()
+							: 'ok',
+					];
+				},
+				$result->report
+			);
+
+			$formatter = new Formatter( $assoc_args, array_values( array_filter( ['URL', 'Redirect', 'By', 'SSL', 'Status' ] ) ) );
+			$formatter->display_items( $report_items );
+		}
+
+		if ( true === $result->success ) {
 			if ( $compact ) {
 				\WP_CLI::line('ok');
 			} else {
 				\WP_CLI::success( __('OK', 'multisite-blog-alias-cli' ));
 			}
-		} else if ( is_wp_error( $result ) ) {
+		} else if ( ! $report ) {
+			$errors = array_filter( $result->report, function( $item ) {
+				return is_wp_error($item->error);
+			} );
+			$error_item = $result->report[ array_key_first( $errors ) ];
 			if ( $compact ) {
-				\WP_CLI::line($result->get_error_code());
+				\WP_CLI::line($error_item->error->get_error_code());
 			} else {
-				\WP_CLI::error($result->get_error_message());
+				\WP_CLI::error($error_item->error->get_error_message());
 			}
+			exit(1);
 		}
 	}
 }
