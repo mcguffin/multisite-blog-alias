@@ -117,9 +117,7 @@ class Ajax extends Core\Singleton {
 				);
 
 
-				if ( $item->redirect ) {
-
-				} else {
+				if ( ! $item->redirect ) {
 					printf(
 						'<span class="dashicons dashicons-%1$s"></span>',
 						! is_wp_error( $item->error )
@@ -139,7 +137,7 @@ class Ajax extends Core\Singleton {
 			<?php
 
 			if ( $result->success ) {
-				$message_class = 'success';
+				$message_class = 'notice-success';
 				$messages = [
 					esc_html__( 'Redirects are working.', 'multisite-blog-alias' )
 				];
