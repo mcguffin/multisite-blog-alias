@@ -125,6 +125,22 @@ class NetworkAdmin extends Core\Singleton {
 					?>
 				</td>
 			</tr>
+			<tr valign="top">
+				<th scope="row">
+					<label for="blog_alias_redirect_wp_admin_opt">
+						<?php esc_html_e( 'Redirect wp-admin', 'multisite-blog-alias' ); ?>
+					</label>
+				</th>
+				<td>
+					<input type="checkbox" name="blog_alias_redirect_wp_admin" id="blog_alias_redirect_wp_admin_opt" value="1" <?php checked( get_site_option( 'blog_alias_redirect_wp_admin' ), 1, true ); ?> />
+					<label for="blog_alias_redirect_wp_admin_opt">
+						<?php esc_html_e( 'Redirect Admin Path', 'multisite-blog-alias' ); ?>
+					</label>
+					<p class="description">
+						<?php esc_html_e( 'If checked wp-login.php and wp-admin/ paths request path will be appended to the redirect URL.', 'multisite-blog-alias' ); ?>
+					</p>
+				</td>
+			</tr>
 		</table>
 		<?php
 	}
@@ -136,13 +152,18 @@ class NetworkAdmin extends Core\Singleton {
 
 		check_admin_referer( 'siteoptions' );
 
-		$with_path = 0;
+		$with_path       = 0;
+		$with_admin_path = 0;
 
 		if ( isset( $_POST['blog_alias_redirect_with_path'] ) ) {
 			$with_path = intval( $_POST['blog_alias_redirect_with_path'] );
 		}
+		if ( isset( $_POST['blog_alias_redirect_wp_admin'] ) ) {
+			$with_admin_path = intval( $_POST['blog_alias_redirect_wp_admin'] );
+		}
 
 		update_site_option( 'blog_alias_redirect_with_path', $with_path );
+		update_site_option( 'blog_alias_redirect_wp_admin', $with_admin_path );
 
 	}
 

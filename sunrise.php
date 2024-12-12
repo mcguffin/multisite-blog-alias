@@ -53,11 +53,16 @@ function blog_alias_site_not_found( $current_site, $domain, $path ) {
 			? WPMU_BLOG_ALIAS_REDIRECT_WITH_PATH
 			: get_site_option( 'blog_alias_redirect_with_path' );
 
-		if ( $add_path ) {
-			$redirect = untrailingslashit( $site_url ) . $path;
-		} else {
-			$redirect = trailingslashit( $site_url );
+		$add_admin_path = get_site_option( 'blog_alias_redirect_wp_admin' );
+
+		if ( $add_admin_path && preg_match( '/^\/wp-(admin\/|login\.php$)/', $_SERVER['REQUEST_URI'] ) ) {
+			// REQUEST_URI, SCRIPT_NAME, SCRIPT_URI, PHP_SELF
+			$path = $_SERVER['REQUEST_URI'];
+		} else if ( ! $add_path ) {
+			$path = '/';
 		}
+
+		$redirect = untrailingslashit( $site_url ) . $path;
 
 		http_response_code( 301 );
 		header( "X-Redirect-By: ".WPMS_BLOG_ALIAS_REDIRECT_BY );

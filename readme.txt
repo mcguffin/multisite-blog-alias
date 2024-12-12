@@ -4,7 +4,7 @@ Donate link: https://donate.unhcr.org/
 Tags: network, redirect, multisite, domain
 Requires at least: 4.8
 Requires PHP: 5.6
-Tested up to: 6.5
+Tested up to: 6.7
 Stable tag: 1.2.0
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
@@ -145,6 +145,9 @@ If my little piece of software was able to help you, please consider helping oth
 On the whole upgrading is always a good idea.
 
 == Changelog ==
+
+= 1.2.1 =
+ - New Option: Redirect /wp-admin/ and /wp-login.php
 
 = 1.2.0 =
  - Status Check: Test SSL status and show redirects
