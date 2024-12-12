@@ -2,16 +2,16 @@
 # This file is distributed under the GPL3.
 msgid ""
 msgstr ""
-"Project-Id-Version: Multisite Blog Alias 1.2.0\n"
+"Project-Id-Version: Multisite Blog Alias 1.2.1\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/multisite-blog-alias\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2024-03-06T15:20:57+00:00\n"
+"POT-Creation-Date: 2024-12-12T10:05:48+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"X-Generator: WP-CLI 2.10.0\n"
+"X-Generator: WP-CLI 2.11.0\n"
 "X-Domain: multisite-blog-alias\n"
 
 #. Plugin Name of the plugin
@@ -49,16 +49,16 @@ msgstr ""
 msgid "View"
 msgstr ""
 
-#: include/BlogAlias/Admin/Ajax.php:144
+#: include/BlogAlias/Admin/Ajax.php:142
 msgid "Redirects are working."
 msgstr ""
 
 #. translators: lock symbol
-#: include/BlogAlias/Admin/Ajax.php:151
+#: include/BlogAlias/Admin/Ajax.php:149
 msgid "However there are problems with your SSL-Certificates indicated by a red %s in the report above."
 msgstr ""
 
-#: include/BlogAlias/Admin/Ajax.php:156
+#: include/BlogAlias/Admin/Ajax.php:154
 msgid "Some of the redirects (the gray ones) are not triggered by this system."
 msgstr ""
 
@@ -76,141 +76,153 @@ msgstr ""
 msgid "This setting is overridden by the constant %1$s in your %2$s"
 msgstr ""
 
-#: include/BlogAlias/Admin/NetworkAdmin.php:164
+#: include/BlogAlias/Admin/NetworkAdmin.php:131
+msgid "Redirect wp-admin"
+msgstr ""
+
+#: include/BlogAlias/Admin/NetworkAdmin.php:137
+msgid "Redirect Admin Path"
+msgstr ""
+
+#: include/BlogAlias/Admin/NetworkAdmin.php:140
+msgid "If checked wp-login.php and wp-admin/ paths request path will be appended to the redirect URL."
+msgstr ""
+
+#: include/BlogAlias/Admin/NetworkAdmin.php:185
 msgid "Uninstall"
 msgstr ""
 
-#: include/BlogAlias/Admin/NetworkAdmin.php:177
+#: include/BlogAlias/Admin/NetworkAdmin.php:198
 msgid "Sorry, you are not allowed to install plugins."
 msgstr ""
 
-#: include/BlogAlias/Admin/NetworkAdmin.php:194
+#: include/BlogAlias/Admin/NetworkAdmin.php:215
 msgid "Multisite Blog Alias Setup"
 msgstr ""
 
-#: include/BlogAlias/Admin/NetworkAdmin.php:201
+#: include/BlogAlias/Admin/NetworkAdmin.php:222
 msgid "The plugin is well configured. The instructions are kept for documentation purposes."
 msgstr ""
 
-#: include/BlogAlias/Admin/NetworkAdmin.php:209
+#: include/BlogAlias/Admin/NetworkAdmin.php:230
 msgid "The plugin could not write to the filesystem."
 msgstr ""
 
-#: include/BlogAlias/Admin/NetworkAdmin.php:210
+#: include/BlogAlias/Admin/NetworkAdmin.php:231
 msgid "Please change the following."
 msgstr ""
 
 #. translators: sunrise.php file location
-#: include/BlogAlias/Admin/NetworkAdmin.php:247
+#: include/BlogAlias/Admin/NetworkAdmin.php:268
 msgid "Insert the following code into %s:"
 msgstr ""
 
 #. translators: sunrise.php file location
-#: include/BlogAlias/Admin/NetworkAdmin.php:253
+#: include/BlogAlias/Admin/NetworkAdmin.php:274
 msgid "Create a file %s with the following code:"
 msgstr ""
 
-#: include/BlogAlias/Admin/NetworkAdmin.php:288
+#: include/BlogAlias/Admin/NetworkAdmin.php:309
 msgid "Sorry, you are not allowed to run the uninstall procedere."
 msgstr ""
 
-#: include/BlogAlias/Admin/NetworkAdmin.php:309
+#: include/BlogAlias/Admin/NetworkAdmin.php:330
 msgid "Uninstall Plugin?"
 msgstr ""
 
-#: include/BlogAlias/Admin/NetworkAdmin.php:312
+#: include/BlogAlias/Admin/NetworkAdmin.php:333
 msgid "Uninstalling the plugin will remove the Blog Alias table from the database and deactivate the plugin."
 msgstr ""
 
 #. translators: number of domains being deleted on plugin uninstall
-#: include/BlogAlias/Admin/NetworkAdmin.php:321
+#: include/BlogAlias/Admin/NetworkAdmin.php:342
 msgid "%d Alias Domain will be deleted."
 msgid_plural "%d Alias Domains will be deleted."
 msgstr[0] ""
 msgstr[1] ""
 
-#: include/BlogAlias/Admin/NetworkAdmin.php:329
+#: include/BlogAlias/Admin/NetworkAdmin.php:350
 msgid "No, back to plugins"
 msgstr ""
 
-#: include/BlogAlias/Admin/NetworkAdmin.php:332
+#: include/BlogAlias/Admin/NetworkAdmin.php:353
 msgid "Yes, Uninstall now!"
 msgstr ""
 
-#: include/BlogAlias/Admin/NetworkAdmin.php:491
+#: include/BlogAlias/Admin/NetworkAdmin.php:512
 msgid "Alias Domains"
 msgstr ""
 
-#: include/BlogAlias/Admin/NetworkAdmin.php:588
+#: include/BlogAlias/Admin/NetworkAdmin.php:609
 msgid "Not Configured:"
 msgstr ""
 
 #. Translators: link to setup page
-#: include/BlogAlias/Admin/NetworkAdmin.php:591
+#: include/BlogAlias/Admin/NetworkAdmin.php:612
 msgid "Multisite Blog Alias is not configured. Please visit %s for instructions."
 msgstr ""
 
-#: include/BlogAlias/Admin/NetworkAdmin.php:595
+#: include/BlogAlias/Admin/NetworkAdmin.php:616
 msgid "the setup page"
 msgstr ""
 
-#: include/BlogAlias/Admin/NetworkAdmin.php:604
+#: include/BlogAlias/Admin/NetworkAdmin.php:625
 msgid "Alias created"
 msgstr ""
 
 #. translators: number of deleted entries
-#: include/BlogAlias/Admin/NetworkAdmin.php:609
+#: include/BlogAlias/Admin/NetworkAdmin.php:630
 msgid "%d entry deleted"
 msgid_plural "%d entries deleted"
 msgstr[0] ""
 msgstr[1] ""
 
-#: include/BlogAlias/Admin/NetworkAdmin.php:624
+#: include/BlogAlias/Admin/NetworkAdmin.php:645
 msgid "Notice:"
 msgstr ""
 
-#: include/BlogAlias/Admin/NetworkAdmin.php:625
+#: include/BlogAlias/Admin/NetworkAdmin.php:646
 #: include/BlogAlias/Model/AliasDomains.php:333
 msgid "The domain matches the site URL of this blog."
 msgstr ""
 
-#: include/BlogAlias/Admin/NetworkAdmin.php:629
+#: include/BlogAlias/Admin/NetworkAdmin.php:650
 msgid "Error:"
 msgstr ""
 
-#: include/BlogAlias/Admin/NetworkAdmin.php:684
+#: include/BlogAlias/Admin/NetworkAdmin.php:705
 msgid "Add Domain Alias"
 msgstr ""
 
-#: include/BlogAlias/Admin/NetworkAdmin.php:697
+#: include/BlogAlias/Admin/NetworkAdmin.php:718
 msgid "Add"
 msgstr ""
 
-#: include/BlogAlias/Admin/NetworkAdmin.php:705
+#: include/BlogAlias/Admin/NetworkAdmin.php:726
 msgid "Domain Aliases"
 msgstr ""
 
-#: include/BlogAlias/Admin/NetworkAdmin.php:710
+#: include/BlogAlias/Admin/NetworkAdmin.php:731
 msgid "– No Domain Aliases –"
 msgstr ""
 
-#: include/BlogAlias/Admin/NetworkAdmin.php:717
+#: include/BlogAlias/Admin/NetworkAdmin.php:738
 msgid "Alias Domain"
 msgstr ""
 
-#: include/BlogAlias/Admin/NetworkAdmin.php:718
+#: include/BlogAlias/Admin/NetworkAdmin.php:739
 msgid "Status"
 msgstr ""
 
-#: include/BlogAlias/Admin/NetworkAdmin.php:752
+#: include/BlogAlias/Admin/NetworkAdmin.php:773
 msgid "Remove"
 msgstr ""
 
-#: include/BlogAlias/Admin/NetworkAdmin.php:767
+#: include/BlogAlias/Admin/NetworkAdmin.php:788
 msgid "Check Status"
 msgstr ""
 
-#: include/BlogAlias/Admin/NetworkAdmin.php:770
+#: include/BlogAlias/Admin/NetworkAdmin.php:791
 msgid "Remove All"
 msgstr ""
 
